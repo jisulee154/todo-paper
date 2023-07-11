@@ -17,11 +17,11 @@ struct todo_paperApp: App {
                 ContentView()
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
                     .tabItem {
-                        Label("List", systemImage: "book")
+                        Label("List", systemImage: "list.bullet")
                     }
                 CalendarTabView()
                     .tabItem {
-                        Label("Calendar", systemImage: "book")
+                        Label("Calendar", systemImage: "calendar")
                         
                     }
             }

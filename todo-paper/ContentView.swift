@@ -16,9 +16,17 @@ struct ContentView: View {
         animation: .default)
     private var items: FetchedResults<Item>
 
+    var TodoItemRowList: [TodoItemRow] = [
+        TodoItemRow(todoItem: TodoItem(title: "아침 먹기")),
+        TodoItemRow(todoItem: TodoItem(title: "책 사기", isCompleted: true)),
+        TodoItemRow(todoItem: TodoItem(title: "운동 1시간"))
+    ]
     var body: some View {
-            Text("test")
-        
+        List(TodoItemRowList) { todoItemRow in
+            todoItemRow
+            
+        }
+            
         
     }
 
