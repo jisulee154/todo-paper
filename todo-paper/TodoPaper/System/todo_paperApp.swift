@@ -19,7 +19,7 @@ struct todo_paperApp: App {
                     .tabItem {
                         Label("List", systemImage: "list.bullet")
                     }
-                CalendarTabView()
+                CalendarView()
                     .tabItem {
                         Label("Calendar", systemImage: "calendar")
                         

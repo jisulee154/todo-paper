@@ -11,7 +11,12 @@ struct TodoItem: Identifiable {
     let id = UUID()
     var title: String = ""
     var duedate = Date()
-    var isCompleted = false
-    var isPostpone = false
-    var isCanceled = false    
+    var state = TodoState.none
+}
+
+enum TodoState {
+    case none
+    case completed
+    case postponed
+    case canceled
 }

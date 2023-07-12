@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct CalendarTabView: View {
+struct CalendarView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
@@ -62,8 +62,8 @@ private let itemFormatter: DateFormatter = {
     return formatter
 }()
 
-struct CalendarTabView_Previews: PreviewProvider {
+struct CalendarView_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarTabView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        CalendarView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }

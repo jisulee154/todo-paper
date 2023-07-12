@@ -13,9 +13,10 @@
 		41E1DC462A58277C005A5EAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E1DC452A58277C005A5EAA /* Preview Assets.xcassets */; };
 		41E1DC482A58277C005A5EAA /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC472A58277C005A5EAA /* Persistence.swift */; };
 		41E1DC4B2A58277C005A5EAA /* todo_paper.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC492A58277C005A5EAA /* todo_paper.xcdatamodeld */; };
-		41E1DC522A5B3010005A5EAA /* CalendarTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC512A5B3010005A5EAA /* CalendarTabView.swift */; };
+		41E1DC522A5B3010005A5EAA /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC512A5B3010005A5EAA /* CalendarView.swift */; };
 		41E1DC732A5DC427005A5EAA /* TodoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC722A5DC427005A5EAA /* TodoItem.swift */; };
 		41E1DC752A5DCD95005A5EAA /* TodoItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC742A5DCD95005A5EAA /* TodoItemRow.swift */; };
+		41E1DC792A5EA161005A5EAA /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC782A5EA161005A5EAA /* Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,9 +27,10 @@
 		41E1DC452A58277C005A5EAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		41E1DC472A58277C005A5EAA /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		41E1DC4A2A58277C005A5EAA /* todo_paper.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = todo_paper.xcdatamodel; sourceTree = "<group>"; };
-		41E1DC512A5B3010005A5EAA /* CalendarTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTabView.swift; sourceTree = "<group>"; };
+		41E1DC512A5B3010005A5EAA /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
 		41E1DC722A5DC427005A5EAA /* TodoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItem.swift; sourceTree = "<group>"; };
 		41E1DC742A5DCD95005A5EAA /* TodoItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoItemRow.swift; sourceTree = "<group>"; };
+		41E1DC782A5EA161005A5EAA /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,15 +63,7 @@
 		41E1DC3D2A58277B005A5EAA /* todo-paper */ = {
 			isa = PBXGroup;
 			children = (
-				41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */,
-				41E1DC402A58277B005A5EAA /* ContentView.swift */,
-				41E1DC722A5DC427005A5EAA /* TodoItem.swift */,
-				41E1DC742A5DCD95005A5EAA /* TodoItemRow.swift */,
-				41E1DC512A5B3010005A5EAA /* CalendarTabView.swift */,
-				41E1DC422A58277C005A5EAA /* Assets.xcassets */,
-				41E1DC472A58277C005A5EAA /* Persistence.swift */,
-				41E1DC492A58277C005A5EAA /* todo_paper.xcdatamodeld */,
-				41E1DC442A58277C005A5EAA /* Preview Content */,
+				41E1DC7A2A5EEEA2005A5EAA /* TodoPaper */,
 			);
 			path = "todo-paper";
 			sourceTree = "<group>";
@@ -80,6 +74,87 @@
 				41E1DC452A58277C005A5EAA /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		41E1DC7A2A5EEEA2005A5EAA /* TodoPaper */ = {
+			isa = PBXGroup;
+			children = (
+				41E1DC802A5EF0BF005A5EAA /* Model */,
+				41E1DC7E2A5EF087005A5EAA /* UI */,
+				41E1DC822A5EF12E005A5EAA /* Utilities */,
+				41E1DC7C2A5EEF18005A5EAA /* Resources */,
+				41E1DC7D2A5EF050005A5EAA /* System */,
+				41E1DC7B2A5EEEDA005A5EAA /* Persistence */,
+			);
+			path = TodoPaper;
+			sourceTree = "<group>";
+		};
+		41E1DC7B2A5EEEDA005A5EAA /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				41E1DC492A58277C005A5EAA /* todo_paper.xcdatamodeld */,
+				41E1DC472A58277C005A5EAA /* Persistence.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		41E1DC7C2A5EEF18005A5EAA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				41E1DC422A58277C005A5EAA /* Assets.xcassets */,
+				41E1DC442A58277C005A5EAA /* Preview Content */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		41E1DC7D2A5EF050005A5EAA /* System */ = {
+			isa = PBXGroup;
+			children = (
+				41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */,
+			);
+			path = System;
+			sourceTree = "<group>";
+		};
+		41E1DC7E2A5EF087005A5EAA /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				41E1DC812A5EF0E8005A5EAA /* Screens */,
+				41E1DC7F2A5EF0A5005A5EAA /* Components */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		41E1DC7F2A5EF0A5005A5EAA /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				41E1DC742A5DCD95005A5EAA /* TodoItemRow.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		41E1DC802A5EF0BF005A5EAA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				41E1DC722A5DC427005A5EAA /* TodoItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		41E1DC812A5EF0E8005A5EAA /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				41E1DC402A58277B005A5EAA /* ContentView.swift */,
+				41E1DC512A5B3010005A5EAA /* CalendarView.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		41E1DC822A5EF12E005A5EAA /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				41E1DC782A5EA161005A5EAA /* Extension.swift */,
+			);
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,12 +228,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				41E1DC4B2A58277C005A5EAA /* todo_paper.xcdatamodeld in Sources */,
-				41E1DC522A5B3010005A5EAA /* CalendarTabView.swift in Sources */,
+				41E1DC522A5B3010005A5EAA /* CalendarView.swift in Sources */,
 				41E1DC752A5DCD95005A5EAA /* TodoItemRow.swift in Sources */,
 				41E1DC482A58277C005A5EAA /* Persistence.swift in Sources */,
 				41E1DC412A58277B005A5EAA /* ContentView.swift in Sources */,
 				41E1DC732A5DC427005A5EAA /* TodoItem.swift in Sources */,
 				41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */,
+				41E1DC792A5EA161005A5EAA /* Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
