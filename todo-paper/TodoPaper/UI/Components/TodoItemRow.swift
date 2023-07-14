@@ -33,6 +33,11 @@ struct TodoItemRow: View, Identifiable {
             Image(systemName: "chevron.right")
         }
         .foregroundColor(.themeColor40)
+        .padding(20)
+        .contentShape(Rectangle())
+        .onTapGesture {
+            print("touched Item \(todoItem.title)")
+        }
     }
 }
 

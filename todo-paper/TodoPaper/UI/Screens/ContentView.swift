@@ -26,6 +26,9 @@ struct ContentView: View {
         TodoItemRow(todoItem: TodoItem(title: "책 사기")),
         TodoItemRow(todoItem: TodoItem(title: "운동 1시간"))
     ]
+    
+    @State private var selection: String?
+    
     var body: some View {
         ZStack {
             List {
@@ -34,7 +37,6 @@ struct ContentView: View {
                         ForEach(todayTodoList) {
                             todoItemRow in
                             todoItemRow
-                                .padding(20)
                             Divider()
                         }
                     }
@@ -42,19 +44,22 @@ struct ContentView: View {
                         RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
                     )
                 }
+                .listRowInsets(EdgeInsets.init())
+                
                 Section("Old") {
                     VStack {
                         ForEach(oldTodoList) {
                             todoItemRow in
                             todoItemRow
-                                .padding(20)
                             Divider()
                         }
+                        
                     }
                     .overlay(
                         RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
                     )
                 }
+                .listRowInsets(EdgeInsets.init())
                 
                 FloatButtonView()
             }
