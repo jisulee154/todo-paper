@@ -14,9 +14,9 @@ struct TodoItem: Identifiable {
     var state = TodoState.none
 }
 
-enum TodoState {
-    case none
-    case completed
-    case postponed
-    case canceled
+enum TodoState: Int32 {
+    case none       = 0
+    case completed  = 1
+    case postponed  = 2
+    case canceled   = 3
 }

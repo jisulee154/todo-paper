@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4130450E2A6198D20070F927 /* DemoUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4130450D2A6198D20070F927 /* DemoUI.swift */; };
+		413045122A625AB20070F927 /* AddTodoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413045112A625AB20070F927 /* AddTodoButton.swift */; };
 		41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */; };
 		41E1DC412A58277B005A5EAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC402A58277B005A5EAA /* ContentView.swift */; };
 		41E1DC432A58277C005A5EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E1DC422A58277C005A5EAA /* Assets.xcassets */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4130450D2A6198D20070F927 /* DemoUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoUI.swift; sourceTree = "<group>"; };
+		413045112A625AB20070F927 /* AddTodoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoButton.swift; sourceTree = "<group>"; };
 		41E1DC3B2A58277B005A5EAA /* todo-paper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "todo-paper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todo_paperApp.swift; sourceTree = "<group>"; };
 		41E1DC402A58277B005A5EAA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -79,12 +83,12 @@
 		41E1DC7A2A5EEEA2005A5EAA /* TodoPaper */ = {
 			isa = PBXGroup;
 			children = (
+				41E1DC7D2A5EF050005A5EAA /* System */,
+				41E1DC7B2A5EEEDA005A5EAA /* Persistence */,
 				41E1DC802A5EF0BF005A5EAA /* Model */,
 				41E1DC7E2A5EF087005A5EAA /* UI */,
 				41E1DC822A5EF12E005A5EAA /* Utilities */,
 				41E1DC7C2A5EEF18005A5EAA /* Resources */,
-				41E1DC7D2A5EF050005A5EAA /* System */,
-				41E1DC7B2A5EEEDA005A5EAA /* Persistence */,
 			);
 			path = TodoPaper;
 			sourceTree = "<group>";
@@ -128,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				41E1DC742A5DCD95005A5EAA /* TodoItemRow.swift */,
+				413045112A625AB20070F927 /* AddTodoButton.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -145,6 +150,7 @@
 			children = (
 				41E1DC402A58277B005A5EAA /* ContentView.swift */,
 				41E1DC512A5B3010005A5EAA /* CalendarView.swift */,
+				4130450D2A6198D20070F927 /* DemoUI.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -227,10 +233,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4130450E2A6198D20070F927 /* DemoUI.swift in Sources */,
 				41E1DC4B2A58277C005A5EAA /* todo_paper.xcdatamodeld in Sources */,
 				41E1DC522A5B3010005A5EAA /* CalendarView.swift in Sources */,
 				41E1DC752A5DCD95005A5EAA /* TodoItemRow.swift in Sources */,
 				41E1DC482A58277C005A5EAA /* Persistence.swift in Sources */,
+				413045122A625AB20070F927 /* AddTodoButton.swift in Sources */,
 				41E1DC412A58277B005A5EAA /* ContentView.swift in Sources */,
 				41E1DC732A5DC427005A5EAA /* TodoItem.swift in Sources */,
 				41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */,

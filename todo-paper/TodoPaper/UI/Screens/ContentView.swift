@@ -27,7 +27,7 @@ struct ContentView: View {
         TodoItemRow(todoItem: TodoItem(title: "운동 1시간"))
     ]
     
-    @State private var selection: String?
+    //@State private var selection: String?
     
     var body: some View {
         ZStack {
@@ -61,39 +61,16 @@ struct ContentView: View {
                 }
                 .listRowInsets(EdgeInsets.init())
                 
-                FloatButtonView()
+                AddTodoButton()
             }
                 
         }
     }
 
-    struct FloatButtonView: View {
-        var body: some View {
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    Button(action: {
-                        //Place your action here
-                    }) {
-                        Image(systemName: "plus.circle.fill")
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 50, height: 50)
-                            .foregroundColor(.themeColor40)
-                            .shadow(color: .themeColor40, radius: 2, x: 1, y: 1)
-                    }
-                    Spacer()
-                        .frame(width: 10)
-                }
-            }
-        }
-    }
-    
     private func addItem() {
         withAnimation {
             let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
+            //newItem.timestamp = Date()
 
             do {
                 try viewContext.save()
