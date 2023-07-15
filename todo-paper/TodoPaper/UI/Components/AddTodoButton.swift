@@ -7,9 +7,13 @@
 
 import SwiftUI
 
-struct AddTodoButton: View {
-    @State private var isSheetPresented = false
-    @State private var newTodo = TodoItem()
+struct AddTodoButton: View{
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    @State var isSheetPresented = false
+//    @Binding var newTodo: TodoItem
+//    var addItem: () -> ()
+    @State var newTodo: TodoItem = TodoItem()
     
     var body: some View {
         VStack {
@@ -28,6 +32,7 @@ struct AddTodoButton: View {
                 }
                 .sheet(isPresented: $isSheetPresented, onDismiss: didDismiss) {
                     VStack {
+//                        TextField("새로운 할일을 입력해주세요.", text: $newTodo.title)
                         TextField("새로운 할일을 입력해주세요.", text: $newTodo.title)
                         Button("Dismiss", action: { isSheetPresented.toggle() })
                     }
@@ -39,12 +44,24 @@ struct AddTodoButton: View {
     }
     
     func didDismiss() {
-        print("Adding new todo!! \(newTodo)")
+        withAnimation {
+            let newItem = Item(context: viewContext)
+            newItem.title = newTodo.title
+
+            do {
+                try viewContext.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("CoreData addItem error \(nsError), \(nsError.userInfo)")
+            }
+        }
     }
 }
 
 struct AddTodoButton_Previews: PreviewProvider {
     static var previews: some View {
-        AddTodoButton()
+        AddTodoButton(newTodo: TodoItem())
     }
 }

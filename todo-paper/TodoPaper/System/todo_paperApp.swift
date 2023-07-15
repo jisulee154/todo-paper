@@ -19,9 +19,10 @@ struct todo_paperApp: App {
                     .tabItem {
                         Label("List", systemImage: "list.bullet")
                     }
-                CalendarView()
+                HistoryView()
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
                     .tabItem {
-                        Label("Calendar", systemImage: "calendar")
+                        Label("History", systemImage: "doc.plaintext")
                         
                     }
             }

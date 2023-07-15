@@ -11,11 +11,14 @@ import CoreData
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
+    //MARK: - FetchRequest
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        entity: Item.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \Item.id, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
 
+    //MARK: - Dummy data
     @State private var todayTodoList: [TodoItemRow] = [
         TodoItemRow(todoItem: TodoItem(title: "아침 먹기", state: TodoState.completed)),
         TodoItemRow(todoItem: TodoItem(title: "책 사기", state: TodoState.canceled)),
@@ -27,7 +30,9 @@ struct ContentView: View {
         TodoItemRow(todoItem: TodoItem(title: "운동 1시간"))
     ]
     
-    //@State private var selection: String?
+    //MARK: - Shared Data
+    //@State private var newTodo: TodoItem
+//    var newTodo: TodoItem
     
     var body: some View {
         ZStack {
@@ -61,42 +66,29 @@ struct ContentView: View {
                 }
                 .listRowInsets(EdgeInsets.init())
                 
+//                AddTodoButton(newTodo: $newTodo) {
+//                    addItem(with: newTodo)
+//                }
                 AddTodoButton()
             }
                 
         }
     }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            //newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
+    
+//    private func deleteItems(offsets: IndexSet) {
+//        withAnimation {
+//            offsets.map { items[$0] }.forEach(viewContext.delete)
+//
+//            do {
+//                try viewContext.save()
+//            } catch {
+//                // Replace this implementation with code to handle the error appropriately.
+//                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+//                let nsError = error as NSError
+//                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+//            }
+//        }
+//    }
 }
 
 private let itemFormatter: DateFormatter = {

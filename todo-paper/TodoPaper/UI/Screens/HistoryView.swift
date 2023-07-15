@@ -1,5 +1,5 @@
 //
-//  CalendarTabView.swift
+//  HistoryView.swift
 //  todo-paper
 //
 //  Created by 이지수 on 2023/07/10.
@@ -8,11 +8,11 @@
 import SwiftUI
 import CoreData
 
-struct CalendarView: View {
+struct HistoryView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Item.id, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
 
@@ -26,7 +26,6 @@ struct CalendarView: View {
     private func addItem() {
         withAnimation {
             let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
 
             do {
                 try viewContext.save()
@@ -62,8 +61,8 @@ private let itemFormatter: DateFormatter = {
     return formatter
 }()
 
-struct CalendarView_Previews: PreviewProvider {
+struct HistoryView_Previews: PreviewProvider {
     static var previews: some View {
-        CalendarView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        HistoryView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
