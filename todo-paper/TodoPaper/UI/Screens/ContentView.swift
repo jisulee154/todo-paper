@@ -19,11 +19,12 @@ struct ContentView: View {
     private var items: FetchedResults<Item>
 
     //MARK: - Dummy data
-    @State private var todayTodoList: [TodoItemRow] = [
-        TodoItemRow(todoItem: TodoItem(title: "아침 먹기", state: TodoState.completed)),
-        TodoItemRow(todoItem: TodoItem(title: "책 사기", state: TodoState.canceled)),
-        TodoItemRow(todoItem: TodoItem(title: "운동 1시간"))
-    ]
+//    @State private var todoList: [TodoItemRow] = [
+//        TodoItemRow(todoItem: TodoItem(title: "아침 먹기", state: TodoState.completed)),
+//        TodoItemRow(todoItem: TodoItem(title: "책 사기", state: TodoState.canceled)),
+//        TodoItemRow(todoItem: TodoItem(title: "운동 1시간"))
+//    ]
+    
     @State private var oldTodoList: [TodoItemRow] = [
         TodoItemRow(todoItem: TodoItem(title: "아침 먹기", state: TodoState.postponed)),
         TodoItemRow(todoItem: TodoItem(title: "책 사기")),
@@ -39,9 +40,8 @@ struct ContentView: View {
             List {
                 Section("Today") {
                     VStack {
-                        ForEach(todayTodoList) {
-                            todoItemRow in
-                            todoItemRow
+                        ForEach(items) { item in
+                            TodoItemRow(todoItem: TodoItem(title: (item.title ?? "")))
                             Divider()
                         }
                     }
@@ -66,13 +66,12 @@ struct ContentView: View {
                 }
                 .listRowInsets(EdgeInsets.init())
                 
-//                AddTodoButton(newTodo: $newTodo) {
-//                    addItem(with: newTodo)
-//                }
+//                AddTodoButton(todoList: $todoList)
                 AddTodoButton()
             }
-                
+
         }
+        
     }
     
 //    private func deleteItems(offsets: IndexSet) {

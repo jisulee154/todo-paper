@@ -10,10 +10,17 @@ import SwiftUI
 struct AddTodoButton: View{
     @Environment(\.managedObjectContext) private var viewContext
     
+    @FetchRequest(
+        entity: Item.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \Item.id, ascending: true)],
+        animation: .default)
+    private var items: FetchedResults<Item>
+    
     @State var isSheetPresented = false
-//    @Binding var newTodo: TodoItem
-//    var addItem: () -> ()
     @State var newTodo: TodoItem = TodoItem()
+    
+//    @Binding var todoList: [TodoItemRow]
+    
     
     var body: some View {
         VStack {
@@ -32,7 +39,6 @@ struct AddTodoButton: View{
                 }
                 .sheet(isPresented: $isSheetPresented, onDismiss: didDismiss) {
                     VStack {
-//                        TextField("새로운 할일을 입력해주세요.", text: $newTodo.title)
                         TextField("새로운 할일을 입력해주세요.", text: $newTodo.title)
                         Button("Dismiss", action: { isSheetPresented.toggle() })
                     }
@@ -44,24 +50,34 @@ struct AddTodoButton: View{
     }
     
     func didDismiss() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.title = newTodo.title
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("CoreData addItem error \(nsError), \(nsError.userInfo)")
-            }
-        }
+        //Binding - test
+//        todoList.append(TodoItemRow(todoItem: TodoItem(title: newTodo.title)))
+        
+        //Core Data write test
+//        withAnimation {
+//            let newItem = Item(context: viewContext)
+//            newItem.id = UUID()
+//            newItem.title = newTodo.title
+//            newItem.duedate = Date()
+//            newItem.status = TodoState.none.rawValue
+//
+//            do {
+//                try viewContext.save()
+//            } catch {
+//                let nsError = error as NSError
+//                fatalError("CoreData addItem error \(nsError), \(nsError.userInfo)")
+//            }
+//            print(newTodo)
+//
+//            //refresh todo list
+//
+//        }
+        
     }
 }
 
-struct AddTodoButton_Previews: PreviewProvider {
-    static var previews: some View {
-        AddTodoButton(newTodo: TodoItem())
-    }
-}
+//struct AddTodoButton_Previews: PreviewProvider {
+//    static var previews: some View {
+//        AddTodoButton(todoList: <#Binding<[TodoItemRow]>#>)
+//    }
+//}
