@@ -8,13 +8,35 @@
 import Foundation
 import SwiftUI
 
-struct TodoItemRow: View, Identifiable {
-    let todoItem: TodoItem
-    let id = UUID()
+struct TodoItemRow: View {
+    var newTodo: TodoItem
+    
+    init(with newTodo: TodoItem) {
+        self.newTodo = newTodo
+    }
+    
+//    let id = UUID()
+//    var title: String
+//    var duedate: Date
+//    var status: TodoStatus
+//    var sectionCate: String
+    
+//    init(title: String, duedate: Date, status: TodoStatus) {
+//
+//        if Calendar.current.isDateInToday(duedate) {
+//            self.sectionCate = "Today"
+//        }
+//        else {
+//            self.sectionCate =  "Old"
+//        }
+//        self.title = title
+//        self.duedate = duedate
+//        self.status = status
+//    }
     
     var body: some View {
         HStack{
-            switch(todoItem.state) {
+            switch(newTodo.status) {
             case .none:
                 Image("Button_TodoDefault")
                     .todoImageModifier()
@@ -28,15 +50,17 @@ struct TodoItemRow: View, Identifiable {
                 Image("Button_TodoCanceled")
                     .todoImageModifier()
             }
-            Text(todoItem.title)
+            Text(newTodo.title)
+            Text("\(newTodo.duedate)")
             Spacer()
+            Text("\(newTodo.section)")
             Image(systemName: "chevron.right")
         }
         .foregroundColor(.themeColor40)
         .padding(20)
         .contentShape(Rectangle())
         .onTapGesture {
-            print("touched Item \(todoItem.title)")
+            print("touched Item \(newTodo.title)")
         }
     }
 }

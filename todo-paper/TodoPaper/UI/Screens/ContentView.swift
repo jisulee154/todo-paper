@@ -10,38 +10,26 @@ import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
-    //MARK: - FetchRequest
-    @FetchRequest(
-        entity: Item.entity(),
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.id, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
-
-    //MARK: - Dummy data
-//    @State private var todoList: [TodoItemRow] = [
-//        TodoItemRow(todoItem: TodoItem(title: "아침 먹기", state: TodoState.completed)),
-//        TodoItemRow(todoItem: TodoItem(title: "책 사기", state: TodoState.canceled)),
-//        TodoItemRow(todoItem: TodoItem(title: "운동 1시간"))
-//    ]
     
-    @State private var oldTodoList: [TodoItemRow] = [
-        TodoItemRow(todoItem: TodoItem(title: "아침 먹기", state: TodoState.postponed)),
-        TodoItemRow(todoItem: TodoItem(title: "책 사기")),
-        TodoItemRow(todoItem: TodoItem(title: "운동 1시간"))
-    ]
+    @FetchRequest(entity: Item.entity(),
+                  sortDescriptors: [NSSortDescriptor(keyPath: \Item.id, ascending: true)],
+                  predicate: NSPredicate(format: "duedate >= %@ && duedate <= %@", Calendar.current.startOfDay(for: Date()) as CVarArg, Calendar.current.startOfDay(for: Date() + 86400) as CVarArg),
+                  animation: .default)
+    private var todayItems: FetchedResults<Item>
+    
+    
     
     //MARK: - Shared Data
-    //@State private var newTodo: TodoItem
-//    var newTodo: TodoItem
+    @State private var todoList: [TodoItemRow] = []
+    @State private var newTodo: TodoItem = TodoItem()
     
     var body: some View {
         ZStack {
             List {
                 Section("Today") {
                     VStack {
-                        ForEach(items) { item in
-                            TodoItemRow(todoItem: TodoItem(title: (item.title ?? "")))
+                        ForEach(todayItems) { item in
+                            TodoItemRow(with: TodoItem(id: UUID(), title: item.title ?? "", duedate: item.duedate!, status: TodoStatus(rawValue: item.status)!))
                             Divider()
                         }
                     }
@@ -50,29 +38,13 @@ struct ContentView: View {
                     )
                 }
                 .listRowInsets(EdgeInsets.init())
-                
-                Section("Old") {
-                    VStack {
-                        ForEach(oldTodoList) {
-                            todoItemRow in
-                            todoItemRow
-                            Divider()
-                        }
-                        
-                    }
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
-                    )
-                }
-                .listRowInsets(EdgeInsets.init())
-                
-//                AddTodoButton(todoList: $todoList)
-                AddTodoButton()
             }
-
+            AddTodoButton(todoList: $todoList)
         }
         
     }
+}
+
     
 //    private func deleteItems(offsets: IndexSet) {
 //        withAnimation {
@@ -88,14 +60,8 @@ struct ContentView: View {
 //            }
 //        }
 //    }
-}
+//}
 
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {

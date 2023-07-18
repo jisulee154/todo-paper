@@ -18,9 +18,7 @@ struct AddTodoButton: View{
     
     @State var isSheetPresented = false
     @State var newTodo: TodoItem = TodoItem()
-    
-//    @Binding var todoList: [TodoItemRow]
-    
+    @Binding var todoList: [TodoItemRow]
     
     var body: some View {
         VStack {
@@ -50,34 +48,36 @@ struct AddTodoButton: View{
     }
     
     func didDismiss() {
-        //Binding - test
-//        todoList.append(TodoItemRow(todoItem: TodoItem(title: newTodo.title)))
+//      print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
-        //Core Data write test
-//        withAnimation {
-//            let newItem = Item(context: viewContext)
-//            newItem.id = UUID()
-//            newItem.title = newTodo.title
-//            newItem.duedate = Date()
-//            newItem.status = TodoState.none.rawValue
-//
-//            do {
-//                try viewContext.save()
-//            } catch {
-//                let nsError = error as NSError
-//                fatalError("CoreData addItem error \(nsError), \(nsError.userInfo)")
-//            }
-//            print(newTodo)
-//
-//            //refresh todo list
-//
+        newTodo.id = UUID()
+        newTodo.duedate = Date()
+        newTodo.status = TodoStatus.none
+        newTodo.section = "Today"
+        
+//        if Calendar.current.isDateInToday(newTodo.duedate) {
+//            newTodo.section = "Today"
+//        }
+//        else {
+//            newTodo.section =  "Old"
 //        }
         
+        todoList.append(TodoItemRow(with: newTodo))
+        
+        //Core Data write test
+        withAnimation {
+            let newItem = Item(context: viewContext)
+            newItem.id = newTodo.id
+            newItem.duedate = newTodo.duedate
+            newItem.section = newTodo.section
+            newItem.status = newTodo.status.rawValue
+            newItem.title = newTodo.title
+            do {
+                try viewContext.save()
+            } catch {
+                let nsError = error as NSError
+                fatalError("CoreData addItem error \(nsError), \(nsError.userInfo)")
+            }
+        }
     }
 }
-
-//struct AddTodoButton_Previews: PreviewProvider {
-//    static var previews: some View {
-//        AddTodoButton(todoList: <#Binding<[TodoItemRow]>#>)
-//    }
-//}

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "D84E36FF-FEC8-4528-AFE8-6D160D99E2BC"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "011EC7A6-E73F-4B38-BAD8-DD4EA508EE7C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "todo-paper/TodoPaper/Model/TodoItem.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
+            landmarkName = "TodoItem"
+            landmarkType = "14">
+            <Locations>
+               <Location
+                  uuid = "011EC7A6-E73F-4B38-BAD8-DD4EA508EE7C - 8ec172745150308f"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "todo_paper.TodoItem.section.getter : Swift.String"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/Model/TodoItem.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "360">
+               </Location>
+               <Location
+                  uuid = "011EC7A6-E73F-4B38-BAD8-DD4EA508EE7C - 360535d6c8078706"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; Swift.String in todo_paper.TodoItem.section.getter : Swift.String"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/Model/TodoItem.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "356">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "06DA1DE7-77D1-4257-9004-57B1C6C47823"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "todo-paper/TodoPaper/UI/Components/TodoItemRow.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "TodoItemRow"
+            landmarkType = "14">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
