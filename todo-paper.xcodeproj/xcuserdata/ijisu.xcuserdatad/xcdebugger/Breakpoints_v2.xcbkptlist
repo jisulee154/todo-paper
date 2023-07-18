@@ -52,5 +52,68 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "626A07DC-3A87-4BF7-8ACF-E938B2FC2F74"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "todo-paper/TodoPaper/ViewModel/CalendarViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "loadMoreDates()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "626A07DC-3A87-4BF7-8ACF-E938B2FC2F74 - d1361922a42cd717"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "todo_paper.CalendarViewModel.loadMoreDates() -&gt; ()"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/ViewModel/CalendarViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "1544">
+               </Location>
+               <Location
+                  uuid = "626A07DC-3A87-4BF7-8ACF-E938B2FC2F74 - d1361922a42cd736"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "todo_paper.CalendarViewModel.loadMoreDates() -&gt; ()"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/ViewModel/CalendarViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "1584">
+               </Location>
+               <Location
+                  uuid = "626A07DC-3A87-4BF7-8ACF-E938B2FC2F74 - d1361922a42cd717"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "todo_paper.CalendarViewModel.loadMoreDates() -&gt; ()"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/ViewModel/CalendarViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "1504">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

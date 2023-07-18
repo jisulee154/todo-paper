@@ -48,52 +48,56 @@ struct AddTodoButton: View{
     }
     
     func didDismiss() {
-//      print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        //      print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
         newTodo.id = UUID()
         newTodo.duedate = Date()
         newTodo.status = TodoStatus.none
         newTodo.section = "Today"
         
-//        if Calendar.current.isDateInToday(newTodo.duedate) {
-//            newTodo.section = "Today"
-//        }
-//        else {
-//            newTodo.section =  "Old"
-//        }
+        //        if Calendar.current.isDateInToday(newTodo.duedate) {
+        //            newTodo.section = "Today"
+        //        }
+        //        else {
+        //            newTodo.section =  "Old"
+        //        }
         
         todoList.append(TodoItemRow(with: newTodo))
         
         //Core Data write test
         withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.id = newTodo.id
-            newItem.duedate = newTodo.duedate
-            newItem.section = newTodo.section
-            newItem.status = newTodo.status.rawValue
-            newItem.title = newTodo.title
-            do {
-                try viewContext.save()
-            } catch {
-                let nsError = error as NSError
-                fatalError("CoreData addItem error \(nsError), \(nsError.userInfo)")
+            if newTodo.title != "" {
+                let newItem = Item(context: viewContext)
+                newItem.id = newTodo.id
+                newItem.duedate = newTodo.duedate
+                newItem.section = newTodo.section
+                newItem.status = newTodo.status.rawValue
+                newItem.title = newTodo.title
+                do {
+                    try viewContext.save()
+                } catch {
+                    let nsError = error as NSError
+                    fatalError("CoreData addItem error \(nsError), \(nsError.userInfo)")
+                }
+            } else {
+                print("todo title is empty.")
             }
         }
     }
+    
+    //    private func deleteItems(offsets: IndexSet) {
+    //        withAnimation {
+    //            offsets.map { items[$0] }.forEach(viewContext.delete)
+    //
+    //            do {
+    //                try viewContext.save()
+    //            } catch {
+    //                // Replace this implementation with code to handle the error appropriately.
+    //                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+    //                let nsError = error as NSError
+    //                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+    //            }
+    //        }
+    //    }
+    //}
 }
-
-//    private func deleteItems(offsets: IndexSet) {
-//        withAnimation {
-//            offsets.map { items[$0] }.forEach(viewContext.delete)
-//
-//            do {
-//                try viewContext.save()
-//            } catch {
-//                // Replace this implementation with code to handle the error appropriately.
-//                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//                let nsError = error as NSError
-//                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-//            }
-//        }
-//    }
-//}

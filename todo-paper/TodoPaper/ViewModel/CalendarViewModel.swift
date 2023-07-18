@@ -26,11 +26,12 @@ class CalendarViewModel: ObservableObject {
         }
     }
     
-    private func loadMoreDates() {
+    func loadMoreDates() {
         let startDate = array.first ?? Date()
         for i in 1...batchSize {
-            let date = Calendar.current.date(byAdding: .day, value: -i, to: startDate)!
-            array.insert(date, at: 0)
+            let date = Calendar.current.date(byAdding: .day, value: i, to: startDate)!
+//            array.insert(date, at: 0)
+            array.append(date) //test
         }
     }
 }

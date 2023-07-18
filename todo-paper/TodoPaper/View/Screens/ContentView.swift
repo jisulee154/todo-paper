@@ -31,11 +31,8 @@ struct ContentView: View {
     //MARK: - View
     var body: some View {
         VStack {
-            //MARK: - Top Day Overflow
-            Spacer()
+            //MARK: - Overflow scroll calendar (daily)
             OverflowScrollDailyHeader()
-            
-            Spacer()
             ZStack {
                 List {
                     Section("today") {
