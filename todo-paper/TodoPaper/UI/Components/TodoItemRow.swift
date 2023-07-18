@@ -15,25 +15,6 @@ struct TodoItemRow: View {
         self.newTodo = newTodo
     }
     
-//    let id = UUID()
-//    var title: String
-//    var duedate: Date
-//    var status: TodoStatus
-//    var sectionCate: String
-    
-//    init(title: String, duedate: Date, status: TodoStatus) {
-//
-//        if Calendar.current.isDateInToday(duedate) {
-//            self.sectionCate = "Today"
-//        }
-//        else {
-//            self.sectionCate =  "Old"
-//        }
-//        self.title = title
-//        self.duedate = duedate
-//        self.status = status
-//    }
-    
     var body: some View {
         HStack{
             switch(newTodo.status) {
@@ -57,7 +38,7 @@ struct TodoItemRow: View {
             Image(systemName: "chevron.right")
         }
         .foregroundColor(.themeColor40)
-        .padding(20)
+        .padding(EdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10))
         .contentShape(Rectangle())
         .onTapGesture {
             print("touched Item \(newTodo.title)")
