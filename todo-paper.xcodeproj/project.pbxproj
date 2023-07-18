@@ -10,7 +10,9 @@
 		4130450E2A6198D20070F927 /* DemoUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4130450D2A6198D20070F927 /* DemoUI.swift */; };
 		413045122A625AB20070F927 /* AddTodoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413045112A625AB20070F927 /* AddTodoButton.swift */; };
 		417394892A65620500205292 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394882A65620500205292 /* DateFormat.swift */; };
-		417394AD2A6652C000205292 /* OverflowScrollDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394AC2A6652C000205292 /* OverflowScrollDayView.swift */; };
+		417394AD2A6652C000205292 /* OverflowScrollDailyHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394AC2A6652C000205292 /* OverflowScrollDailyHeader.swift */; };
+		417394B92A6686DD00205292 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394B82A6686DD00205292 /* CalendarViewModel.swift */; };
+		417394BB2A66876900205292 /* OverflowScrollDailyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394BA2A66876900205292 /* OverflowScrollDailyCell.swift */; };
 		41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */; };
 		41E1DC412A58277B005A5EAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC402A58277B005A5EAA /* ContentView.swift */; };
 		41E1DC432A58277C005A5EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E1DC422A58277C005A5EAA /* Assets.xcassets */; };
@@ -27,7 +29,9 @@
 		4130450D2A6198D20070F927 /* DemoUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoUI.swift; sourceTree = "<group>"; };
 		413045112A625AB20070F927 /* AddTodoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoButton.swift; sourceTree = "<group>"; };
 		417394882A65620500205292 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
-		417394AC2A6652C000205292 /* OverflowScrollDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverflowScrollDayView.swift; sourceTree = "<group>"; };
+		417394AC2A6652C000205292 /* OverflowScrollDailyHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverflowScrollDailyHeader.swift; sourceTree = "<group>"; };
+		417394B82A6686DD00205292 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
+		417394BA2A66876900205292 /* OverflowScrollDailyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverflowScrollDailyCell.swift; sourceTree = "<group>"; };
 		41E1DC3B2A58277B005A5EAA /* todo-paper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "todo-paper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todo_paperApp.swift; sourceTree = "<group>"; };
 		41E1DC402A58277B005A5EAA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -137,7 +141,8 @@
 			children = (
 				41E1DC742A5DCD95005A5EAA /* TodoItemRow.swift */,
 				413045112A625AB20070F927 /* AddTodoButton.swift */,
-				417394AC2A6652C000205292 /* OverflowScrollDayView.swift */,
+				417394AC2A6652C000205292 /* OverflowScrollDailyHeader.swift */,
+				417394BA2A66876900205292 /* OverflowScrollDailyCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -147,6 +152,7 @@
 			children = (
 				41E1DC722A5DC427005A5EAA /* TodoItem.swift */,
 				417394882A65620500205292 /* DateFormat.swift */,
+				417394B82A6686DD00205292 /* CalendarViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -242,13 +248,15 @@
 				4130450E2A6198D20070F927 /* DemoUI.swift in Sources */,
 				41E1DC4B2A58277C005A5EAA /* todo_paper.xcdatamodeld in Sources */,
 				41E1DC522A5B3010005A5EAA /* HistoryView.swift in Sources */,
+				417394B92A6686DD00205292 /* CalendarViewModel.swift in Sources */,
+				417394BB2A66876900205292 /* OverflowScrollDailyCell.swift in Sources */,
 				41E1DC752A5DCD95005A5EAA /* TodoItemRow.swift in Sources */,
 				41E1DC482A58277C005A5EAA /* Persistence.swift in Sources */,
 				413045122A625AB20070F927 /* AddTodoButton.swift in Sources */,
 				41E1DC412A58277B005A5EAA /* ContentView.swift in Sources */,
 				41E1DC732A5DC427005A5EAA /* TodoItem.swift in Sources */,
 				41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */,
-				417394AD2A6652C000205292 /* OverflowScrollDayView.swift in Sources */,
+				417394AD2A6652C000205292 /* OverflowScrollDailyHeader.swift in Sources */,
 				417394892A65620500205292 /* DateFormat.swift in Sources */,
 				41E1DC792A5EA161005A5EAA /* Extension.swift in Sources */,
 			);

@@ -33,10 +33,8 @@ struct ContentView: View {
         VStack {
             //MARK: - Top Day Overflow
             Spacer()
-            ScrollView(.horizontal, showsIndicators: false) {
-                OverflowScrollDayView()
-                    .padding(EdgeInsets(top: 10, leading: 1, bottom: 10, trailing: 1))
-            }
+            OverflowScrollDailyHeader()
+            
             Spacer()
             ZStack {
                 List {
