@@ -11,6 +11,7 @@ import CoreData
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
+    //MARK: - Core Data
     @FetchRequest(entity: Item.entity(),
                   sortDescriptors: [NSSortDescriptor(keyPath: \Item.id, ascending: true)],
                   predicate: NSPredicate(format: "duedate >= %@ && duedate <= %@", Calendar.current.startOfDay(for: Date()) as CVarArg, Calendar.current.startOfDay(for: Date() + 86400) as CVarArg),
@@ -22,17 +23,22 @@ struct ContentView: View {
                   predicate: NSPredicate(format: "(duedate < %@) && (status == 0)", Calendar.current.startOfDay(for: Date()) as CVarArg),
                   animation: .default)
     private var oldItems: FetchedResults<Item>
-
+    
     
     //MARK: - Shared Data
     @State private var todoList: [TodoItemRow] = []
     @State private var newTodo: TodoItem = TodoItem()
     
+//    @StateObject var vmTodo = TodoViewModel()
+    @State var selectedDate: Date = Calendar.current.startOfDay(for: Date())
+    @State var refreshTodoList: Bool = false
+    @State var refreshView: Bool = false
+    
     //MARK: - View
     var body: some View {
         VStack {
             //MARK: - Overflow scroll calendar (daily)
-            OverflowScrollDailyHeader()
+            OverflowScrollDailyHeader(selectedDate: $selectedDate, refreshTodoList: $refreshTodoList)
             ZStack {
                 List {
                     Section("today") {
@@ -43,7 +49,7 @@ struct ContentView: View {
                             }
                         }
                         .overlay(
-                            RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
+                            RoundedRectangle(cornerRadius: 20, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
                         )
                     }
                     .listRowInsets(EdgeInsets.init())
@@ -55,10 +61,21 @@ struct ContentView: View {
                             }
                         }
                         .overlay(
-                            RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
+                            RoundedRectangle(cornerRadius: 20, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
                         )
                     }
                     .listRowInsets(EdgeInsets.init())
+                } //List
+                .onReceive(todayItems.publisher, perform: { _ in
+                    print(todayItems)
+                })
+                .onChange(of: refreshTodoList) { _ in
+                    @FetchRequest(entity: Item.entity(),
+                                  sortDescriptors: [NSSortDescriptor(keyPath: \Item.id, ascending: true)],
+                                  predicate: NSPredicate(format: "duedate >= %@ && duedate <= %@", Calendar.current.startOfDay(for: Date()) as CVarArg, Calendar.current.startOfDay(for: Date() + 86400) as CVarArg),
+                                  animation: .default)
+                    var todayItems: FetchedResults<Item>
+                    
                 }
                 AddTodoButton(todoList: $todoList)
             }
@@ -67,8 +84,8 @@ struct ContentView: View {
 }
 
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+//    }
+//}

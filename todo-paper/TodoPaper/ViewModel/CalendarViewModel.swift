@@ -8,30 +8,29 @@
 import Foundation
 
 class CalendarViewModel: ObservableObject {
-    @Published private(set) var array = [ Date() ]
-    
-    let batchSize: Int = 10
-    
-    func loadMoreDatesIfNeeded(for date: Date? = nil) {
-        guard array.count > batchSize else {
-            loadMoreDates()
-            return
-        }
-        guard let date = date else {
-            loadMoreDates()
-            return
-        }
-        if array[batchSize-1] == date {
-            loadMoreDates()
-        }
-    }
-    
+    @Published private(set) var array = [Date()]
+//    var batchSize: Int = 10
+    var batchSize: Int = Date().daysThisMonth() ?? 0
+
+//MARK: - Calendar
     func loadMoreDates() {
-        let startDate = array.first ?? Date()
+        let today = Calendar.current.startOfDay(for: Date())
+        let startDate = Calendar.current.startOfDay(for: array.first ?? today)
         for i in 1...batchSize {
             let date = Calendar.current.date(byAdding: .day, value: i, to: startDate)!
-//            array.insert(date, at: 0)
-            array.append(date) //test
+            array.append(date)
+            //            array.insert(date, at: 0)
         }
     }
+    
+    func getAfter10days(of day: Date) -> Date? {
+        var resDate = Calendar.current.date(byAdding: .day, value: 10, to: Calendar.current.startOfDay(for: day))
+        return resDate
+    }
+    
+//MARK: - Scroll
+    func printID<T>(of id: T) {
+        print(id)
+    }
+    
 }

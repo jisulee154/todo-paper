@@ -30,8 +30,9 @@ struct AddTodoButton: View{
                 }) {
                     Image("Button_TodoAdd")
                         .resizable()
-                        .frame(width: 100, height: 100)
-                        .padding(.bottom, 0)
+                        .frame(width: 70, height: 70)
+                        .padding(.bottom, 20)
+                        .padding(.trailing, 20)
                         .foregroundColor(.themeColor40)
                     
                 }
@@ -54,13 +55,6 @@ struct AddTodoButton: View{
         newTodo.duedate = Date()
         newTodo.status = TodoStatus.none
         newTodo.section = "Today"
-        
-        //        if Calendar.current.isDateInToday(newTodo.duedate) {
-        //            newTodo.section = "Today"
-        //        }
-        //        else {
-        //            newTodo.section =  "Old"
-        //        }
         
         todoList.append(TodoItemRow(with: newTodo))
         
