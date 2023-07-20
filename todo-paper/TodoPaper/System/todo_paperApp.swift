@@ -14,7 +14,7 @@ struct todo_paperApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                ContentView()
+                DailyTodoView()
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
                     .tabItem {
                         Label("List", systemImage: "list.bullet")

@@ -10,15 +10,17 @@ import SwiftUI
 struct OverflowScrollDailyHeader: View {
     @StateObject var vm = CalendarViewModel()
     
-    @Binding var selectedDate: Date
-    @Binding var refreshTodoList: Bool
+//    @Binding var selectedDate: Date
+    @Binding var fetchModel: FetchModel
+//    @Binding var refreshTodoList: Bool
 //    @State var selectedDate: Date = Calendar.current.startOfDay(for: Date())
     
     var body: some View {
         VStack {
             HStack {
                 Button {
-                    selectedDate = Calendar.current.startOfDay(for: Date())
+//                    selectedDate = Calendar.current.startOfDay(for: Date())
+                    fetchModel = FetchModel(currentDate: Calendar.current.startOfDay(for: Date()))
                 } label: {
                     Text("오늘")
                         .padding(.horizontal, 20)
@@ -37,13 +39,19 @@ struct OverflowScrollDailyHeader: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
                         ForEach(vm.array, id: \.self) { date in
-                            OverflowScrollDailyCell(selectedDate: $selectedDate, refreshTodoList: $refreshTodoList, date: date)
+//                            OverflowScrollDailyCell(selectedDate: $selectedDate, refreshTodoList: $refreshTodoList, date: date)
+                            OverflowScrollDailyCell(fetchModel: $fetchModel, date: date)
                                 .id(date)
-                                .onChange(of: selectedDate) { newIndex in
-                                    withAnimation (Animation.easeInOut(duration: 100).delay(1)) {
-                                        proxy.scrollTo(newIndex, anchor: .center)
-                                    }
+                                .onChange(of: fetchModel.currentDate) { newValue in
+                                    print("Header===")
+                                    print(fetchModel.currentDate)
+                                    fetchModel = FetchModel(currentDate: fetchModel.currentDate)
+                                    print(fetchModel.predicate)
                                 }
+//                                .onChange(of: fetchModel) { newIndex in                                 withAnimation (Animation.easeInOut(duration: 100).delay(1)) {
+//                                        proxy.scrollTo(newIndex, anchor: .center)
+//                                    }
+//                                }
                         }
                     }
                 } //ScrollView

@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  DailyTodoView.swift
 //  todo-paper
 //
 //  Created by 이지수 on 2023/07/07.
@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 
-struct ContentView: View {
+struct DailyTodoView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     //MARK: - Core Data
@@ -29,16 +29,29 @@ struct ContentView: View {
     @State private var todoList: [TodoItemRow] = []
     @State private var newTodo: TodoItem = TodoItem()
     
-//    @StateObject var vmTodo = TodoViewModel()
-    @State var selectedDate: Date = Calendar.current.startOfDay(for: Date())
-    @State var refreshTodoList: Bool = false
-    @State var refreshView: Bool = false
+//    @State private var selectedDate: Date = Calendar.current.startOfDay(for: Date()) ?? Date()
+//    @State private var refreshTodoList: Bool = false
+    @State private var refreshView: Bool = false
     
+    @State private var fetchModel: FetchModel = FetchModel(currentDate: Date())
+    
+//    @State private var predicate: NSPredicate
+//    private var request: FetchRequest<Item>
+//    private var todayItems: FetchedResults<Item> { request.wrappedValue }
+//
+//    init() {
+//        predicate = NSPredicate(format: "duedate >= %@ && duedate <= %@", selectedDate as! any CVarArg )
+//        request = FetchRequest(entity: Item.entity(),
+//                                    sortDescriptors: [NSSortDescriptor(keyPath: \Item.id, ascending: true)],
+//                                    predicate: predicate)
+//    }
     //MARK: - View
     var body: some View {
         VStack {
             //MARK: - Overflow scroll calendar (daily)
-            OverflowScrollDailyHeader(selectedDate: $selectedDate, refreshTodoList: $refreshTodoList)
+            OverflowScrollDailyHeader(fetchModel: $fetchModel)
+            
+            //MARK: - Todo list
             ZStack {
                 List {
                     Section("today") {
@@ -66,15 +79,9 @@ struct ContentView: View {
                     }
                     .listRowInsets(EdgeInsets.init())
                 } //List
-                .onReceive(todayItems.publisher, perform: { _ in
-                    print(todayItems)
-                })
-                .onChange(of: refreshTodoList) { _ in
-                    @FetchRequest(entity: Item.entity(),
-                                  sortDescriptors: [NSSortDescriptor(keyPath: \Item.id, ascending: true)],
-                                  predicate: NSPredicate(format: "duedate >= %@ && duedate <= %@", Calendar.current.startOfDay(for: Date()) as CVarArg, Calendar.current.startOfDay(for: Date() + 86400) as CVarArg),
-                                  animation: .default)
-                    var todayItems: FetchedResults<Item>
+                .onChange(of: fetchModel) { _ in
+                    todayItems.nsPredicate = fetchModel.predicate
+                    print(todayItems.nsPredicate)
                     
                 }
                 AddTodoButton(todoList: $todoList)
@@ -84,8 +91,8 @@ struct ContentView: View {
 }
 
 
-//struct ContentView_Previews: PreviewProvider {
+//struct DailyTodoView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+//        DailyTodoView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 //    }
 //}

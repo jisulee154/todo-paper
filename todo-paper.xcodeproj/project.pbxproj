@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		413045122A625AB20070F927 /* AddTodoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413045112A625AB20070F927 /* AddTodoButton.swift */; };
+		4136515A2A692030006C6361 /* FetchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413651592A692030006C6361 /* FetchModel.swift */; };
 		417394892A65620500205292 /* DateFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394882A65620500205292 /* DateFormat.swift */; };
 		417394AD2A6652C000205292 /* OverflowScrollDailyHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394AC2A6652C000205292 /* OverflowScrollDailyHeader.swift */; };
 		417394B92A6686DD00205292 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394B82A6686DD00205292 /* CalendarViewModel.swift */; };
@@ -15,7 +16,7 @@
 		417394BD2A668AB300205292 /* AddTodoSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394BC2A668AB300205292 /* AddTodoSheet.swift */; };
 		417394C22A67E85800205292 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394C12A67E85800205292 /* TodoViewModel.swift */; };
 		41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */; };
-		41E1DC412A58277B005A5EAA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC402A58277B005A5EAA /* ContentView.swift */; };
+		41E1DC412A58277B005A5EAA /* DailyTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC402A58277B005A5EAA /* DailyTodoView.swift */; };
 		41E1DC432A58277C005A5EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E1DC422A58277C005A5EAA /* Assets.xcassets */; };
 		41E1DC462A58277C005A5EAA /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E1DC452A58277C005A5EAA /* Preview Assets.xcassets */; };
 		41E1DC482A58277C005A5EAA /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC472A58277C005A5EAA /* Persistence.swift */; };
@@ -28,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		413045112A625AB20070F927 /* AddTodoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoButton.swift; sourceTree = "<group>"; };
+		413651592A692030006C6361 /* FetchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchModel.swift; sourceTree = "<group>"; };
 		416C2D3F2A6822A500F06242 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		416C2D412A6822B100F06242 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		417394882A65620500205292 /* DateFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormat.swift; sourceTree = "<group>"; };
@@ -38,7 +40,7 @@
 		417394C12A67E85800205292 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		41E1DC3B2A58277B005A5EAA /* todo-paper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "todo-paper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todo_paperApp.swift; sourceTree = "<group>"; };
-		41E1DC402A58277B005A5EAA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		41E1DC402A58277B005A5EAA /* DailyTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTodoView.swift; sourceTree = "<group>"; };
 		41E1DC422A58277C005A5EAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		41E1DC452A58277C005A5EAA /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		41E1DC472A58277C005A5EAA /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 			children = (
 				41E1DC722A5DC427005A5EAA /* TodoItem.swift */,
 				417394882A65620500205292 /* DateFormat.swift */,
+				413651592A692030006C6361 /* FetchModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -184,7 +187,7 @@
 		41E1DC812A5EF0E8005A5EAA /* Screens */ = {
 			isa = PBXGroup;
 			children = (
-				41E1DC402A58277B005A5EAA /* ContentView.swift */,
+				41E1DC402A58277B005A5EAA /* DailyTodoView.swift */,
 				41E1DC512A5B3010005A5EAA /* HistoryView.swift */,
 			);
 			path = Screens;
@@ -275,9 +278,10 @@
 				417394B92A6686DD00205292 /* CalendarViewModel.swift in Sources */,
 				417394BB2A66876900205292 /* OverflowScrollDailyCell.swift in Sources */,
 				41E1DC752A5DCD95005A5EAA /* TodoItemRow.swift in Sources */,
+				4136515A2A692030006C6361 /* FetchModel.swift in Sources */,
 				41E1DC482A58277C005A5EAA /* Persistence.swift in Sources */,
 				413045122A625AB20070F927 /* AddTodoButton.swift in Sources */,
-				41E1DC412A58277B005A5EAA /* ContentView.swift in Sources */,
+				41E1DC412A58277B005A5EAA /* DailyTodoView.swift in Sources */,
 				41E1DC732A5DC427005A5EAA /* TodoItem.swift in Sources */,
 				41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */,
 				417394AD2A6652C000205292 /* OverflowScrollDailyHeader.swift in Sources */,
