@@ -38,7 +38,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         // 전부 다 가져옴
         let request: NSFetchRequest<Item> = Item.fetchRequest()
         do {
-            var fetchedTodos = try context.fetch(request) as [TodoItem]
+            var fetchedTodos = try context.fetch(request) as! [TodoItem]
             return fetchedTodos
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
@@ -69,7 +69,8 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     /// - Returns: 새로운 투두가 추가된 투두 목록
     func addATodo(_ newTodo: TodoItem) -> [TodoItem] {
         let newItemEntity = Item(context: context)
-        newItemEntity.uuid = newTodo.id
+        
+        newItemEntity.id = newTodo.id
         newItemEntity.title = newTodo.title
         newItemEntity.duedate = newTodo.duedate
         newItemEntity.section = newTodo.section

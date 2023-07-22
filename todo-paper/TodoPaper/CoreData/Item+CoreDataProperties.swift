@@ -25,14 +25,11 @@ extension Item {
     
     //데이터들
     @NSManaged public var duedate: Date?
-    @NSManaged public var uuid: UUID?
+    @NSManaged public var id: UUID?
     @NSManaged public var section: String?
     @NSManaged public var status: Int32
     @NSManaged public var title: String?
-
-}
-
-extension Item : Identifiable {
+    @NSManaged public var uuid: UUID?
 
 }
 

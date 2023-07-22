@@ -19,12 +19,12 @@ struct todo_paperApp: App {
                     .tabItem {
                         Label("List", systemImage: "list.bullet")
                     }
-                HistoryView()
-                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
-                    .tabItem {
-                        Label("History", systemImage: "doc.plaintext")
-                        
-                    }
+//                HistoryView()
+//                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+//                    .tabItem {
+//                        Label("History", systemImage: "doc.plaintext")
+//
+//                    }
             }
         }
     }

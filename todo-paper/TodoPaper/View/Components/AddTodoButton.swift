@@ -62,7 +62,7 @@ struct AddTodoButton: View{
         withAnimation {
             if newTodo.title != "" {
                 let newItem = Item(context: viewContext)
-                newItem.uuid = newTodo.uuid
+                newItem.id = newTodo.id
                 newItem.duedate = newTodo.duedate
                 newItem.section = newTodo.section
                 newItem.status = newTodo.status.rawValue
