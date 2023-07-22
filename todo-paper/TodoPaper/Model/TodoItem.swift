@@ -16,6 +16,22 @@ struct TodoItem: Identifiable {
     var duedate = Date()
     var status = TodoStatus.none
     var section: String = "Today"
+    
+    init(uuid: UUID = UUID(), title: String, duedate: Date = Date(), status: TodoStatus = TodoStatus.none, section: String = "Today") {
+        self.uuid = uuid
+        self.title = title
+        self.duedate = duedate
+        self.status = status
+        self.section = section
+    }
+    
+//    init(newTodoItem: TodoItem) {
+//        self.uuid = newTodoItem.uuid ?? UUID()
+//        self.title = newTodoItem.title ?? ""
+//        self.duedate = newTodoItem.duedate ?? Date()
+//        self.status = newTodoItem.status ?? TodoStatus.none
+//        self.section = newTodoItem.section ?? "Today"
+//    }
 }
 
 enum TodoStatus: Int32 {

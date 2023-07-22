@@ -47,11 +47,18 @@ struct DailyTodoView: View {
                 Section("today") {
                     VStack {
                         ForEach(todoViewModel.todos) { todo in
-                            TodoItemRow(with: TodoItem(uuid: todo.uuid, title: todo.title, duedate: todo.duedate, status: todo.status))
+                            TodoItemRow(with: TodoItem(uuid: todo.uuid,
+                                                       title: todo.title,
+                                                       duedate: todo.duedate,
+                                                       status: todo.status,
+                                                       section: todo.section))
                         }
                     }
                 }
             }
+            
+            //MARK: - Adding Todo Button
+            AddTodoButton(todoViewModel: todoViewModel)
         }
     }
 //        VStack {
@@ -108,8 +115,6 @@ struct DailyTodoView: View {
 //                //                    print(todayItems)
 //                //
 //                //                }
-//                //MARK: - Adding Todo Button
-////                AddTodoButton(todoList: $todoList)
 //            }
 //        }
 }

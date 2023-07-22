@@ -34,12 +34,21 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     }
     
     func fetchTodos() -> [TodoItem] {
-        // Fetch All Data in "Item"
+        // Fetch All Data in "Item" Entity
         // 전부 다 가져옴
         let request: NSFetchRequest<Item> = Item.fetchRequest()
+        var todos: [TodoItem] = []
         do {
-            var fetchedTodos = try context.fetch(request) as! [TodoItem]
-            return fetchedTodos
+            let fetchedTodos = try context.fetch(request) as [Item]
+            todos = fetchedTodos.map{ TodoItem(uuid: $0.uuid        ?? UUID(),
+                                               title: $0.title      ?? "",
+                                               duedate: $0.duedate  ?? Date(),
+                                               status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
+                                               section: $0.section  ?? "Today") }
+            return todos
+            ///let memos = fetchedAllMemoEntities.map{ Memo(entity: $0) }
+            
+            ///return memos
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
             return []
