@@ -47,11 +47,19 @@ struct DailyTodoView: View {
                 Section("today") {
                     VStack {
                         ForEach(todoViewModel.todos) { todo in
-                            TodoItemRow(with: TodoItem(uuid: todo.uuid,
-                                                       title: todo.title,
-                                                       duedate: todo.duedate,
-                                                       status: todo.status,
-                                                       section: todo.section))
+                            // 코어 데이터 삭제 테스트
+                            HStack {
+                                TodoItemRow(with: TodoItem(uuid: todo.uuid,
+                                                           title: todo.title,
+                                                           duedate: todo.duedate,
+                                                           status: todo.status,
+                                                           section: todo.section))
+                                Button("삭제") {
+                                   // pass
+                                }.onTapGesture {
+                                    print(todo.uuid)
+                                }
+                            }
                         }
                     }
                 }

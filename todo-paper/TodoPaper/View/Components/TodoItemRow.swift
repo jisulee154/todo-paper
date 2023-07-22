@@ -36,6 +36,7 @@ struct TodoItemRow: View {
             Spacer()
             Text("\(newTodo.section)")
             Image(systemName: "chevron.right")
+            
         }
         .foregroundColor(.themeColor40)
         .padding(EdgeInsets(top: 5, leading: 10, bottom: 5, trailing: 10))

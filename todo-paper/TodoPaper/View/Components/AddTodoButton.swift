@@ -16,7 +16,7 @@ struct AddTodoButton: View{
 //        animation: .default)
 //    private var items: FetchedResults<Item>
     
-    @State var newTodo: TodoItem = TodoItem(title: "", section: "Today")
+    @State var newTodo: TodoItem = TodoItem(title: "")
     @State var newTitle: String = ""
     @State var isSheetPresented = false
     @ObservedObject var todoViewModel: TodoViewModel
@@ -54,29 +54,10 @@ struct AddTodoButton: View{
         newTodo.duedate = Date()
         newTodo.status = TodoStatus.none
         newTodo.section = "Today"
+        if newTitle != "" {
+            todoViewModel.todos = todoViewModel.addATodo(TodoItem(title: newTitle))
+        }
         
-        todoViewModel.todos = todoViewModel.addATodo(TodoItem(title: newTitle))
-        
-//        todoList.append(TodoItemRow(with: newTodo))
-        
-        //Core Data write test
-//        withAnimation {
-//            if newTodo.title != "" {
-//                let newItem = Item(context: viewContext)
-//                newItem.id = newTodo.id
-//                newItem.duedate = newTodo.duedate
-//                newItem.section = newTodo.section
-//                newItem.status = newTodo.status.rawValue
-//                newItem.title = newTodo.title
-//                do {
-//                    try viewContext.save()
-//                } catch {
-//                    let nsError = error as NSError
-//                    fatalError("CoreData addItem error \(nsError), \(nsError.userInfo)")
-//                }
-//            } else {
-//                print("todo title is empty.")
-//            }
-//        }
+        newTitle = ""
     }
 }
