@@ -23,11 +23,6 @@ class CalendarViewModel: ObservableObject {
         }
     }
     
-    func getAfter10days(of day: Date) -> Date? {
-        var resDate = Calendar.current.date(byAdding: .day, value: 10, to: Calendar.current.startOfDay(for: day))
-        return resDate
-    }
-    
 //MARK: - Scroll
     func printID<T>(of id: T) {
         print(id)

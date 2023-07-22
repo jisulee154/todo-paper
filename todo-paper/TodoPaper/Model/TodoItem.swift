@@ -8,20 +8,14 @@
 import Foundation
 
 struct TodoItem: Identifiable {
-    var id = UUID()
+    var id: UUID {
+        return uuid
+    }
+    var uuid = UUID()
     var title: String = ""
     var duedate = Date()
     var status = TodoStatus.none
     var section: String = "Today"
-    
-//    lazy var section: String = {
-//        if Calendar.current.isDateInToday(duedate) {
-//            return "Today"
-//        }
-//        else {
-//            return "Old"
-//        }
-//    }()
 }
 
 enum TodoStatus: Int32 {

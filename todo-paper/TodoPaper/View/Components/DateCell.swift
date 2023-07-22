@@ -9,10 +9,10 @@ import Foundation
 import SwiftUI
 
 struct OverflowScrollDailyCell: View {
-//    @Binding var selectedDate: Date
     @Binding var fetchModel: FetchModel
-//    @Binding var refreshTodoList: Bool
     var date: Date
+    
+    var onNewDateClicked: (Date) -> Void
     
     var title: String {
         let df = DateFormatter()
@@ -44,9 +44,10 @@ struct OverflowScrollDailyCell: View {
                     .stroke(Color.themeColor40, lineWidth: 1)
             )
             .onTapGesture {
-                fetchModel.currentDate = Calendar.current.startOfDay(for: date)
-                print("currentDate: ", fetchModel.currentDate)
-//                refreshTodoList.toggle()
+                let clickedDate = Calendar.current.startOfDay(for: date)
+                onNewDateClicked(clickedDate)
+                
+                print("\n [Overflow..Cell] ==User Tap Detect!!===")
             }
             
         }

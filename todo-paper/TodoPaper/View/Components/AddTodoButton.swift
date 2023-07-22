@@ -51,7 +51,7 @@ struct AddTodoButton: View{
     func didDismiss() {
         //      print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
         
-        newTodo.id = UUID()
+        newTodo.uuid = UUID()
         newTodo.duedate = Date()
         newTodo.status = TodoStatus.none
         newTodo.section = "Today"
@@ -62,7 +62,7 @@ struct AddTodoButton: View{
         withAnimation {
             if newTodo.title != "" {
                 let newItem = Item(context: viewContext)
-                newItem.id = newTodo.id
+                newItem.uuid = newTodo.uuid
                 newItem.duedate = newTodo.duedate
                 newItem.section = newTodo.section
                 newItem.status = newTodo.status.rawValue
