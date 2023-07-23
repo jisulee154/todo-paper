@@ -37,15 +37,15 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         // Fetch All Data in "Item" Entity
         // 전부 다 가져옴
         let request: NSFetchRequest<Item> = Item.fetchRequest()
-        var todos: [TodoItem] = []
+        var modifiedTodos: [TodoItem] = []
         do {
             let fetchedTodos = try context.fetch(request) as [Item]
-            todos = fetchedTodos.map{ TodoItem(uuid: $0.uuid        ?? UUID(),
+            modifiedTodos = fetchedTodos.map{ TodoItem(uuid: $0.uuid        ?? UUID(),
                                                title: $0.title      ?? "",
                                                duedate: $0.duedate  ?? Date(),
                                                status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
                                                section: $0.section  ?? "Today") }
-            return todos
+            return modifiedTodos
             ///let memos = fetchedAllMemoEntities.map{ Memo(entity: $0) }
             
             ///return memos
@@ -80,6 +80,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         let newItemEntity = Item(context: context)
         
         newItemEntity.id = newTodo.id
+        newItemEntity.uuid = newTodo.uuid
         newItemEntity.title = newTodo.title
         newItemEntity.duedate = newTodo.duedate
         newItemEntity.section = newTodo.section
@@ -143,12 +144,21 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
 extension TodoViewModel {
     fileprivate func findATodo(uuid: UUID) -> Item? {
         let request = Item.fetchRequest()
+        var modifiedTodos: [TodoItem] = []
         
         // uuid가 일치하는 투두 가져오기
         request.predicate = Item.searchByUUIDPredicate.withSubstitutionVariables(["uuid" : uuid])
         
+        
         do {
             var fetchedTodos = try context.fetch(request) as [Item]
+            print(fetchedTodos)
+//            modifiedTodos = fetchedTodos.map{ TodoItem(uuid: $0.uuid        ?? UUID(),
+//                                               title: $0.title      ?? "",
+//                                               duedate: $0.duedate  ?? Date(),
+//                                               status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
+//                                               section: $0.section  ?? "Today") }
+            print(#fileID, #function, #line, "- ", uuid, " ", fetchedTodos.first?.uuid)
             return fetchedTodos.first
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")

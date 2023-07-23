@@ -58,6 +58,7 @@ struct DailyTodoView: View {
                                    // pass
                                 }.onTapGesture {
                                     print(todo.uuid)
+                                    todoViewModel.todos = todoViewModel.deleteATodo(uuid: todo.uuid)
                                 }
                             }
                         }
