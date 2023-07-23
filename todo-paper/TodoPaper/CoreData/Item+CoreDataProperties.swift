@@ -35,9 +35,18 @@ extension Item {
 
 //MARK: - Predicate
 extension Item {
-    
     // UUID 검색 필터링
     static var searchByUUIDPredicate: NSPredicate {
         NSPredicate(format: "%K == $uuid", #keyPath(uuid))
+    }
+    
+    // Date 검색 필터링 - 특정한 일자에 해당하는 투두
+    static var searchByDatePredicate: NSPredicate {
+        NSPredicate(format: "%K >= $dateToFind && %K <= $nextDateToFind", #keyPath(duedate), #keyPath(duedate))
+    }
+    
+    // Date 검색 필터링 - 특정한 일자 이전 일자에 해당하는 투두
+    static var searchOldByDatePredicate: NSPredicate {
+        NSPredicate(format: "%K <= $date && %K == $status", #keyPath(duedate), #keyPath(status))
     }
 }

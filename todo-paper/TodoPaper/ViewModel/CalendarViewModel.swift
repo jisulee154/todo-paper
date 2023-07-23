@@ -8,8 +8,20 @@
 import Foundation
 
 class CalendarViewModel: ObservableObject {
+//    let container = PersistenceController.shared.container
+//
+//    @Published var searchDate: Date = Calendar.current.startOfDay(for: Date())
+//    
+//    init {
+//        self.searchDate = setSearchDate(date: Date())
+//    }
+//
+//    // 모든 테이블 관리자, 중재자.
+//    fileprivate var context: NSManagedObjectContext {
+//        return self.container.viewContext
+//    }
+    
     @Published private(set) var array = [Date()]
-//    var batchSize: Int = 10
     var batchSize: Int = Date().daysThisMonth() ?? 0
 
 //MARK: - Calendar

@@ -28,11 +28,48 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     }
     
     @Published var todos: [TodoItem] = []
+    @Published var oldTodos: [TodoItem] = []
+    @Published var searchDate: Date = Calendar.current.startOfDay(for: Date())
+    @Published var datesInMonth: [Date] = []
     
     init() {
         self.todos = fetchTodos()
+        self.oldTodos = fetchOldTodos()
+        self.searchDate = setSearchDate(date: Date())
+        self.datesInMonth = getDatesInThisMonth()
     }
     
+    //MARK: - 캘린더 관련    
+    func getDatesInThisMonth() -> [Date] {
+        // 해당 월의 일자 수
+        let numOfDays = Calendar.current.range(of: .day, in: .month, for: searchDate)?.count ?? 0
+        if numOfDays > 0 {
+            let days = (1...numOfDays).map{
+                Calendar.current.date(byAdding: .day, value: $0, to: self.getThisYearAndMonth()) ?? Date()
+            }
+            return days
+        } else {
+            return []
+        }
+    }
+    
+    func setSearchDate(date: Date) -> Date {
+        // 어떤 날짜이건 0시 0분으로 맞춘다.
+        print(#fileID, #function, #line, "- set date: \(date)")
+        return Calendar.current.startOfDay(for: date)
+    }
+    
+    func canShowOldTodos() -> Bool {
+        if self.searchDate == Calendar.current.startOfDay(for: Date()) {
+            print(#fileID, #function, #line, "It is Today.")
+            return true
+        } else {
+            print(#fileID, #function, #line, "It isn't Today.")
+            return false
+        }
+    }
+    
+    //MARK: - Core Data 관련
     func fetchTodos() -> [TodoItem] {
         // Fetch All Data in "Item" Entity
         // 전부 다 가져옴
@@ -40,21 +77,66 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         var modifiedTodos: [TodoItem] = []
         do {
             let fetchedTodos = try context.fetch(request) as [Item]
-            modifiedTodos = fetchedTodos.map{ TodoItem(uuid: $0.uuid        ?? UUID(),
-                                               title: $0.title      ?? "",
-                                               duedate: $0.duedate  ?? Date(),
+            modifiedTodos = fetchedTodos.map{ TodoItem(uuid: $0.uuid ?? UUID(),
+                                               title: $0.title ?? "",
+                                               duedate: $0.duedate ?? Date(),
                                                status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
-                                               section: $0.section  ?? "Today") }
+                                               section: $0.section ?? "Today") }
             return modifiedTodos
-            ///let memos = fetchedAllMemoEntities.map{ Memo(entity: $0) }
-            
-            ///return memos
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
             return []
         }
     }
     
+    /// duedate가 특정 일자에 해당하는 투두 가져오기
+    /// - Parameter date: 찾고자 하는 일자
+    /// - Returns: 특정 일자에 해당하는 투두 목록
+    func fetchTodosBySelectedDate() -> [TodoItem] {
+        let request = Item.fetchRequest()
+        let date = self.searchDate
+        let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: date)
+        var modifiedTodos: [TodoItem] = []
+        
+        request.predicate = Item.searchByDatePredicate.withSubstitutionVariables(["dateToFind" : date, "nextDateToFind" : nextDate])
+        
+//        print(request.predicate)
+        do {
+            let fetchedTodos = try context.fetch(request) as [Item]
+            modifiedTodos = fetchedTodos.map{ TodoItem(uuid: $0.uuid ?? UUID(),
+                                               title: $0.title ?? "",
+                                               duedate: $0.duedate ?? Date(),
+                                               status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
+                                               section: $0.section ?? "Today") }
+//            print(modifiedTodos)
+            return modifiedTodos
+        } catch {
+            print(#fileID, #function, #line, "- error: \(error)")
+            return []
+        }
+    }
+    
+    func fetchOldTodos() -> [TodoItem] {
+        let request = Item.fetchRequest()
+        let date = self.searchDate
+        var modifiedTodos: [TodoItem] = []
+        
+        request.predicate = Item.searchOldByDatePredicate.withSubstitutionVariables(["date" : date, "status" : TodoStatus.none.rawValue])
+        
+        do {
+            let fetchedTodos = try context.fetch(request) as [Item]
+            modifiedTodos = fetchedTodos.map{ TodoItem(uuid: $0.uuid ?? UUID(),
+                                               title: $0.title ?? "",
+                                               duedate: $0.duedate ?? Date(),
+                                               status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
+                                               section: $0.section ?? "Today") }
+            print(modifiedTodos)
+            return modifiedTodos
+        } catch {
+            print(#fileID, #function, #line, "- error: \(error)")
+            return []
+        }
+    }
     
     /// uuid로 찾은 투두 삭제
     /// - Parameter uuid: 삭제할 투두 uuid
@@ -139,20 +221,17 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
 }
 
 //MARK: - Helper
-
-/// 투두 찾기
 extension TodoViewModel {
+    /// uuid를 통해 투두 찾기
     fileprivate func findATodo(uuid: UUID) -> Item? {
         let request = Item.fetchRequest()
-        var modifiedTodos: [TodoItem] = []
+//        var modifiedTodos: [TodoItem] = []
         
         // uuid가 일치하는 투두 가져오기
         request.predicate = Item.searchByUUIDPredicate.withSubstitutionVariables(["uuid" : uuid])
         
-        
         do {
             var fetchedTodos = try context.fetch(request) as [Item]
-            print(fetchedTodos)
 //            modifiedTodos = fetchedTodos.map{ TodoItem(uuid: $0.uuid        ?? UUID(),
 //                                               title: $0.title      ?? "",
 //                                               duedate: $0.duedate  ?? Date(),
@@ -165,4 +244,13 @@ extension TodoViewModel {
             return nil
         }
     }
+    
+    /// 지금 연도와 월의 첫날에 해당하는 날 얻기
+    /// - Returns: 해당 연도와 월의 첫날에 해당하는 날짜 반환 (2023년 7월 23일 -> 2023년 7월 1일)
+    /// -> 필요 없음...?
+    fileprivate func getThisYearAndMonth() -> Date {
+        let components = Calendar.current.dateComponents([.year, .month], from: searchDate)
+        return Calendar.current.date(from: components) ?? Date()
+    }
+    
 }

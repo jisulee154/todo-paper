@@ -10,122 +10,167 @@ import CoreData
 import Combine
 
 struct DailyTodoView: View {
-    @Environment(\.managedObjectContext) private var viewContext
     
+    //MARK: - Shared Data
+    @Environment(\.managedObjectContext) private var viewContext
     //    @StateObject var todayTodoViewModel: TodoViewModel = TodoViewModel()
     //    @StateObject var previousTodoViewModel: TodoViewModel = TodoViewModel()
     @StateObject var todoViewModel: TodoViewModel = TodoViewModel()
     
-    
-    //    @FetchRequest(entity: Item.entity(),
-    //                  sortDescriptors: [NSSortDescriptor(keyPath: \Item.id, ascending: true)],
-    //                  predicate: NSPredicate(format: "duedate >= %@ && duedate <= %@", Calendar.current.startOfDay(for: Date()) as CVarArg, Calendar.current.startOfDay(for: Date() + 86400) as CVarArg),
-    //                  animation: .default)
-    //    private var todayItems: FetchedResults<Item>
-    
-    
-    //    @FetchRequest(entity: Item.entity(),
-    //                  sortDescriptors: [NSSortDescriptor(keyPath: \Item.id, ascending: true)],
-    //                  predicate: NSPredicate(format: "(duedate < %@) && (status == 0)", Calendar.current.startOfDay(for: Date()) as CVarArg),
-    //                  animation: .default)
-    //    private var oldItems: FetchedResults<Item>
-    
-    
-    //MARK: - Shared Data
-//    @State private var todoList: [TodoItemRow] = []
-//    @State private var newTodo: TodoItem = TodoItem()
-//
-//    @State private var refreshView: Bool = false
-//
-//    @State private var fetchModel: FetchModel = FetchModel(currentDate: Date())
-//    @State private var newDate: Date = Date()
-    
     //MARK: - View
     var body: some View {
         ZStack {
-            List {
-                Section("today") {
-                    VStack {
-                        ForEach(todoViewModel.todos) { todo in
-                            // 코어 데이터 삭제 테스트
-                            HStack {
-                                TodoItemRow(with: TodoItem(uuid: todo.uuid,
-                                                           title: todo.title,
-                                                           duedate: todo.duedate,
-                                                           status: todo.status,
-                                                           section: todo.section))
-                                Button("삭제") {
-                                   // pass
-                                }.onTapGesture {
-                                    print(todo.uuid)
-                                    todoViewModel.todos = todoViewModel.deleteATodo(uuid: todo.uuid)
+            VStack {
+                //MARK: - Calendar Scroll
+                DateHeader(todoViewModel: todoViewModel)
+                
+                if todoViewModel.todos.count > 0 {
+                    //MARK: - Todo list
+                    List {
+                        Section("today") {
+                            VStack {
+                                ForEach(todoViewModel.todos) { todo in
+                                    HStack {
+                                        TodoItemRow(with: TodoItem(uuid: todo.uuid,
+                                                                   title: todo.title,
+                                                                   duedate: todo.duedate,
+                                                                   status: todo.status,
+                                                                   section: todo.section))
+                                        
+                                        // 코어 데이터 삭제 테스트
+                                        Button("삭제") {
+                                            // pass
+                                        }.onTapGesture {
+                                            todoViewModel.todos = todoViewModel.deleteATodo(uuid: todo.uuid)
+                                        }
+                                    }
+                                    Divider()
                                 }
                             }
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 15, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
+                            )
+                            .listRowInsets(EdgeInsets.init())
+                            
+                        } // Section - Today
+                        
+                        
+                        // 보여지는 일자가 오늘인 경우 기한이 지난 투두를 old 섹션에 출력한다.
+                        if todoViewModel.canShowOldTodos() {
+                            Section("old") {
+                                VStack {
+                                    ForEach(todoViewModel.oldTodos) { todo in
+                                        HStack {
+                                            TodoItemRow(with: TodoItem(uuid: todo.uuid,
+                                                                       title: todo.title,
+                                                                       duedate: todo.duedate,
+                                                                       status: todo.status,
+                                                                       section: todo.section))
+                                            
+                                            // 코어 데이터 삭제 테스트
+                                            Button("삭제") {
+                                                // pass
+                                            }.onTapGesture {
+                                                todoViewModel.todos = todoViewModel.deleteATodo(uuid: todo.uuid)
+                                            }
+                                        }
+                                        Divider()
+                                    }
+                                }
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 15, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
+                                )
+                            } // Section - Old
+                            .listRowInsets(EdgeInsets.init())
                         }
+                    } // List
+                } else {
+                    // 해당 날짜의 투두가 없을 때
+                    HStack {
+                        Spacer()
+                        VStack {
+                            Spacer()
+                            Text("""
+                                   투두가 하나도 없네요~\n
+                                   하나 추가해 볼까요? 📝
+                                   """)
+                            Spacer()
+                        }
+                        Spacer()
                     }
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 15, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
+                    )
                 }
             }
-            
             //MARK: - Adding Todo Button
             AddTodoButton(todoViewModel: todoViewModel)
         }
+        .onAppear {
+            todoViewModel.searchDate = todoViewModel.setSearchDate(date: Date())
+            todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
+            
+            if todoViewModel.canShowOldTodos() {
+                todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
+            }
+        }
     }
-//        VStack {
-//            //MARK: - Overflow scroll calendar (daily)
-////            OverflowScrollDailyHeader(fetchModel: $fetchModel) { clickedDate in
-////                self.newDate = clickedDate
-////            }
-//
-//            //MARK: - Todo list
-//            ZStack {
-//                List {
-//                    Section("today") {
-//                        VStack {
-//                            ForEach(todoViewModel.todos) { todo in
-//                                TodoItemRow(with: TodoItem(uuid: todo.uuid,
-//                                                           title: todo.title ?? "",
-//                                                           duedate: todo.duedate,
-//                                                           status: todo.status.rawValue))
-//                                Divider()
-//                            }
-//                            //                            ForEach(todos) { item in
-//                            //                                TodoItemRow(with: TodoItem(id: UUID(),
-//                            //                                                           title: item.title ?? "",
-//                            //                                                           duedate: item.duedate!,
-//                            //                                                           status: TodoStatus(rawValue: item.status)!))
-//                            //                                Divider()
-//                            //                            }
-//                        }
-////                        .overlay(
-////                            RoundedRectangle(cornerRadius: 20, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
-////                        )
-//                    }
-//                    .listRowInsets(EdgeInsets.init())
-//                    //                    Section("old") {
-//                    //                        VStack {
-//                    //                            ForEach(previousTodoViewModel.todoItems   ) { item in
-//                    //                                TodoItemRow(with: TodoItem(id: UUID(), title: item.title ?? "", duedate: item.duedate!, status: TodoStatus(rawValue: item.status)!))
-//                    //                                Divider()
-//                    //                            }
-//                    //                        }
-//                    //                        .overlay(
-//                    //                            RoundedRectangle(cornerRadius: 20, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
-//                    //                        )
-//                    //                    }
-//                    .listRowInsets(EdgeInsets.init())
-//                } //List
-//                .onAppear {
-//                }
-//                //                .onChange(of: newDate) { changedDate in
-//                //                    fetchModel = FetchModel(currentDate: changedDate)
-//                //                    todayItems.nsPredicate = fetchModel.predicate
-//                //                    print("\n\n [DailyTodoView] ==Todo View is reloaded!!==")
-//                //                    print("todayItems.nsPredicate: ", todayItems.nsPredicate)
-//                //                    print(todayItems)
-//                //
-//                //                }
-//            }
-//        }
+    //        VStack {
+    //            //MARK: - Overflow scroll calendar (daily)
+    ////            OverflowScrollDailyHeader(fetchModel: $fetchModel) { clickedDate in
+    ////                self.newDate = clickedDate
+    ////            }
+    //
+    //            //MARK: - Todo list
+    //            ZStack {
+    //                List {
+    //                    Section("today") {
+    //                        VStack {
+    //                            ForEach(todoViewModel.todos) { todo in
+    //                                TodoItemRow(with: TodoItem(uuid: todo.uuid,
+    //                                                           title: todo.title ?? "",
+    //                                                           duedate: todo.duedate,
+    //                                                           status: todo.status.rawValue))
+    //                                Divider()
+    //                            }
+    //                            //                            ForEach(todos) { item in
+    //                            //                                TodoItemRow(with: TodoItem(id: UUID(),
+    //                            //                                                           title: item.title ?? "",
+    //                            //                                                           duedate: item.duedate!,
+    //                            //                                                           status: TodoStatus(rawValue: item.status)!))
+    //                            //                                Divider()
+    //                            //                            }
+    //                        }
+    ////                        .overlay(
+    ////                            RoundedRectangle(cornerRadius: 20, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
+    ////                        )
+    //                    }
+    //                    .listRowInsets(EdgeInsets.init())
+    //                    //                    Section("old") {
+    //                    //                        VStack {
+    //                    //                            ForEach(previousTodoViewModel.todoItems   ) { item in
+    //                    //                                TodoItemRow(with: TodoItem(id: UUID(), title: item.title ?? "", duedate: item.duedate!, status: TodoStatus(rawValue: item.status)!))
+    //                    //                                Divider()
+    //                    //                            }
+    //                    //                        }
+    //                    //                        .overlay(
+    //                    //                            RoundedRectangle(cornerRadius: 20, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
+    //                    //                        )
+    //                    //                    }
+    //                    .listRowInsets(EdgeInsets.init())
+    //                } //List
+    //                .onAppear {
+    //                }
+    //                //                .onChange(of: newDate) { changedDate in
+    //                //                    fetchModel = FetchModel(currentDate: changedDate)
+    //                //                    todayItems.nsPredicate = fetchModel.predicate
+    //                //                    print("\n\n [DailyTodoView] ==Todo View is reloaded!!==")
+    //                //                    print("todayItems.nsPredicate: ", todayItems.nsPredicate)
+    //                //                    print(todayItems)
+    //                //
+    //                //                }
+    //            }
+    //        }
 }
 
 

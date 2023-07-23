@@ -14,8 +14,8 @@
             filePath = "todo-paper/TodoPaper/ViewModel/CalendarViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "13"
-            endingLineNumber = "13"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
             landmarkName = "CalendarViewModel"
             landmarkType = "3">
             <Locations>
@@ -269,8 +269,8 @@
             filePath = "todo-paper/TodoPaper/ViewModel/CalendarViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "21"
-            endingLineNumber = "21"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
             landmarkName = "loadMoreDates()"
             landmarkType = "7">
             <Locations>
@@ -303,54 +303,6 @@
                   startingLineNumber = "23"
                   endingLineNumber = "23"
                   offsetFromSymbolStart = "1504">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "9997036C-9575-4488-966A-6E0B4E4F7CB7"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "todo-paper/TodoPaper/View/Screens/DailyTodoView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "40"
-            endingLineNumber = "40"
-            landmarkName = "DailyTodoView"
-            landmarkType = "14">
-            <Locations>
-               <Location
-                  uuid = "9997036C-9575-4488-966A-6E0B4E4F7CB7 - 16b7d80c8b924226"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "property wrapper backing initializer of todo_paper.DailyTodoView.fetchModel : todo_paper.FetchModel"
-                  moduleName = "todo-paper"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/View/Screens/DailyTodoView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "36"
-                  endingLineNumber = "36"
-                  offsetFromSymbolStart = "88">
-               </Location>
-               <Location
-                  uuid = "9997036C-9575-4488-966A-6E0B4E4F7CB7 - a65c559c519cb9ac"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "todo_paper.DailyTodoView.init() -&gt; todo_paper.DailyTodoView"
-                  moduleName = "todo-paper"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/View/Screens/DailyTodoView.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "36"
-                  endingLineNumber = "36"
-                  offsetFromSymbolStart = "2460">
                </Location>
             </Locations>
          </BreakpointContent>
