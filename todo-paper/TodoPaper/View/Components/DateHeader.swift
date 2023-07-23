@@ -20,7 +20,7 @@ struct DateHeader: View {
         VStack {
             HStack {
                 Button {
-                    todoViewModel.setSearchDate(date: Date())
+                    todoViewModel.searchDate = todoViewModel.setSearchDate(date: Date())
                     todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
                 } label: {
                     Text("오늘")
