@@ -12,8 +12,8 @@
 		4136515D2A6A1F04006C6361 /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4136515B2A6A1F04006C6361 /* Item+CoreDataClass.swift */; };
 		4136515E2A6A1F04006C6361 /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4136515C2A6A1F04006C6361 /* Item+CoreDataProperties.swift */; };
 		413651602A6A3EBB006C6361 /* TodoViewModel.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4136515F2A6A3EBB006C6361 /* TodoViewModel.swift.swift */; };
-		413651622A6A409C006C6361 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413651612A6A409C006C6361 /* Repository.swift */; };
 		413913312A6E3490007EFFF2 /* CustomButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913302A6E3490007EFFF2 /* CustomButtonStyle.swift */; };
+		413913352A6EBFCF007EFFF2 /* OldTodoItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913342A6EBFCF007EFFF2 /* OldTodoItemRow.swift */; };
 		417394AD2A6652C000205292 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394AC2A6652C000205292 /* DateHeader.swift */; };
 		417394BB2A66876900205292 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394BA2A66876900205292 /* DateCell.swift */; };
 		41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */; };
@@ -36,8 +36,8 @@
 		4136515B2A6A1F04006C6361 /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4136515C2A6A1F04006C6361 /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4136515F2A6A3EBB006C6361 /* TodoViewModel.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift.swift; sourceTree = "<group>"; };
-		413651612A6A409C006C6361 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		413913302A6E3490007EFFF2 /* CustomButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonStyle.swift; sourceTree = "<group>"; };
+		413913342A6EBFCF007EFFF2 /* OldTodoItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldTodoItemRow.swift; sourceTree = "<group>"; };
 		416C2D3F2A6822A500F06242 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		416C2D412A6822B100F06242 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		417394AC2A6652C000205292 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
@@ -65,14 +65,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		413651632A6A414E006C6361 /* Manager */ = {
-			isa = PBXGroup;
-			children = (
-				413651612A6A409C006C6361 /* Repository.swift */,
-			);
-			path = Manager;
-			sourceTree = "<group>";
-		};
 		416C2D402A6822B100F06242 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,7 +120,6 @@
 			isa = PBXGroup;
 			children = (
 				41E1DC7D2A5EF050005A5EAA /* System */,
-				413651632A6A414E006C6361 /* Manager */,
 				41E1DC802A5EF0BF005A5EAA /* Model */,
 				417394BE2A668BAE00205292 /* ViewModel */,
 				41E1DC7E2A5EF087005A5EAA /* View */,
@@ -180,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				41E1DC742A5DCD95005A5EAA /* TodoItemRow.swift */,
+				413913342A6EBFCF007EFFF2 /* OldTodoItemRow.swift */,
 				413045112A625AB20070F927 /* FloatingFooter.swift */,
 				417394BA2A66876900205292 /* DateCell.swift */,
 				417394AC2A6652C000205292 /* DateHeader.swift */,
@@ -286,7 +278,6 @@
 				41E1DC4B2A58277C005A5EAA /* todo_paper.xcdatamodeld in Sources */,
 				413913312A6E3490007EFFF2 /* CustomButtonStyle.swift in Sources */,
 				4136515E2A6A1F04006C6361 /* Item+CoreDataProperties.swift in Sources */,
-				413651622A6A409C006C6361 /* Repository.swift in Sources */,
 				417394BB2A66876900205292 /* DateCell.swift in Sources */,
 				41E1DC752A5DCD95005A5EAA /* TodoItemRow.swift in Sources */,
 				41E1DC482A58277C005A5EAA /* Persistence.swift in Sources */,
@@ -294,6 +285,7 @@
 				413045122A625AB20070F927 /* FloatingFooter.swift in Sources */,
 				41E1DC412A58277B005A5EAA /* DailyTodoView.swift in Sources */,
 				41E1DC732A5DC427005A5EAA /* TodoItem.swift in Sources */,
+				413913352A6EBFCF007EFFF2 /* OldTodoItemRow.swift in Sources */,
 				41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */,
 				417394AD2A6652C000205292 /* DateHeader.swift in Sources */,
 				4124E8F02A6BF0ED0045E220 /* MappingModelV1ToV4.xcmappingmodel in Sources */,

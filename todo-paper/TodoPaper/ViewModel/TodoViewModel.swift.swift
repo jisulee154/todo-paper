@@ -40,6 +40,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
 //    @Published var didDateBtnPressed: Bool = false
     @Published var completeSticker: CompleteStickerStatus = CompleteStickerStatus.none
     @Published var scrollTargetDate: Date = Date()
+    @Published var delayedDays: Int? = 0
     
     init() {
         self.todos = fetchTodos()
@@ -49,6 +50,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
 //        self.didDateBtnPressed = false
         self.completeSticker = setCompleteSticker(with: "")
         self.scrollTargetDate = setScrollTargetDate(with: Date())
+        self.delayedDays = getDelayedDays(with: Calendar.current.startOfDay(for: Date()))
     }
     
     //MARK: - 완료 스티커 관련
@@ -248,6 +250,15 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
             print("data all deleted.")
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
+        }
+    }
+    
+    func getDelayedDays(with duedate: Date) -> Int? {
+        var numberOfDays: DateComponents? = Calendar.current.dateComponents([.day], from: Date(), to: duedate)
+        if let numberOfDays = numberOfDays {
+            return -numberOfDays.day! + 1
+        } else {
+            return nil
         }
     }
 }

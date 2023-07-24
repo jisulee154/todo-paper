@@ -32,3 +32,11 @@ extension Date {
         
     }
 }
+
+extension Image {
+    func todoImageModifier() -> some View {
+        self
+            .resizable()
+            .frame(width: 30, height: 30)
+    }
+}
