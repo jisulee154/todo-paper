@@ -8,13 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		4124E8F02A6BF0ED0045E220 /* MappingModelV1ToV4.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 4124E8EF2A6BF0ED0045E220 /* MappingModelV1ToV4.xcmappingmodel */; };
-		413045122A625AB20070F927 /* AddTodoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413045112A625AB20070F927 /* AddTodoButton.swift */; };
+		413045122A625AB20070F927 /* FloatingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413045112A625AB20070F927 /* FloatingFooter.swift */; };
 		4136515D2A6A1F04006C6361 /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4136515B2A6A1F04006C6361 /* Item+CoreDataClass.swift */; };
 		4136515E2A6A1F04006C6361 /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4136515C2A6A1F04006C6361 /* Item+CoreDataProperties.swift */; };
 		413651602A6A3EBB006C6361 /* TodoViewModel.swift.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4136515F2A6A3EBB006C6361 /* TodoViewModel.swift.swift */; };
 		413651622A6A409C006C6361 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413651612A6A409C006C6361 /* Repository.swift */; };
+		413913312A6E3490007EFFF2 /* CustomButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913302A6E3490007EFFF2 /* CustomButtonStyle.swift */; };
+		413913332A6E84AD007EFFF2 /* CompleteStickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913322A6E84AD007EFFF2 /* CompleteStickerView.swift */; };
 		417394AD2A6652C000205292 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394AC2A6652C000205292 /* DateHeader.swift */; };
-		417394B92A6686DD00205292 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394B82A6686DD00205292 /* CalendarViewModel.swift */; };
 		417394BB2A66876900205292 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394BA2A66876900205292 /* DateCell.swift */; };
 		41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */; };
 		41E1DC412A58277B005A5EAA /* DailyTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC402A58277B005A5EAA /* DailyTodoView.swift */; };
@@ -32,15 +33,16 @@
 		4124E8ED2A6BEFF30045E220 /* todo_paper_ 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "todo_paper_ 3.xcdatamodel"; sourceTree = "<group>"; };
 		4124E8EE2A6BF07B0045E220 /* todo_paper 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "todo_paper 4.xcdatamodel"; sourceTree = "<group>"; };
 		4124E8EF2A6BF0ED0045E220 /* MappingModelV1ToV4.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MappingModelV1ToV4.xcmappingmodel; sourceTree = "<group>"; };
-		413045112A625AB20070F927 /* AddTodoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTodoButton.swift; sourceTree = "<group>"; };
+		413045112A625AB20070F927 /* FloatingFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingFooter.swift; sourceTree = "<group>"; };
 		4136515B2A6A1F04006C6361 /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4136515C2A6A1F04006C6361 /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4136515F2A6A3EBB006C6361 /* TodoViewModel.swift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift.swift; sourceTree = "<group>"; };
 		413651612A6A409C006C6361 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		413913302A6E3490007EFFF2 /* CustomButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonStyle.swift; sourceTree = "<group>"; };
+		413913322A6E84AD007EFFF2 /* CompleteStickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteStickerView.swift; sourceTree = "<group>"; };
 		416C2D3F2A6822A500F06242 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		416C2D412A6822B100F06242 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		417394AC2A6652C000205292 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
-		417394B82A6686DD00205292 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		417394BA2A66876900205292 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		41E1DC3B2A58277B005A5EAA /* todo-paper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "todo-paper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todo_paperApp.swift; sourceTree = "<group>"; };
@@ -85,7 +87,6 @@
 			isa = PBXGroup;
 			children = (
 				4136515F2A6A3EBB006C6361 /* TodoViewModel.swift.swift */,
-				417394B82A6686DD00205292 /* CalendarViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -181,9 +182,10 @@
 			isa = PBXGroup;
 			children = (
 				41E1DC742A5DCD95005A5EAA /* TodoItemRow.swift */,
-				413045112A625AB20070F927 /* AddTodoButton.swift */,
+				413045112A625AB20070F927 /* FloatingFooter.swift */,
 				417394BA2A66876900205292 /* DateCell.swift */,
 				417394AC2A6652C000205292 /* DateHeader.swift */,
+				413913322A6E84AD007EFFF2 /* CompleteStickerView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -208,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				41E1DC782A5EA161005A5EAA /* Extension.swift */,
+				413913302A6E3490007EFFF2 /* CustomButtonStyle.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -284,20 +287,21 @@
 			files = (
 				4136515D2A6A1F04006C6361 /* Item+CoreDataClass.swift in Sources */,
 				41E1DC4B2A58277C005A5EAA /* todo_paper.xcdatamodeld in Sources */,
-				417394B92A6686DD00205292 /* CalendarViewModel.swift in Sources */,
+				413913312A6E3490007EFFF2 /* CustomButtonStyle.swift in Sources */,
 				4136515E2A6A1F04006C6361 /* Item+CoreDataProperties.swift in Sources */,
 				413651622A6A409C006C6361 /* Repository.swift in Sources */,
 				417394BB2A66876900205292 /* DateCell.swift in Sources */,
 				41E1DC752A5DCD95005A5EAA /* TodoItemRow.swift in Sources */,
 				41E1DC482A58277C005A5EAA /* Persistence.swift in Sources */,
 				413651602A6A3EBB006C6361 /* TodoViewModel.swift.swift in Sources */,
-				413045122A625AB20070F927 /* AddTodoButton.swift in Sources */,
+				413045122A625AB20070F927 /* FloatingFooter.swift in Sources */,
 				41E1DC412A58277B005A5EAA /* DailyTodoView.swift in Sources */,
 				41E1DC732A5DC427005A5EAA /* TodoItem.swift in Sources */,
 				41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */,
 				417394AD2A6652C000205292 /* DateHeader.swift in Sources */,
 				4124E8F02A6BF0ED0045E220 /* MappingModelV1ToV4.xcmappingmodel in Sources */,
 				41E1DC792A5EA161005A5EAA /* Extension.swift in Sources */,
+				413913332A6E84AD007EFFF2 /* CompleteStickerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

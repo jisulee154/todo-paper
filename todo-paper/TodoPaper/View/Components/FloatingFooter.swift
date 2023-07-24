@@ -1,5 +1,5 @@
 //
-//  AddTodoButton.swift
+//  FloatingFooter.swift
 //  todo-paper
 //
 //  Created by 이지수 on 2023/07/15.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AddTodoButton: View{
+struct FloatingFooter: View{
 //    @Environment(\.managedObjectContext) private var viewContext
     
 //    @FetchRequest(
@@ -24,8 +24,16 @@ struct AddTodoButton: View{
     var body: some View {
         VStack {
             Spacer()
-            HStack {
+            HStack (spacing: 10) {
                 Spacer()
+                Button {
+                    //action
+                } label: {
+                    Image("CompleteSticker_PlaceHolder")
+                        .resizable()
+                        .frame(width: 70, height: 70)
+                        .padding(.bottom, 20)
+                }
                 Button(action: {
                     isSheetPresented.toggle()
                 }) {

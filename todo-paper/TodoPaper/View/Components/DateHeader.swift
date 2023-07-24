@@ -18,7 +18,9 @@ struct DateHeader: View {
     
     var body: some View {
         VStack {
+            //MARK: - 환경 설정 & 오늘로 이동 버튼
             HStack {
+                // 오늘로 이동 버튼
                 Button {
                     todoViewModel.searchDate = todoViewModel.setSearchDate(date: Date())
                     todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
@@ -33,9 +35,19 @@ struct DateHeader: View {
                         )
                 }
                 .padding(.horizontal, 20)
+                .padding(.vertical, 5)
                 Spacer()
+                // 앱 환경 설정 버튼
+                Button {
+                    // action
+                } label: {
+                    Image(systemName: "gearshape")
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 5)
             } //HStack
-
+            
+            //MARK: - Calendar Scroll
             ScrollViewReader { proxy in
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
@@ -54,11 +66,10 @@ struct DateHeader: View {
                 .onAppear{
                     todoViewModel.datesInMonth = todoViewModel.getDatesInThisMonth()
                 }
+                //            .flipsForRightToLeftLayoutDirection(true)
+                //            .environment(\.layoutDirection, .leftToRight)
+                .frame(width: 400, height: 70) // 화면 크기에 맞게 수정 필요
             }
-            //            .flipsForRightToLeftLayoutDirection(true)
-            //            .environment(\.layoutDirection, .leftToRight)
-            .frame(width: 400, height: 100) // 화면 크기에 맞게 수정 필요
-
         }
     }
 }

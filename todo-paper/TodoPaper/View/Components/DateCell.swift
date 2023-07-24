@@ -37,27 +37,31 @@ struct DateCell: View {
     }
     
     var body: some View {
-        Button {
-            //pass
-        } label: {
-            VStack(alignment: .center) {
-                Text(title)
-                Text(subtitle)
-            }
-            .frame(width: 60, height: 73)
-            .foregroundColor(Color.themeColor40)
-            .background(Color.white)
-            .overlay(
-                RoundedRectangle(cornerRadius: 15)
-                    .stroke(Color.themeColor40, lineWidth: 1)
-            )
-            .onTapGesture {
+        VStack{
+            Button {
                 todoViewModel.searchDate = todoViewModel.setSearchDate(date: date)
                 todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
-
-                print(#fileID, #function, #line, "set new searchDate: \(todoViewModel.searchDate)")
+//                print(#fileID, #function, #line, "set new searchDate: \(todoViewModel.searchDate)")
+            } label: {
+                VStack(alignment: .center) {
+                    Text(title)
+                    Text(subtitle)
+                }
+                .frame(width: 60, height: 65)
+                .foregroundColor((date == todoViewModel.searchDate) ? Color.white : Color.themeColor40)
+                .background((date == todoViewModel.searchDate) ? Color.themeColor40 : Color.white)
+                .cornerRadius(15)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 15)
+                        .stroke(Color.themeColor40, lineWidth: 1)
+                )
             }
-
         }
+    }
+}
+
+struct DateCell_Previews: PreviewProvider {
+    static var previews: some View {
+        DateCell(todoViewModel: TodoViewModel(), date: Date())
     }
 }

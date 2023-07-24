@@ -23,7 +23,6 @@ struct DailyTodoView: View {
             VStack {
                 //MARK: - Calendar Scroll
                 DateHeader(todoViewModel: todoViewModel)
-                
                 if todoViewModel.todos.count > 0 {
                     //MARK: - Todo list
                     List {
@@ -91,7 +90,7 @@ struct DailyTodoView: View {
                         VStack {
                             Spacer()
                             Text("""
-                                   투두가 하나도 없네요~\n
+                                   투두가 하나도 없어요.\n
                                    하나 추가해 볼까요? 📝
                                    """)
                             Spacer()
@@ -103,8 +102,8 @@ struct DailyTodoView: View {
                     )
                 }
             }
-            //MARK: - Adding Todo Button
-            AddTodoButton(todoViewModel: todoViewModel)
+            //MARK: - Make New Todo Button & Complete Sticker
+            FloatingFooter(todoViewModel: todoViewModel)
         }
         .onAppear {
             todoViewModel.searchDate = todoViewModel.setSearchDate(date: Date())
@@ -116,12 +115,12 @@ struct DailyTodoView: View {
         }
     }
     //        VStack {
-    //            //MARK: - Overflow scroll calendar (daily)
+    //            // Overflow scroll calendar (daily)
     ////            OverflowScrollDailyHeader(fetchModel: $fetchModel) { clickedDate in
     ////                self.newDate = clickedDate
     ////            }
     //
-    //            //MARK: - Todo list
+    //            // Todo list
     //            ZStack {
     //                List {
     //                    Section("today") {
@@ -174,8 +173,8 @@ struct DailyTodoView: View {
 }
 
 
-//struct DailyTodoView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        DailyTodoView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-//    }
-//}
+struct DailyTodoView_Previews: PreviewProvider {
+    static var previews: some View {
+        DailyTodoView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    }
+}
