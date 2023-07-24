@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct DateHeader: View {
-//    @StateObject var vm = CalendarViewModel()
-//
-//    @Binding var fetchModel: FetchModel
-////    @Binding var newDate: Date
-//
-//    var onNewDateClicked: (Date) -> Void
+    //    @StateObject var vm = CalendarViewModel()
+    //
+    //    @Binding var fetchModel: FetchModel
+    ////    @Binding var newDate: Date
+    //
+    //    var onNewDateClicked: (Date) -> Void
     @ObservedObject var todoViewModel: TodoViewModel
     
     var body: some View {
@@ -23,6 +23,7 @@ struct DateHeader: View {
                 // 오늘로 이동 버튼
                 Button {
                     todoViewModel.searchDate = todoViewModel.setSearchDate(date: Date())
+                    todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date())
                     todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
                 } label: {
                     Text("오늘")
@@ -45,9 +46,10 @@ struct DateHeader: View {
                 }
                 .padding(.horizontal, 20)
                 .padding(.vertical, 5)
+                
             } //HStack
-            
             //MARK: - Calendar Scroll
+            
             ScrollViewReader { proxy in
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
@@ -55,12 +57,17 @@ struct DateHeader: View {
                             DateCell(todoViewModel: todoViewModel, date: date)
                                 .id(date)
                         }
-//                        ForEach(vm.array, id: \.self) { date in
-//                            OverflowScrollDailyCell(fetchModel: $fetchModel,
-//                                                    date: Calendar.current.startOfDay(for: date),
-//                                                    onNewDateClicked: onNewDateClicked)
-//                                .id(date)
-//                        }
+                        .onChange(of: todoViewModel.scrollTargetDate) { newTarget in
+                            withAnimation {
+                                proxy.scrollTo(newTarget, anchor: .center)
+                            }
+                            print("target changed. newTarget : ", newTarget)
+                        }
+                        .onAppear {
+                            withAnimation {
+                                proxy.scrollTo(todoViewModel.scrollTargetDate, anchor: .center)
+                            }
+                        }
                     }
                 } //ScrollView
                 .onAppear{
@@ -69,7 +76,7 @@ struct DateHeader: View {
                 //            .flipsForRightToLeftLayoutDirection(true)
                 //            .environment(\.layoutDirection, .leftToRight)
                 .frame(width: 400, height: 70) // 화면 크기에 맞게 수정 필요
-            }
+            } // ScrollViewReader
         }
     }
 }

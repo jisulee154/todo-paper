@@ -40,6 +40,7 @@ struct DateCell: View {
         VStack{
             Button {
                 todoViewModel.searchDate = todoViewModel.setSearchDate(date: date)
+                todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: date)
                 todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
 //                print(#fileID, #function, #line, "set new searchDate: \(todoViewModel.searchDate)")
             } label: {

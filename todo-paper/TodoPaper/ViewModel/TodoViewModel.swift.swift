@@ -37,20 +37,22 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     @Published var oldTodos: [TodoItem] = []
     @Published var searchDate: Date = Calendar.current.startOfDay(for: Date())
     @Published var datesInMonth: [Date] = []
-    @Published var didDateBtnPressed: Bool = false
+//    @Published var didDateBtnPressed: Bool = false
     @Published var completeSticker: CompleteStickerStatus = CompleteStickerStatus.none
+    @Published var scrollTargetDate: Date = Date()
     
     init() {
         self.todos = fetchTodos()
         self.oldTodos = fetchOldTodos()
         self.searchDate = setSearchDate(date: Date())
         self.datesInMonth = getDatesInThisMonth()
-        self.didDateBtnPressed = false
-        self.completeSticker = CompleteStickerStatus.none
+//        self.didDateBtnPressed = false
+        self.completeSticker = setCompleteSticker(with: "")
+        self.scrollTargetDate = setScrollTargetDate(with: Date())
     }
     
     //MARK: - 완료 스티커 관련
-    func setCompleteSticker(with name: String) -> CompleteStickerStatus {
+    func setCompleteSticker(with name: String) -> CompleteStickerStatus{
         switch name {
         case "1":
             return CompleteStickerStatus.sticker1
@@ -62,9 +64,13 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     }
     
     //MARK: - 캘린더 관련
-    func toggleDateBtnPressed() -> Bool {
-        return didDateBtnPressed ? false : true
+    func setScrollTargetDate(with date: Date) -> Date {
+        return Calendar.current.startOfDay(for: date)
     }
+    
+//    func toggleDateBtnPressed() -> Bool {
+//        return didDateBtnPressed ? false : true
+//    }
     
     func getDatesInThisMonth() -> [Date] {
         // 해당 월의 일자 수

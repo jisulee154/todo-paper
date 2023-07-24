@@ -29,20 +29,28 @@ struct FloatingFooter: View{
                 Button {
                     //action
                 } label: {
-                    Image("CompleteSticker_PlaceHolder")
+                    Image(systemName: "medal")
                         .resizable()
                         .frame(width: 70, height: 70)
+                        .padding(.all, 10)
+                        .foregroundColor(.white)
+                        .background(Color.gray)
+                        .cornerRadius(50)
+                        .opacity(0.5)
                         .padding(.bottom, 20)
                 }
                 Button(action: {
                     isSheetPresented.toggle()
                 }) {
-                    Image("Button_TodoAdd")
+                    Image(systemName: "plus")
                         .resizable()
-                        .frame(width: 70, height: 70)
+                        .frame(width: 65, height: 65)
+                        .padding(.all, 10)
+                        .foregroundColor(.white)
+                        .background(Color.themeColor40)
+                        .cornerRadius(50)
                         .padding(.bottom, 20)
                         .padding(.trailing, 20)
-                        .foregroundColor(.themeColor40)
                     
                 }
                 .sheet(isPresented: $isSheetPresented, onDismiss: didDismiss) {

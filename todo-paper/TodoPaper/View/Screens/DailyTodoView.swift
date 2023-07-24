@@ -100,6 +100,7 @@ struct DailyTodoView: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 15, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
                     )
+                    .padding(.all, 10)
                 }
             }
             //MARK: - Make New Todo Button & Complete Sticker
@@ -107,6 +108,7 @@ struct DailyTodoView: View {
         }
         .onAppear {
             todoViewModel.searchDate = todoViewModel.setSearchDate(date: Date())
+            todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date()) //????
             todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
             
             if todoViewModel.canShowOldTodos() {
@@ -114,62 +116,6 @@ struct DailyTodoView: View {
             }
         }
     }
-    //        VStack {
-    //            // Overflow scroll calendar (daily)
-    ////            OverflowScrollDailyHeader(fetchModel: $fetchModel) { clickedDate in
-    ////                self.newDate = clickedDate
-    ////            }
-    //
-    //            // Todo list
-    //            ZStack {
-    //                List {
-    //                    Section("today") {
-    //                        VStack {
-    //                            ForEach(todoViewModel.todos) { todo in
-    //                                TodoItemRow(with: TodoItem(uuid: todo.uuid,
-    //                                                           title: todo.title ?? "",
-    //                                                           duedate: todo.duedate,
-    //                                                           status: todo.status.rawValue))
-    //                                Divider()
-    //                            }
-    //                            //                            ForEach(todos) { item in
-    //                            //                                TodoItemRow(with: TodoItem(id: UUID(),
-    //                            //                                                           title: item.title ?? "",
-    //                            //                                                           duedate: item.duedate!,
-    //                            //                                                           status: TodoStatus(rawValue: item.status)!))
-    //                            //                                Divider()
-    //                            //                            }
-    //                        }
-    ////                        .overlay(
-    ////                            RoundedRectangle(cornerRadius: 20, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
-    ////                        )
-    //                    }
-    //                    .listRowInsets(EdgeInsets.init())
-    //                    //                    Section("old") {
-    //                    //                        VStack {
-    //                    //                            ForEach(previousTodoViewModel.todoItems   ) { item in
-    //                    //                                TodoItemRow(with: TodoItem(id: UUID(), title: item.title ?? "", duedate: item.duedate!, status: TodoStatus(rawValue: item.status)!))
-    //                    //                                Divider()
-    //                    //                            }
-    //                    //                        }
-    //                    //                        .overlay(
-    //                    //                            RoundedRectangle(cornerRadius: 20, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
-    //                    //                        )
-    //                    //                    }
-    //                    .listRowInsets(EdgeInsets.init())
-    //                } //List
-    //                .onAppear {
-    //                }
-    //                //                .onChange(of: newDate) { changedDate in
-    //                //                    fetchModel = FetchModel(currentDate: changedDate)
-    //                //                    todayItems.nsPredicate = fetchModel.predicate
-    //                //                    print("\n\n [DailyTodoView] ==Todo View is reloaded!!==")
-    //                //                    print("todayItems.nsPredicate: ", todayItems.nsPredicate)
-    //                //                    print(todayItems)
-    //                //
-    //                //                }
-    //            }
-    //        }
 }
 
 
