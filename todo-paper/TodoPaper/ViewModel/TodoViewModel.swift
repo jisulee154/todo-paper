@@ -87,18 +87,32 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         }
     }
     
+    // 현재 달 전, 후의 날짜들을 추가
+    func getDatesInThisMonth(dateInTheMonth: Date) -> [Date] {
+        // 해당 월의 일자 수
+        let numOfDays = Calendar.current.range(of: .day, in: .month, for: dateInTheMonth)?.count ?? 0
+        if numOfDays > 0 {
+            let days = (1...numOfDays).map{
+                Calendar.current.date(byAdding: .day, value: $0, to: self.getThisYearAndMonth()) ?? Date()
+            }
+            return days
+        } else {
+            return []
+        }
+    }
+    
     func setSearchDate(date: Date) -> Date {
         // 어떤 날짜이건 0시 0분으로 맞춘다.
-        print(#fileID, #function, #line, "- set date: \(date)")
+//        print(#fileID, #function, #line, "- set date: \(date)")
         return Calendar.current.startOfDay(for: date)
     }
     
     func canShowOldTodos() -> Bool {
         if self.searchDate == Calendar.current.startOfDay(for: Date()) {
-            print(#fileID, #function, #line, "It is Today.")
+//            print(#fileID, #function, #line, "It is Today.")
             return true
         } else {
-            print(#fileID, #function, #line, "It isn't Today.")
+//            print(#fileID, #function, #line, "It isn't Today.")
             return false
         }
     }
@@ -164,7 +178,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
                                                duedate: $0.duedate ?? Date(),
                                                status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
                                                section: $0.section ?? "Today") }
-            print(modifiedTodos)
+//            print(modifiedTodos)
             return modifiedTodos
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
@@ -280,7 +294,7 @@ extension TodoViewModel {
 //                                               duedate: $0.duedate  ?? Date(),
 //                                               status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
 //                                               section: $0.section  ?? "Today") }
-            print(#fileID, #function, #line, "- ", uuid, " ", fetchedTodos.first?.uuid)
+//            print(#fileID, #function, #line, "- ", uuid, " ", fetchedTodos.first?.uuid)
             return fetchedTodos.first
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")

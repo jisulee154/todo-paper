@@ -26,32 +26,24 @@ struct DailyTodoView: View {
                 if todoViewModel.todos.count > 0 {
                     //MARK: - Todo list
                     List {
-                        Section("today") {
+                        Section("list") {
                             VStack {
                                 ForEach(todoViewModel.todos) { todo in
-                                    //                                    HStack {
                                     TodoItemRow(with: TodoItem(uuid: todo.uuid,
                                                                title: todo.title,
                                                                duedate: todo.duedate,
                                                                status: todo.status,
-                                                               section: todo.section))
+                                                               section: todo.section),
+                                                todoViewModel: todoViewModel,
+                                                todoItemRowType: TodoItemRowType.today)
                                     
-                                    //                                        // 코어 데이터 삭제 테스트
-                                    //                                        Button("삭제") {
-                                    //                                            // pass
-                                    //                                        }.onTapGesture {
-                                    //                                            todoViewModel.todos = todoViewModel.deleteATodo(uuid: todo.uuid)
-                                    //                                        }
-                                    //                                    }
-                                    Divider()
                                 }
                             }
                             .overlay(
-                                RoundedRectangle(cornerRadius: 15, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
+                                RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color.themeColor40, lineWidth: 2)
                             )
-                            .listRowInsets(EdgeInsets.init())
-                            
                         } // Section - Today
+                        .listRowInsets(EdgeInsets.init())
                         
                         
                         // 보여지는 일자가 오늘인 경우 기한이 지난 투두를 old 섹션에 출력한다.
@@ -60,18 +52,19 @@ struct DailyTodoView: View {
                                 VStack {
                                     ForEach(todoViewModel.oldTodos) { todo in
                                         
-                                        OldTodoItemRow(with: TodoItem(uuid: todo.uuid,
+                                        TodoItemRow(with: TodoItem(uuid: todo.uuid,
                                                                       title: todo.title,
                                                                       duedate: todo.duedate,
                                                                       status: todo.status,
                                                                       section: todo.section),
-                                                       todoViewModel: todoViewModel)
+                                                    todoViewModel: todoViewModel,
+                                                    todoItemRowType: TodoItemRowType.old)
                                         
                                         Divider()
                                     }
                                 }
                                 .overlay(
-                                    RoundedRectangle(cornerRadius: 15, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
+                                    RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color.themeColor40, lineWidth: 2)
                                 )
                             } // Section - Old
                             .listRowInsets(EdgeInsets.init())
@@ -102,7 +95,7 @@ struct DailyTodoView: View {
         }
         .onAppear {
             todoViewModel.searchDate = todoViewModel.setSearchDate(date: Date())
-            todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date()) //????
+            todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date())
             todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
             
             if todoViewModel.canShowOldTodos() {

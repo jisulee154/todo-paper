@@ -43,8 +43,11 @@ struct DateHeader: View {
                     // action
                 } label: {
                     Image(systemName: "gearshape")
+                        .resizable()
+                        .frame(width: 25, height: 25)
+                        .foregroundColor(.themeColor40)
                 }
-                .padding(.horizontal, 20)
+                .padding(.horizontal, 30)
                 .padding(.vertical, 5)
                 
             } //HStack
@@ -61,7 +64,6 @@ struct DateHeader: View {
                             withAnimation {
                                 proxy.scrollTo(newTarget, anchor: .center)
                             }
-                            print("target changed. newTarget : ", newTarget)
                         }
                         .onAppear {
                             withAnimation {
