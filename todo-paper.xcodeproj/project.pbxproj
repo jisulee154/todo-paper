@@ -12,7 +12,8 @@
 		4136515D2A6A1F04006C6361 /* Item+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4136515B2A6A1F04006C6361 /* Item+CoreDataClass.swift */; };
 		4136515E2A6A1F04006C6361 /* Item+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4136515C2A6A1F04006C6361 /* Item+CoreDataProperties.swift */; };
 		413651602A6A3EBB006C6361 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4136515F2A6A3EBB006C6361 /* TodoViewModel.swift */; };
-		413913312A6E3490007EFFF2 /* CustomButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913302A6E3490007EFFF2 /* CustomButtonStyle.swift */; };
+		413913372A702EEB007EFFF2 /* ScrollViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913362A702EEB007EFFF2 /* ScrollViewModel.swift */; };
+		4139135C2A716980007EFFF2 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 4139135B2A716980007EFFF2 /* Introspect */; };
 		417394AD2A6652C000205292 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394AC2A6652C000205292 /* DateHeader.swift */; };
 		417394BB2A66876900205292 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394BA2A66876900205292 /* DateCell.swift */; };
 		41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */; };
@@ -35,7 +36,7 @@
 		4136515B2A6A1F04006C6361 /* Item+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataClass.swift"; sourceTree = "<group>"; };
 		4136515C2A6A1F04006C6361 /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4136515F2A6A3EBB006C6361 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
-		413913302A6E3490007EFFF2 /* CustomButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButtonStyle.swift; sourceTree = "<group>"; };
+		413913362A702EEB007EFFF2 /* ScrollViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewModel.swift; sourceTree = "<group>"; };
 		416C2D3F2A6822A500F06242 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		416C2D412A6822B100F06242 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		417394AC2A6652C000205292 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
@@ -57,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4139135C2A716980007EFFF2 /* Introspect in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				4136515F2A6A3EBB006C6361 /* TodoViewModel.swift */,
+				413913362A702EEB007EFFF2 /* ScrollViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -82,7 +85,6 @@
 		41E1DC322A58277B005A5EAA = {
 			isa = PBXGroup;
 			children = (
-				4124E8EF2A6BF0ED0045E220 /* MappingModelV1ToV4.xcmappingmodel */,
 				41E1DC3D2A58277B005A5EAA /* todo-paper */,
 				41E1DC3C2A58277B005A5EAA /* Products */,
 				416C2D402A6822B100F06242 /* Frameworks */,
@@ -119,8 +121,8 @@
 			children = (
 				41E1DC7D2A5EF050005A5EAA /* System */,
 				41E1DC802A5EF0BF005A5EAA /* Model */,
-				417394BE2A668BAE00205292 /* ViewModel */,
 				41E1DC7E2A5EF087005A5EAA /* View */,
+				417394BE2A668BAE00205292 /* ViewModel */,
 				41E1DC7B2A5EEEDA005A5EAA /* CoreData */,
 				41E1DC822A5EF12E005A5EAA /* Utilities */,
 				41E1DC7C2A5EEF18005A5EAA /* Resources */,
@@ -142,6 +144,7 @@
 		41E1DC7C2A5EEF18005A5EAA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4124E8EF2A6BF0ED0045E220 /* MappingModelV1ToV4.xcmappingmodel */,
 				41E1DC422A58277C005A5EAA /* Assets.xcassets */,
 				41E1DC442A58277C005A5EAA /* Preview Content */,
 			);
@@ -170,8 +173,8 @@
 			children = (
 				41E1DC742A5DCD95005A5EAA /* TodoItemRow.swift */,
 				413045112A625AB20070F927 /* FloatingFooter.swift */,
-				417394BA2A66876900205292 /* DateCell.swift */,
 				417394AC2A6652C000205292 /* DateHeader.swift */,
+				417394BA2A66876900205292 /* DateCell.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -196,7 +199,6 @@
 			isa = PBXGroup;
 			children = (
 				41E1DC782A5EA161005A5EAA /* Extension.swift */,
-				413913302A6E3490007EFFF2 /* CustomButtonStyle.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -217,6 +219,9 @@
 			dependencies = (
 			);
 			name = "todo-paper";
+			packageProductDependencies = (
+				4139135B2A716980007EFFF2 /* Introspect */,
+			);
 			productName = "todo-paper";
 			productReference = 41E1DC3B2A58277B005A5EAA /* todo-paper.app */;
 			productType = "com.apple.product-type.application";
@@ -245,6 +250,9 @@
 				Base,
 			);
 			mainGroup = 41E1DC322A58277B005A5EAA;
+			packageReferences = (
+				4139135A2A716980007EFFF2 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
+			);
 			productRefGroup = 41E1DC3C2A58277B005A5EAA /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -273,7 +281,6 @@
 			files = (
 				4136515D2A6A1F04006C6361 /* Item+CoreDataClass.swift in Sources */,
 				41E1DC4B2A58277C005A5EAA /* todo_paper.xcdatamodeld in Sources */,
-				413913312A6E3490007EFFF2 /* CustomButtonStyle.swift in Sources */,
 				4136515E2A6A1F04006C6361 /* Item+CoreDataProperties.swift in Sources */,
 				417394BB2A66876900205292 /* DateCell.swift in Sources */,
 				41E1DC752A5DCD95005A5EAA /* TodoItemRow.swift in Sources */,
@@ -282,6 +289,7 @@
 				413045122A625AB20070F927 /* FloatingFooter.swift in Sources */,
 				41E1DC412A58277B005A5EAA /* DailyTodoView.swift in Sources */,
 				41E1DC732A5DC427005A5EAA /* TodoItem.swift in Sources */,
+				413913372A702EEB007EFFF2 /* ScrollViewModel.swift in Sources */,
 				41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */,
 				417394AD2A6652C000205292 /* DateHeader.swift in Sources */,
 				4124E8F02A6BF0ED0045E220 /* MappingModelV1ToV4.xcmappingmodel in Sources */,
@@ -488,6 +496,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4139135A2A716980007EFFF2 /* XCRemoteSwiftPackageReference "swiftui-introspect" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/siteline/swiftui-introspect";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4139135B2A716980007EFFF2 /* Introspect */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4139135A2A716980007EFFF2 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
+			productName = Introspect;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		41E1DC492A58277C005A5EAA /* todo_paper.xcdatamodeld */ = {

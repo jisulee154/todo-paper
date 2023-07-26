@@ -6,15 +6,20 @@
 //
 
 import SwiftUI
+import Introspect
+
 
 struct DateHeader: View {
-    //    @StateObject var vm = CalendarViewModel()
-    //
-    //    @Binding var fetchModel: FetchModel
-    ////    @Binding var newDate: Date
-    //
     //    var onNewDateClicked: (Date) -> Void
     @ObservedObject var todoViewModel: TodoViewModel
+    @StateObject var scrollViewModel: ScrollViewModel
+    
+    init(todoViewModel: TodoViewModel) {
+        self._scrollViewModel = StateObject.init(
+            wrappedValue: ScrollViewModel(lthreshold: -20, rthreshold: -20)
+        )
+        self.todoViewModel = todoViewModel
+    }
     
     var body: some View {
         VStack {
@@ -51,8 +56,8 @@ struct DateHeader: View {
                 .padding(.vertical, 5)
                 
             } //HStack
-            //MARK: - Calendar Scroll
             
+            //MARK: - Calendar Scroll
             ScrollViewReader { proxy in
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack {
@@ -70,10 +75,32 @@ struct DateHeader: View {
                                 proxy.scrollTo(todoViewModel.scrollTargetDate, anchor: .center)
                             }
                         }
+                        .onChange(of: scrollViewModel.isLeadingValue) { isLeading in
+                            if isLeading {
+                                todoViewModel.datesInMonth.insert(
+                                    contentsOf: todoViewModel.getDatesOnNextMonth(
+                                        on: .prevMonth,
+                                        after: todoViewModel.datesInMonth.first!
+                                    )
+                                    ,at: 0)
+                            }
+                        }
+                        .onChange(of: scrollViewModel.isTrailingValue) { isTrailing in
+                            if isTrailing {
+                                todoViewModel.datesInMonth.append(
+                                    contentsOf: todoViewModel.getDatesOnNextMonth(
+                                        on: .nextMonth,
+                                        after: todoViewModel.datesInMonth.last!
+                                    ))
+                            }
+                        }
                     }
                 } //ScrollView
+                .introspectScrollView(customize: { customScrollView in
+                    customScrollView.delegate = scrollViewModel
+                })
                 .onAppear{
-                    todoViewModel.datesInMonth = todoViewModel.getDatesInThisMonth()
+                    todoViewModel.datesInMonth = todoViewModel.getDatesInAMonth()
                 }
                 //            .flipsForRightToLeftLayoutDirection(true)
                 //            .environment(\.layoutDirection, .leftToRight)

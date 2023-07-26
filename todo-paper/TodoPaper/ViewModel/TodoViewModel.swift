@@ -15,6 +15,11 @@ enum CompleteStickerStatus: Int32 {
     case sticker2   = 2
 }
 
+enum ScrollDirection: Int32 {
+    case prevMonth  = 0
+    case nextMonth  = 1
+}
+
 protocol TodoItemProtocol {
     var todos: [TodoItem] { get }
     func fetchTodos() -> [TodoItem]
@@ -46,12 +51,15 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         self.todos = fetchTodos()
         self.oldTodos = fetchOldTodos()
         self.searchDate = setSearchDate(date: Date())
-        self.datesInMonth = getDatesInThisMonth()
+        self.datesInMonth = getDatesInAMonth()
 //        self.didDateBtnPressed = false
         self.completeSticker = setCompleteSticker(with: "")
         self.scrollTargetDate = setScrollTargetDate(with: Date())
         self.delayedDays = getDelayedDays(with: Calendar.current.startOfDay(for: Date()))
     }
+    
+    //MARK: - 스크롤뷰 관련
+    
     
     //MARK: - 완료 스티커 관련
     func setCompleteSticker(with name: String) -> CompleteStickerStatus{
@@ -66,6 +74,45 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     }
     
     //MARK: - 캘린더 관련
+    /// 이전달이나 다음달의 날짜를 반환한다
+    /// - Parameters:
+    ///   - direction: 이전달/다음달
+    ///   - lastDate: 현재 달의 첫날/마지막 날
+    /// - Returns: 이전달/다음달에 해당하는 날짜들 반환
+    func getDatesOnNextMonth(on direction: ScrollDirection, after lastDate: Date) -> [Date] {
+        
+        print(lastDate)
+        
+        var targetDate: Date
+        switch(direction) {
+        // 이전달의 일자 반환
+        case .prevMonth:
+            targetDate = Calendar.current.date(byAdding: .day, value: -1, to: lastDate) ?? Date()
+            
+        // 다음달의 일자 반환
+        case .nextMonth:
+            targetDate = Calendar.current.date(byAdding: .day, value: +1, to: lastDate) ?? Date()
+            
+        default:
+            print(#fileID, #function, #line, "- error: Getting Wrong Direction of Further Dates")
+            return []
+        }
+        print(#fileID, #function, #line, "- targetDate:", targetDate)
+        let numOfDays = Calendar.current.range(of: .day, in: .month, for: targetDate)?.count ?? 0
+        
+        if numOfDays > 0 {
+            let days = (0...numOfDays-1).map{
+                Calendar.current.date(
+                    byAdding: .day, value: $0, to: self.getAYearAndMonth(of: targetDate)
+                ) ?? Date()
+            }
+            return days
+        } else {
+            print(#fileID, #function, #line, "- error: Getting Wrong Direction of Further Dates")
+            return []
+        }
+    }
+    
     func setScrollTargetDate(with date: Date) -> Date {
         return Calendar.current.startOfDay(for: date)
     }
@@ -74,26 +121,16 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
 //        return didDateBtnPressed ? false : true
 //    }
     
-    func getDatesInThisMonth() -> [Date] {
+    func getDatesInAMonth() -> [Date] {
         // 해당 월의 일자 수
         let numOfDays = Calendar.current.range(of: .day, in: .month, for: searchDate)?.count ?? 0
         if numOfDays > 0 {
-            let days = (1...numOfDays).map{
-                Calendar.current.date(byAdding: .day, value: $0, to: self.getThisYearAndMonth()) ?? Date()
-            }
-            return days
-        } else {
-            return []
-        }
-    }
-    
-    // 현재 달 전, 후의 날짜들을 추가
-    func getDatesInThisMonth(dateInTheMonth: Date) -> [Date] {
-        // 해당 월의 일자 수
-        let numOfDays = Calendar.current.range(of: .day, in: .month, for: dateInTheMonth)?.count ?? 0
-        if numOfDays > 0 {
-            let days = (1...numOfDays).map{
-                Calendar.current.date(byAdding: .day, value: $0, to: self.getThisYearAndMonth()) ?? Date()
+            let days = (0...numOfDays-1).map{
+                Calendar.current.date(
+                    byAdding: .day,
+                    value: $0,
+                    to: self.getAYearAndMonth(of: self.searchDate)
+                ) ?? Date()
             }
             return days
         } else {
@@ -280,21 +317,16 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
 //MARK: - Helper
 extension TodoViewModel {
     /// uuid를 통해 투두 찾기
+    /// - Parameter uuid: 찾을 투두의 uuid
+    /// - Returns: 찾은 투두
     fileprivate func findATodo(uuid: UUID) -> Item? {
         let request = Item.fetchRequest()
-//        var modifiedTodos: [TodoItem] = []
         
         // uuid가 일치하는 투두 가져오기
         request.predicate = Item.searchByUUIDPredicate.withSubstitutionVariables(["uuid" : uuid])
         
         do {
             var fetchedTodos = try context.fetch(request) as [Item]
-//            modifiedTodos = fetchedTodos.map{ TodoItem(uuid: $0.uuid        ?? UUID(),
-//                                               title: $0.title      ?? "",
-//                                               duedate: $0.duedate  ?? Date(),
-//                                               status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
-//                                               section: $0.section  ?? "Today") }
-//            print(#fileID, #function, #line, "- ", uuid, " ", fetchedTodos.first?.uuid)
             return fetchedTodos.first
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
@@ -304,10 +336,11 @@ extension TodoViewModel {
     
     /// 지금 연도와 월의 첫날에 해당하는 날 얻기
     /// - Returns: 해당 연도와 월의 첫날에 해당하는 날짜 반환 (2023년 7월 23일 -> 2023년 7월 1일)
-    /// -> 필요 없음...?
-    fileprivate func getThisYearAndMonth() -> Date {
-        let components = Calendar.current.dateComponents([.year, .month], from: searchDate)
+    fileprivate func getAYearAndMonth(of date: Date) -> Date {
+        let components = Calendar.current.dateComponents([.year, .month], from: date)
         return Calendar.current.date(from: components) ?? Date()
     }
-    
 }
+
+
+
