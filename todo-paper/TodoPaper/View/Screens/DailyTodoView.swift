@@ -90,6 +90,14 @@ struct DailyTodoView: View {
                     .padding(.all, 10)
                 }
             }
+            // 할일 목록 새로고침
+            .refreshable {
+                todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
+                
+                if todoViewModel.canShowOldTodos() {
+                    todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
+                }
+            }
             //MARK: - Make New Todo Button & Complete Sticker
             FloatingFooter(todoViewModel: todoViewModel)
         }

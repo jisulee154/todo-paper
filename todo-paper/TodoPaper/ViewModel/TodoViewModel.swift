@@ -9,6 +9,12 @@ import Foundation
 import CoreData
 import Combine
 
+enum TimePosition {
+    case today
+    case future
+    case past
+}
+
 enum CompleteStickerStatus: Int32 {
     case none       = 0
     case sticker1   = 1
@@ -42,7 +48,6 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     @Published var oldTodos: [TodoItem] = []
     @Published var searchDate: Date = Calendar.current.startOfDay(for: Date())
     @Published var datesInMonth: [Date] = []
-//    @Published var didDateBtnPressed: Bool = false
     @Published var completeSticker: CompleteStickerStatus = CompleteStickerStatus.none
     @Published var scrollTargetDate: Date = Date()
     @Published var delayedDays: Int? = 0
@@ -52,13 +57,10 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         self.oldTodos = fetchOldTodos()
         self.searchDate = setSearchDate(date: Date())
         self.datesInMonth = getDatesInAMonth()
-//        self.didDateBtnPressed = false
         self.completeSticker = setCompleteSticker(with: "")
         self.scrollTargetDate = setScrollTargetDate(with: Date())
         self.delayedDays = getDelayedDays(with: Calendar.current.startOfDay(for: Date()))
     }
-    
-    //MARK: - 스크롤뷰 관련
     
     
     //MARK: - 완료 스티커 관련

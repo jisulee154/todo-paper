@@ -67,7 +67,7 @@ struct FloatingFooter: View{
     
     func didDismiss() {
         newTodo.uuid = UUID()
-        newTodo.duedate = Date()
+        newTodo.duedate = todoViewModel.searchDate
         newTodo.status = TodoStatus.none
         newTodo.section = "Today"
         if newTitle != "" {
