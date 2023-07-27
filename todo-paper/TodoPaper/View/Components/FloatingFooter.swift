@@ -68,12 +68,20 @@ struct FloatingFooter: View{
     func didDismiss() {
         newTodo.uuid = UUID()
         newTodo.duedate = todoViewModel.searchDate
+        print(#fileID, #function, #line, "-추가하려는 날짜: \(newTodo.duedate)")
         newTodo.status = TodoStatus.none
         newTodo.section = "Today"
         if newTitle != "" {
-            todoViewModel.todos = todoViewModel.addATodo(TodoItem(title: newTitle))
+            newTodo.title = newTitle
+            todoViewModel.todos = todoViewModel.addATodo(
+                TodoItem(uuid: newTodo.uuid,
+                         title: newTodo.title,
+                         duedate: newTodo.duedate,
+                         status: newTodo.status,
+                         section: newTodo.section)
+            )
         }
         
-        newTitle = ""
+        newTitle = "" // 초기화
     }
 }

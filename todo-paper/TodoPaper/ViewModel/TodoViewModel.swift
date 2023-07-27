@@ -254,12 +254,13 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         newItemEntity.duedate = newTodo.duedate
         newItemEntity.section = newTodo.section
         newItemEntity.status = newTodo.status.rawValue
+        print(#fileID, #function, #line, "-추가하려는 투두: \(newItemEntity)")
         
         context.insert(newItemEntity)
         
         do {
             try context.save()
-            return fetchTodos()
+            return fetchTodosBySelectedDate()
         } catch {
             print(#fileID, #function, #line, "-error: \(error)")
             return []
@@ -288,7 +289,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         
         do {
             try context.save()
-            return fetchTodos()
+            return fetchTodosBySelectedDate()
         } catch {
             print(#fileID, #function, #line, "-error: \(error)")
             return []
