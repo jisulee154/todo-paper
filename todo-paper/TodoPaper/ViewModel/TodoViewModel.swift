@@ -13,6 +13,7 @@ enum TimePosition {
     case today
     case future
     case past
+    case none // Error Case
 }
 
 enum CompleteStickerStatus: Int32 {
@@ -76,15 +77,13 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     }
     
     //MARK: - 캘린더 관련
+    
     /// 이전달이나 다음달의 날짜를 반환한다
     /// - Parameters:
-    ///   - direction: 이전달/다음달
+    ///   - direction: 이전달/다음달 중 어떤 데이터가 필요한지 입력
     ///   - lastDate: 현재 달의 첫날/마지막 날
     /// - Returns: 이전달/다음달에 해당하는 날짜들 반환
     func getDatesOnNextMonth(on direction: ScrollDirection, after lastDate: Date) -> [Date] {
-        
-        print(lastDate)
-        
         var targetDate: Date
         switch(direction) {
         // 이전달의 일자 반환
@@ -116,6 +115,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     }
     
     func setScrollTargetDate(with date: Date) -> Date {
+        print(#fileID, #function, #line, "- Set scroll target date to: ", date)
         return Calendar.current.startOfDay(for: date)
     }
     
@@ -153,6 +153,22 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         } else {
 //            print(#fileID, #function, #line, "It isn't Today.")
             return false
+        }
+    }
+    
+    func getTimePosition(of date: Date) -> TimePosition {
+        let startOfToday = Calendar.current.startOfDay(for: Date()) ?? Date()
+        let startOfTomorrow = Calendar.current.date(byAdding: .day, value: 1, to: startOfToday) ?? Date()
+        
+        if date < startOfToday {
+            return .past
+        } else if date >= startOfTomorrow {
+            return .future
+        } else if (date >= startOfToday) && (date < startOfTomorrow) {
+            return .today
+        } else {
+            print(#fileID, #function, #line, "- Error: Can not calculate a time position(past/today/future).")
+            return .none
         }
     }
     

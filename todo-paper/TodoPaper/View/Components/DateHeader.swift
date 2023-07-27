@@ -28,7 +28,8 @@ struct DateHeader: View {
                 // 오늘로 이동 버튼
                 Button {
                     todoViewModel.searchDate = todoViewModel.setSearchDate(date: Date())
-                    todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date())
+//                    todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date())
+                    todoViewModel.scrollTargetDate = Calendar.current.date(byAdding: .second, value: 1, to: todoViewModel.searchDate) ?? Date() // 더 좋은 방법 없을까..?
                     todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
                 } label: {
                     Text("오늘")
@@ -65,11 +66,6 @@ struct DateHeader: View {
                             DateCell(todoViewModel: todoViewModel, date: date)
                                 .id(date)
                         }
-                        .onChange(of: todoViewModel.scrollTargetDate) { newTarget in
-                            withAnimation {
-                                proxy.scrollTo(newTarget, anchor: .center)
-                            }
-                        }
                         .onAppear {
                             withAnimation {
                                 proxy.scrollTo(todoViewModel.scrollTargetDate, anchor: .center)
@@ -93,6 +89,12 @@ struct DateHeader: View {
                                         after: todoViewModel.datesInMonth.last!
                                     ))
                             }
+                        }
+                    }
+                    .onChange(of: todoViewModel.scrollTargetDate) { newTarget in
+                        todoViewModel.scrollTargetDate = Calendar.current.startOfDay(for: todoViewModel.scrollTargetDate) // 더 좋은 방법 없을까..?
+                        withAnimation {
+                            proxy.scrollTo(newTarget, anchor: .center)
                         }
                     }
                 } //ScrollView

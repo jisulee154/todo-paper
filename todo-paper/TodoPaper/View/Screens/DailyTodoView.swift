@@ -103,7 +103,7 @@ struct DailyTodoView: View {
         }
         .onAppear {
             todoViewModel.searchDate = todoViewModel.setSearchDate(date: Date())
-            todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date())
+            //todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date())
             todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
             
             if todoViewModel.canShowOldTodos() {
