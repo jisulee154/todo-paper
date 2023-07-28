@@ -14,6 +14,8 @@
 		413651602A6A3EBB006C6361 /* TodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4136515F2A6A3EBB006C6361 /* TodoViewModel.swift */; };
 		413913372A702EEB007EFFF2 /* ScrollViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913362A702EEB007EFFF2 /* ScrollViewModel.swift */; };
 		4139135C2A716980007EFFF2 /* Introspect in Frameworks */ = {isa = PBXBuildFile; productRef = 4139135B2A716980007EFFF2 /* Introspect */; };
+		4139135E2A72A4EA007EFFF2 /* DetailTodoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4139135D2A72A4EA007EFFF2 /* DetailTodoViewModel.swift */; };
+		413913602A72A80F007EFFF2 /* DetailTodoViewSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4139135F2A72A80F007EFFF2 /* DetailTodoViewSheet.swift */; };
 		417394AD2A6652C000205292 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394AC2A6652C000205292 /* DateHeader.swift */; };
 		417394BB2A66876900205292 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394BA2A66876900205292 /* DateCell.swift */; };
 		41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */; };
@@ -37,6 +39,8 @@
 		4136515C2A6A1F04006C6361 /* Item+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Item+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		4136515F2A6A3EBB006C6361 /* TodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoViewModel.swift; sourceTree = "<group>"; };
 		413913362A702EEB007EFFF2 /* ScrollViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrollViewModel.swift; sourceTree = "<group>"; };
+		4139135D2A72A4EA007EFFF2 /* DetailTodoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTodoViewModel.swift; sourceTree = "<group>"; };
+		4139135F2A72A80F007EFFF2 /* DetailTodoViewSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTodoViewSheet.swift; sourceTree = "<group>"; };
 		416C2D3F2A6822A500F06242 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		416C2D412A6822B100F06242 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		417394AC2A6652C000205292 /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
@@ -78,6 +82,7 @@
 			children = (
 				4136515F2A6A3EBB006C6361 /* TodoViewModel.swift */,
 				413913362A702EEB007EFFF2 /* ScrollViewModel.swift */,
+				4139135D2A72A4EA007EFFF2 /* DetailTodoViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -171,10 +176,11 @@
 		41E1DC7F2A5EF0A5005A5EAA /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				41E1DC742A5DCD95005A5EAA /* TodoItemRow.swift */,
-				413045112A625AB20070F927 /* FloatingFooter.swift */,
 				417394AC2A6652C000205292 /* DateHeader.swift */,
 				417394BA2A66876900205292 /* DateCell.swift */,
+				413045112A625AB20070F927 /* FloatingFooter.swift */,
+				41E1DC742A5DCD95005A5EAA /* TodoItemRow.swift */,
+				4139135F2A72A80F007EFFF2 /* DetailTodoViewSheet.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -288,12 +294,14 @@
 				413651602A6A3EBB006C6361 /* TodoViewModel.swift in Sources */,
 				413045122A625AB20070F927 /* FloatingFooter.swift in Sources */,
 				41E1DC412A58277B005A5EAA /* DailyTodoView.swift in Sources */,
+				4139135E2A72A4EA007EFFF2 /* DetailTodoViewModel.swift in Sources */,
 				41E1DC732A5DC427005A5EAA /* TodoItem.swift in Sources */,
 				413913372A702EEB007EFFF2 /* ScrollViewModel.swift in Sources */,
 				41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */,
 				417394AD2A6652C000205292 /* DateHeader.swift in Sources */,
 				4124E8F02A6BF0ED0045E220 /* MappingModelV1ToV4.xcmappingmodel in Sources */,
 				41E1DC792A5EA161005A5EAA /* Extension.swift in Sources */,
+				413913602A72A80F007EFFF2 /* DetailTodoViewSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

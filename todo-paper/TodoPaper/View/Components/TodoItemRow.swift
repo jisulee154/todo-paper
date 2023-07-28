@@ -15,14 +15,22 @@ enum TodoItemRowType {
 
 struct TodoItemRow: View {
     @ObservedObject var todoViewModel: TodoViewModel
-//    @State var isPressed: Bool = false
+    @ObservedObject var detailTodoViewModel: DetailTodoViewModel
+    
+    //    @State var isPressed: Bool = false
     var todoItem: TodoItem
     var todoItemRowType: TodoItemRowType
     
-    init(with newTodo: TodoItem, todoViewModel: TodoViewModel, todoItemRowType:TodoItemRowType = TodoItemRowType.today) {
+    init(with newTodo: TodoItem,
+         todoViewModel: TodoViewModel,
+         todoItemRowType:TodoItemRowType = TodoItemRowType.today,
+         detailTodoViewModel: DetailTodoViewModel
+    ) {
         self.todoItem = newTodo
         self.todoItemRowType = todoItemRowType
         self.todoViewModel = todoViewModel
+        self.detailTodoViewModel = detailTodoViewModel
+        
     }
     
     var body: some View {
@@ -80,20 +88,65 @@ struct TodoItemRow: View {
                         Text(todoItem.title)
                         Spacer()
                     }
-                        
+                    
                 }
             }
             
             Spacer()
-            Image(systemName: "ellipsis")
+            Button {
+                
+            } label: {
+                Image(systemName: "ellipsis")
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 20)
+            .background(Color.yellow)
+            .onTapGesture {
+//                todoViewModel.timePosition = todoViewModel.getTimePosition(of: todoViewModel.searchDate)
+                detailTodoViewModel.timePosition = detailTodoViewModel.getTimePosition(of: todoViewModel.searchDate)
+                detailTodoViewModel.isDetailSheetShowing.toggle()
+            }
             
         }
         .foregroundColor(.themeColor40)
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
         .contentShape(Rectangle())
-        .onTapGesture {
-            print("touched Item \(todoItem.title)")
-        }
+        //        .onTapGesture {
+        //            print("touched Item \(todoItem.title)")
+        //        }
     }
 }
+
+//struct TodoDetail: View{
+//    @ObservedObject var todoViewModel: TodoViewModel
+//    @State private var isShowing: Bool = false
+//
+//    init(todoViewModel: TodoViewModel) {
+//        self.todoViewModel = todoViewModel
+//    }
+//
+//    var body: some View {
+//        HStack {
+//            Button {
+//
+//            } label: {
+//                Image(systemName: "ellipsis")
+//            }
+//            .padding(.horizontal, 20)
+//            .padding(.vertical, 20)
+//            .background(Color.yellow)
+//            .onTapGesture {
+//                todoViewModel.timePosition = todoViewModel.getTimePosition(of: todoViewModel.searchDate)
+//
+////                    isShowing.toggle()
+//            }
+//            //                .sheet(isPresented: $isShowing) {
+//            //                    //pass
+//            //                }
+//
+//
+//        }
+//    }
+//}
+

@@ -16,6 +16,7 @@ struct DailyTodoView: View {
     //    @StateObject var todayTodoViewModel: TodoViewModel = TodoViewModel()
     //    @StateObject var previousTodoViewModel: TodoViewModel = TodoViewModel()
     @StateObject var todoViewModel: TodoViewModel = TodoViewModel()
+    @StateObject var detailTodoViewModel: DetailTodoViewModel = DetailTodoViewModel()
     
     //MARK: - View
     var body: some View {
@@ -35,7 +36,8 @@ struct DailyTodoView: View {
                                                                status: todo.status,
                                                                section: todo.section),
                                                 todoViewModel: todoViewModel,
-                                                todoItemRowType: TodoItemRowType.today)
+                                                todoItemRowType: TodoItemRowType.today,
+                                                detailTodoViewModel: detailTodoViewModel)
                                     
                                 }
                             }
@@ -53,12 +55,13 @@ struct DailyTodoView: View {
                                     ForEach(todoViewModel.oldTodos) { todo in
                                         
                                         TodoItemRow(with: TodoItem(uuid: todo.uuid,
-                                                                      title: todo.title,
-                                                                      duedate: todo.duedate,
-                                                                      status: todo.status,
-                                                                      section: todo.section),
+                                                                   title: todo.title,
+                                                                   duedate: todo.duedate,
+                                                                   status: todo.status,
+                                                                   section: todo.section),
                                                     todoViewModel: todoViewModel,
-                                                    todoItemRowType: TodoItemRowType.old)
+                                                    todoItemRowType: TodoItemRowType.old,
+                                                    detailTodoViewModel: detailTodoViewModel)
                                         
                                         Divider()
                                     }
@@ -98,17 +101,26 @@ struct DailyTodoView: View {
                     todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
                 }
             }
+            .onAppear {
+                todoViewModel.searchDate = todoViewModel.setSearchDate(date: Date())
+                //todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date())
+                todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
+                
+                if todoViewModel.canShowOldTodos() {
+                    todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
+                }
+            }
+            
+            
             //MARK: - Make New Todo Button & Complete Sticker
             FloatingFooter(todoViewModel: todoViewModel)
-        }
-        .onAppear {
-            todoViewModel.searchDate = todoViewModel.setSearchDate(date: Date())
-            //todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date())
-            todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
             
-            if todoViewModel.canShowOldTodos() {
-                todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
+            
+            //MARK: - 투두 개별 상세 설정 시트(하단에서 올라옴)
+            DetailTodoViewSheet(detailTodoViewModel: detailTodoViewModel, maxHeight: UIScreen.main.bounds.size.height / 1.8) {
+                Color.blue
             }
+            .edgesIgnoringSafeArea(.all)
         }
     }
 }

@@ -52,6 +52,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     @Published var completeSticker: CompleteStickerStatus = CompleteStickerStatus.none
     @Published var scrollTargetDate: Date = Date()
     @Published var delayedDays: Int? = 0
+//    @Published var timePosition: TimePosition = .today
     
     init() {
         self.todos = fetchTodos()
@@ -61,6 +62,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         self.completeSticker = setCompleteSticker(with: "")
         self.scrollTargetDate = setScrollTargetDate(with: Date())
         self.delayedDays = getDelayedDays(with: Calendar.current.startOfDay(for: Date()))
+//        self.timePosition = getTimePosition(of: Date())
     }
     
     
@@ -156,21 +158,21 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         }
     }
     
-    func getTimePosition(of date: Date) -> TimePosition {
-        let startOfToday = Calendar.current.startOfDay(for: Date()) ?? Date()
-        let startOfTomorrow = Calendar.current.date(byAdding: .day, value: 1, to: startOfToday) ?? Date()
-        
-        if date < startOfToday {
-            return .past
-        } else if date >= startOfTomorrow {
-            return .future
-        } else if (date >= startOfToday) && (date < startOfTomorrow) {
-            return .today
-        } else {
-            print(#fileID, #function, #line, "- Error: Can not calculate a time position(past/today/future).")
-            return .none
-        }
-    }
+//    func getTimePosition(of date: Date) -> TimePosition {
+//        let startOfToday = Calendar.current.startOfDay(for: Date()) ?? Date()
+//        let startOfTomorrow = Calendar.current.date(byAdding: .day, value: 1, to: startOfToday) ?? Date()
+//
+//        if date < startOfToday {
+//            return .past
+//        } else if date >= startOfTomorrow {
+//            return .future
+//        } else if (date >= startOfToday) && (date < startOfTomorrow) {
+//            return .today
+//        } else {
+//            print(#fileID, #function, #line, "- Error: Can not calculate a time position(past/today/future).")
+//            return .none
+//        }
+//    }
     
     //MARK: - Core Data 관련
     func fetchTodos() -> [TodoItem] {

@@ -21,6 +21,9 @@ struct FloatingFooter: View{
     @State var isSheetPresented = false
     @ObservedObject var todoViewModel: TodoViewModel
     
+//    var enterTitle: (String) -> Void
+//    var togglePresented: (Bool) -> Void
+    
     var body: some View {
         VStack {
             Spacer()
@@ -54,10 +57,7 @@ struct FloatingFooter: View{
                     
                 }
                 .sheet(isPresented: $isSheetPresented, onDismiss: didDismiss) {
-                    VStack {
-                        TextField("새로운 할일을 입력해주세요.", text: $newTitle)
-                        Button("Dismiss", action: { isSheetPresented.toggle() })
-                    }
+                    AddATodoSheet(newTitle: $newTitle, isSheetPresented: $isSheetPresented)
                 }
                 Spacer()
                     .frame(width: 0, height: 10)
@@ -68,7 +68,6 @@ struct FloatingFooter: View{
     func didDismiss() {
         newTodo.uuid = UUID()
         newTodo.duedate = todoViewModel.searchDate
-        print(#fileID, #function, #line, "-추가하려는 날짜: \(newTodo.duedate)")
         newTodo.status = TodoStatus.none
         newTodo.section = "Today"
         if newTitle != "" {
@@ -83,5 +82,25 @@ struct FloatingFooter: View{
         }
         
         newTitle = "" // 초기화
+    }
+}
+
+//MARK: - 새로운 투두 추가 Sheet
+struct AddATodoSheet: View {
+//    var enteredTitle: (String) -> Void
+//    var togglePresented: (Bool) -> Void
+//    let text: String
+//    let isSheetPresented: Bool
+    @Binding var newTitle: String
+    @Binding var isSheetPresented: Bool
+                        
+    var body: some View{
+        VStack {
+            TextField("새로운 할일을 입력해주세요.", text: $newTitle)
+//            TextField("새로운 할일을 입력해주세요.", text: enteredTitle(text))
+            Button("Dismiss", action: { isSheetPresented.toggle() })
+//            Button("Dismiss", action: { togglePresented(isSheetPresented.toggle()) })
+        }
+
     }
 }
