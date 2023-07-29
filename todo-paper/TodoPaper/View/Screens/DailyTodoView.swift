@@ -118,13 +118,65 @@ struct DailyTodoView: View {
             
             //MARK: - 투두 개별 상세 설정 시트(하단에서 올라옴)
             DetailTodoViewSheet(detailTodoViewModel: detailTodoViewModel, maxHeight: UIScreen.main.bounds.size.height / 1.8) {
-                Color.blue
+//                Color.blue
+                switch (detailTodoViewModel.timePosition) {
+                case .past:
+                    DetailTodoOfPast()
+                case .today:
+                    DetailTodoOfToday()
+                case .future:
+                    DetailTodoOfFuture()
+                case .none:
+                    Text("Time Position Error.")
+                }
             }
             .edgesIgnoringSafeArea(.all)
         }
     }
 }
 
+//MARK: - 상세 설정 시트
+struct DetailTodoOfPast: View {
+    var body: some View {
+        VStack {
+            HStack {
+                Text("상세 설정")
+                Spacer()
+                Button {
+                    //action
+                } label: {
+                    Image(systemName: "xmark")
+                }
+            }
+            
+            Button {
+                //action
+            } label: {
+                Text("날짜 변경")
+            }
+            
+            Button {
+                //action
+            } label: {
+                Text("오늘 하기")
+            }
+        }
+        .padding(.horizontal, 20)
+        .padding(.vertical, 50)
+    }
+}
+
+struct DetailTodoOfToday: View {
+    var body: some View {
+        Text("today")
+    }
+}
+
+struct DetailTodoOfFuture: View {
+    var body: some View {
+        Text("future")
+    }
+}
 
 struct DailyTodoView_Previews: PreviewProvider {
     static var previews: some View {

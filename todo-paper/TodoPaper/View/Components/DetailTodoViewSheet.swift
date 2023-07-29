@@ -44,16 +44,18 @@ struct DetailTodoViewSheet<Content: View>: View {
                 }
             }
             .frame(width: geometry.size.width,
-                   height: self.maxHeight
-                   )
+                   height: self.maxHeight)
+            .background(Color.white)
             .cornerRadius(35)
+            .overlay {
+                RoundedRectangle(cornerRadius: 35)
+                    .stroke(Color.themeColor40, lineWidth: 1)
+            }
+            //정녕 이 방법밖에 없는 걸까...?
             .frame(height: geometry.size.height, alignment: .bottom)
             .offset(y: self.offset)
             .animation(.easeOut, value: detailTodoViewModel.isDetailSheetShowing)
         }
     }
-    //        .animation(.easeOut, value: <#T##V#>)
-    
-    //        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
 }
 

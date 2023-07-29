@@ -35,15 +35,18 @@ struct DateHeader: View {
                     Text("오늘")
                         .padding(.horizontal, 20)
                         .padding(.vertical, 5)
-                        .foregroundColor(Color.white)
-                        .background(
+                        .background(.clear)
+                        .foregroundColor(.themeColor40)
+                        .overlay {
                             RoundedRectangle(cornerRadius: 15)
-                                .foregroundColor(Color.themeColor40)
-                        )
+                                .stroke(Color.themeColor40, lineWidth: 1)
+                        }
                 }
                 .padding(.horizontal, 20)
-                .padding(.vertical, 5)
+                .padding(.vertical, 1)
+                
                 Spacer()
+                
                 // 앱 환경 설정 버튼
                 Button {
                     // action
@@ -92,7 +95,8 @@ struct DateHeader: View {
                         }
                     }
                     .onChange(of: todoViewModel.scrollTargetDate) { newTarget in
-                        todoViewModel.scrollTargetDate = Calendar.current.startOfDay(for: todoViewModel.scrollTargetDate) // 더 좋은 방법 없을까..?
+                        todoViewModel.scrollTargetDate = Calendar.current.startOfDay(for: todoViewModel.scrollTargetDate)
+                        // 더 좋은 방법 없을까..?
                         withAnimation {
                             proxy.scrollTo(newTarget, anchor: .center)
                         }

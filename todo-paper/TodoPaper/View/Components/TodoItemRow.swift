@@ -100,9 +100,7 @@ struct TodoItemRow: View {
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 20)
-            .background(Color.yellow)
             .onTapGesture {
-//                todoViewModel.timePosition = todoViewModel.getTimePosition(of: todoViewModel.searchDate)
                 detailTodoViewModel.timePosition = detailTodoViewModel.getTimePosition(of: todoViewModel.searchDate)
                 detailTodoViewModel.isDetailSheetShowing.toggle()
             }
