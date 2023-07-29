@@ -45,7 +45,7 @@ struct DetailTodoViewSheet<Content: View>: View {
             }
             .frame(width: geometry.size.width,
                    height: self.maxHeight)
-            .background(Color.white)
+            .background(Color.themeColor10)
             .cornerRadius(35)
             .overlay {
                 RoundedRectangle(cornerRadius: 35)

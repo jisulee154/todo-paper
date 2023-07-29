@@ -10,6 +10,8 @@ import Foundation
 class DetailTodoViewModel: ObservableObject {
     @Published var isDetailSheetShowing: Bool = false
     @Published var timePosition: TimePosition = .today
+    @Published var isDatePickerShowing: Bool = false
+    @Published var pickedDate: Date = Date()
     
     func getTimePosition(of date: Date) -> TimePosition {
         let startOfToday = Calendar.current.startOfDay(for: Date()) ?? Date()
