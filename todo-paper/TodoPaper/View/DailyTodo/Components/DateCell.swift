@@ -5,7 +5,6 @@
 //  Created by 이지수 on 2023/07/18.
 //
 
-import Foundation
 import SwiftUI
 
 struct DateCell: View {

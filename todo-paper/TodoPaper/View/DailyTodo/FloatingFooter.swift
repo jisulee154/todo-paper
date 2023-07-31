@@ -6,26 +6,17 @@
 //
 
 import SwiftUI
+import BottomSheetSwiftUI
 
 struct FloatingFooter: View{
-//    @Environment(\.managedObjectContext) private var viewContext
-    
-//    @FetchRequest(
-//        entity: Item.entity(),
-//        sortDescriptors: [NSSortDescriptor(keyPath: \Item.id, ascending: true)],
-//        animation: .default)
-//    private var items: FetchedResults<Item>
-    
-    @State var newTodo: TodoItem = TodoItem(title: "")
-    @State var newTitle: String = ""
-    @State var isSheetPresented = false
+//    @State var newTodo: TodoItem = TodoItem(title: "")
+//    @State var newTitle: String = ""
     @ObservedObject var todoViewModel: TodoViewModel
-    
-//    var enterTitle: (String) -> Void
-//    var togglePresented: (Bool) -> Void
+    @ObservedObject var detailTodoViewModel: DetailTodoViewModel
     
     var body: some View {
         VStack {
+//            makeAddTodoBottomSheet()
             Spacer()
             HStack (spacing: 10) {
                 Spacer()
@@ -43,7 +34,7 @@ struct FloatingFooter: View{
                         .padding(.bottom, 20)
                 }
                 Button(action: {
-                    isSheetPresented.toggle()
+                    detailTodoViewModel.addTodoBottomSheetPosition = .relative(0.7)
                 }) {
                     Image(systemName: "plus")
                         .resizable()
@@ -56,51 +47,69 @@ struct FloatingFooter: View{
                         .padding(.trailing, 20)
                     
                 }
-                .sheet(isPresented: $isSheetPresented, onDismiss: didDismiss) {
-                    AddATodoSheet(newTitle: $newTitle, isSheetPresented: $isSheetPresented)
-                }
-                Spacer()
-                    .frame(width: 0, height: 10)
             }
         }
     }
     
-    func didDismiss() {
-        newTodo.uuid = UUID()
-        newTodo.duedate = todoViewModel.searchDate
-        newTodo.status = TodoStatus.none
-        newTodo.section = "Today"
-        if newTitle != "" {
-            newTodo.title = newTitle
-            todoViewModel.todos = todoViewModel.addATodo(
-                TodoItem(uuid: newTodo.uuid,
-                         title: newTodo.title,
-                         duedate: newTodo.duedate,
-                         status: newTodo.status,
-                         section: newTodo.section)
-            )
-        }
-        
-        newTitle = "" // 초기화
-    }
+//    private func makeAddTodoBottomSheet() -> some View {
+//        Color.clear
+//            .bottomSheet(bottomSheetPosition: $detailTodoViewModel.addTodoBottomSheetPosition,
+//                         switchablePositions:[.dynamicBottom,.relative(0.7)],
+//                         headerContent: {
+//                Text("새로운 투두")
+//                    .font(.title)
+//            }) {
+//                VStack {
+//                    TextField("새로운 할일을 입력해주세요.", text: $newTitle)
+//                    Button {
+//                        newTodo.uuid = UUID()
+//                        newTodo.duedate = todoViewModel.searchDate
+//                        newTodo.status = TodoStatus.none
+//                        newTodo.section = "Today"
+//                        if newTitle != "" {
+//                            newTodo.title = newTitle
+//                            todoViewModel.todos = todoViewModel.addATodo(
+//                                TodoItem(uuid: newTodo.uuid,
+//                                         title: newTodo.title,
+//                                         duedate: newTodo.duedate,
+//                                         status: newTodo.status,
+//                                         section: newTodo.section)
+//                            )
+//                        }
+//                        
+//                        newTitle = "" // 초기화
+//                        
+//                        detailTodoViewModel.addTodoBottomSheetPosition = .hidden
+//                    } label: {
+//                        Text("완료")
+//                    }
+//                    .buttonStyle(SettingButtonStyle())
+//                    .padding(.horizontal, 30)
+//                    .padding(.vertical, 20)
+//                }
+//            }
+//            .showCloseButton()
+//            .enableSwipeToDismiss()
+//            .enableTapToDismiss()
+//    }
 }
 
-//MARK: - 새로운 투두 추가 Sheet
-struct AddATodoSheet: View {
-//    var enteredTitle: (String) -> Void
-//    var togglePresented: (Bool) -> Void
-//    let text: String
-//    let isSheetPresented: Bool
-    @Binding var newTitle: String
-    @Binding var isSheetPresented: Bool
-                        
-    var body: some View{
-        VStack {
-            TextField("새로운 할일을 입력해주세요.", text: $newTitle)
-//            TextField("새로운 할일을 입력해주세요.", text: enteredTitle(text))
-            Button("Dismiss", action: { isSheetPresented.toggle() })
-//            Button("Dismiss", action: { togglePresented(isSheetPresented.toggle()) })
-        }
-
-    }
-}
+////MARK: - 새로운 투두 추가 Sheet
+//struct AddATodoSheet: View {
+////    var enteredTitle: (String) -> Void
+////    var togglePresented: (Bool) -> Void
+////    let text: String
+////    let isSheetPresented: Bool
+//    @Binding var newTitle: String
+//    @Binding var isSheetPresented: Bool
+//
+//    var body: some View{
+//        VStack {
+//            TextField("새로운 할일을 입력해주세요.", text: $newTitle)
+////            TextField("새로운 할일을 입력해주세요.", text: enteredTitle(text))
+//            Button("Dismiss", action: { isSheetPresented.toggle() })
+////            Button("Dismiss", action: { togglePresented(isSheetPresented.toggle()) })
+//        }
+//
+//    }
+//}

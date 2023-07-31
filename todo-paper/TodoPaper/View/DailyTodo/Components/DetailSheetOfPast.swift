@@ -5,7 +5,6 @@
 //  Created by 이지수 on 2023/07/31.
 //
 
-import Foundation
 import SwiftUI
 import BottomSheetSwiftUI
 
@@ -19,16 +18,18 @@ struct DetailSheetOfPast: View {
     
     var body: some View {
         Color.clear
-            .bottomSheet(bottomSheetPosition: $detailTodoViewModel.bottomSheetPosition,
-                         switchablePositions:[.dynamicBottom,.relative(0.6)],
+            .bottomSheet(bottomSheetPosition: $detailTodoViewModel.settingBottomSheetPosition,
+                         switchablePositions:[.dynamicBottom,.relative(0.7)],
                          headerContent: {
                 Text("상세 설정")
                     .font(.title)
             }) {
                 VStack (spacing: 10) {
                     Button {
-                        detailTodoViewModel.isDetailSheetShowing.toggle()
-                        detailTodoViewModel.isDatePickerShowing.toggle()
+//                        detailTodoViewModel.isDetailSheetShowing.toggle()
+//                        detailTodoViewModel.isDatePickerShowing.toggle()
+                        detailTodoViewModel.settingBottomSheetPosition = .hidden
+                        detailTodoViewModel.datePickerBottomSheetPosition = .relative(0.7)
                     } label: {
                         Text("다른날 하기")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)
@@ -37,7 +38,7 @@ struct DetailSheetOfPast: View {
                     .buttonStyle(SettingButtonStyle())
                     
                     Button {
-                        //action
+                        detailTodoViewModel.settingBottomSheetPosition = .hidden
                     } label: {
                         Text("오늘 하기")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)
