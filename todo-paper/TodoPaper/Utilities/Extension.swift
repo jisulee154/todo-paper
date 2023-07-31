@@ -17,17 +17,6 @@ extension Color {
 
 extension Date {
     func daysThisMonth() -> Int? {
-//        // 2023-06-30 지난달 마지막 날
-//        let components = Calendar.current.dateComponents([.year, .month], from: self)
-//        let lastDate = DateComponents(year: components.year, month:components.month)
-//
-//        // 2023-07-31 이번달 마지막 날
-//        let lastDateThisMonth = Calendar.current.date(byAdding: .month, value: +1, to: Calendar.current.date(from: lastDate)!)
-//        lastDateThisMonth.
-//        let lastDateComponents = Calendar.current.dateComponents([.day, .year, .month], from: lastDateThisMonth!)
-//        let days = lastDateComponents.day!
-//        return days
-        
         return Calendar.current.range(of: .day, in: .month, for: self)?.count ?? 0
         
     }
@@ -38,5 +27,58 @@ extension Image {
         self
             .resizable()
             .frame(width: 30, height: 30)
+    }
+}
+
+struct PressableButtonStyle: ButtonStyle {
+    let scaledAmount: CGFloat
+    
+    init(scaledAmount: CGFloat = 0.1) {
+        self.scaledAmount = scaledAmount
+    }
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .background(configuration.isPressed ? Color.themeColor40 : Color.clear)
+            .cornerRadius(15)
+            .foregroundColor(configuration.isPressed ? .white : Color.themeColor40)
+    }
+}
+
+struct SettingButtonStyle: ButtonStyle {
+    let scaledAmount: CGFloat
+    
+    init(scaledAmount: CGFloat = 0.1) {
+        self.scaledAmount = scaledAmount
+    }
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(configuration.isPressed ? .white : Color.themeColor40)
+            .overlay {
+                Capsule()
+                    .stroke(Color.themeColor40, lineWidth: 1)
+            }
+            .background(configuration.isPressed ? Color.themeColor40 : Color.clear)
+            .cornerRadius(35)
+    }
+}
+
+struct DeleteButtonStyle: ButtonStyle {
+    let scaledAmount: CGFloat
+    
+    init(scaledAmount: CGFloat = 0.1) {
+        self.scaledAmount = scaledAmount
+    }
+    
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .foregroundColor(configuration.isPressed ? .white : .red)
+            .overlay {
+                Capsule()
+                    .stroke(.red, lineWidth: 1)
+            }
+            .background(configuration.isPressed ? .red.opacity(0.3) : .clear)
+            .cornerRadius(35)
     }
 }

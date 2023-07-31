@@ -55,150 +55,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "08EEF032-24D5-4AF1-85F9-1344A14EFF63"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "todo-paper/TodoPaper/Utilities/Extension.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "28"
-            endingLineNumber = "28"
-            landmarkName = "daysThisMonth()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "08EEF032-24D5-4AF1-85F9-1344A14EFF63 - 7d1e88bee66a279c"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Foundation.Date.daysThisMonth() -&gt; Swift.Optional&lt;Swift.Int&gt;"
-                  moduleName = "todo-paper"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/Utilities/Extension.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "27"
-                  endingLineNumber = "27"
-                  offsetFromSymbolStart = "2296">
-               </Location>
-               <Location
-                  uuid = "08EEF032-24D5-4AF1-85F9-1344A14EFF63 - 7d1e88bee66a2718"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Foundation.Date.daysThisMonth() -&gt; Swift.Optional&lt;Swift.Int&gt;"
-                  moduleName = "todo-paper"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/Utilities/Extension.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "31"
-                  endingLineNumber = "31"
-                  offsetFromSymbolStart = "172">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "EAE206E3-7029-44EA-8964-1DF5F5D2FA9A"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "todo-paper/TodoPaper/Utilities/Extension.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "27"
-            endingLineNumber = "27"
-            landmarkName = "daysThisMonth()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "EAE206E3-7029-44EA-8964-1DF5F5D2FA9A - 7d1e88bee66a27c3"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Foundation.Date.daysThisMonth() -&gt; Swift.Optional&lt;Swift.Int&gt;"
-                  moduleName = "todo-paper"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/Utilities/Extension.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "26"
-                  endingLineNumber = "26"
-                  offsetFromSymbolStart = "1796">
-               </Location>
-               <Location
-                  uuid = "EAE206E3-7029-44EA-8964-1DF5F5D2FA9A - 7d1e88bee66a2718"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Foundation.Date.daysThisMonth() -&gt; Swift.Optional&lt;Swift.Int&gt;"
-                  moduleName = "todo-paper"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/Utilities/Extension.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "31"
-                  endingLineNumber = "31"
-                  offsetFromSymbolStart = "172">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1E137489-A0A2-48EA-8C20-5E13B3410252"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "todo-paper/TodoPaper/Utilities/Extension.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "daysThisMonth()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1E137489-A0A2-48EA-8C20-5E13B3410252 - 7d1e88bee66a2622"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Foundation.Date.daysThisMonth() -&gt; Swift.Optional&lt;Swift.Int&gt;"
-                  moduleName = "todo-paper"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/Utilities/Extension.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "25"
-                  endingLineNumber = "25"
-                  offsetFromSymbolStart = "1432">
-               </Location>
-               <Location
-                  uuid = "1E137489-A0A2-48EA-8C20-5E13B3410252 - 7d1e88bee66a2718"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Foundation.Date.daysThisMonth() -&gt; Swift.Optional&lt;Swift.Int&gt;"
-                  moduleName = "todo-paper"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/Utilities/Extension.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "31"
-                  endingLineNumber = "31"
-                  offsetFromSymbolStart = "172">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "851386B4-F404-4C2E-A678-55E43763E1B0"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -367,6 +223,54 @@
                   startingLineNumber = "33"
                   endingLineNumber = "33"
                   offsetFromSymbolStart = "324">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "005313AA-5206-4D3D-AA38-93A9BFEADF65"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "todo-paper/TodoPaper/View/Components/BottomSheet.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "005313AA-5206-4D3D-AA38-93A9BFEADF65 - f9872b62b4247ba0"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SwiftUI.GeometryProxy) -&gt; &lt;&lt;opaque return type of SwiftUI.View.animation&lt;&#x3c4;_0_0 where &#x3c4;_1_0: Swift.Equatable&gt;(_: Swift.Optional&lt;SwiftUI.Animation&gt;, value: &#x3c4;_1_0) -&gt; some&gt;&gt;.0 in todo_paper.BottomSheet.body.getter : some"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/View/Components/BottomSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "48"
+                  endingLineNumber = "48"
+                  offsetFromSymbolStart = "2668">
+               </Location>
+               <Location
+                  uuid = "005313AA-5206-4D3D-AA38-93A9BFEADF65 - 1c4b899461c9b1b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SwiftUI.GeometryProxy) -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in todo_paper.BottomSheet.body.getter : some"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/View/Components/BottomSheet.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "48"
+                  endingLineNumber = "48"
+                  offsetFromSymbolStart = "2832">
                </Location>
             </Locations>
          </BreakpointContent>

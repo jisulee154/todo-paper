@@ -34,7 +34,7 @@ struct FloatingFooter: View{
                 } label: {
                     Image(systemName: "medal")
                         .resizable()
-                        .frame(width: 70, height: 70)
+                        .frame(width: 40, height: 40)
                         .padding(.all, 10)
                         .foregroundColor(.white)
                         .background(Color.gray)
@@ -47,7 +47,7 @@ struct FloatingFooter: View{
                 }) {
                     Image(systemName: "plus")
                         .resizable()
-                        .frame(width: 65, height: 65)
+                        .frame(width: 40, height: 40)
                         .padding(.all, 10)
                         .foregroundColor(.white)
                         .background(Color.themeColor40)

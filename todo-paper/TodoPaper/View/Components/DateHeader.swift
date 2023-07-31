@@ -35,13 +35,13 @@ struct DateHeader: View {
                     Text("오늘")
                         .padding(.horizontal, 20)
                         .padding(.vertical, 5)
-                        .background(.clear)
-                        .foregroundColor(.themeColor40)
                         .overlay {
                             RoundedRectangle(cornerRadius: 15)
                                 .stroke(Color.themeColor40, lineWidth: 1)
                         }
+                        
                 }
+                .buttonStyle(PressableButtonStyle())
                 .padding(.horizontal, 20)
                 .padding(.vertical, 1)
                 
