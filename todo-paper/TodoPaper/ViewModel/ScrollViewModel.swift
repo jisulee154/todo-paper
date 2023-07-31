@@ -22,7 +22,6 @@ enum ScrollPosition {
 }
 
 class ScrollViewModel: NSObject, UIScrollViewDelegate, ObservableObject {
-    // ViewModel 역할
     @Published var isTrailingValue: Bool = false
     @Published var isLeadingValue: Bool = true
     

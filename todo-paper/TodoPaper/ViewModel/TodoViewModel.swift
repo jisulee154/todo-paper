@@ -328,7 +328,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     func getDelayedDays(with duedate: Date) -> Int? {
         var numberOfDays: DateComponents? = Calendar.current.dateComponents([.day], from: Date(), to: duedate)
         if let numberOfDays = numberOfDays {
-            return -numberOfDays.day! + 1
+            return -numberOfDays.day!
         } else {
             return nil
         }

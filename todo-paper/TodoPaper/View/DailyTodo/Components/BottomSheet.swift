@@ -87,7 +87,7 @@ struct DatePickerBottomSheet<Content: View>: View {
             }//정녕 이 방법밖에 없는 걸까...?
             .frame(height: geometry.size.height, alignment: .bottom)
             .offset(y: self.offset)
-            .animation(.easeOut(duration: 0.5).delay(3), value: detailTodoViewModel.isDatePickerShowing)
+            .animation(.easeOut, value: detailTodoViewModel.isDatePickerShowing)
         }
     }
 }

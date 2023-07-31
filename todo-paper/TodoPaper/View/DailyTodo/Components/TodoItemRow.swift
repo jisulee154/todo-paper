@@ -94,20 +94,26 @@ struct TodoItemRow: View {
             
             Spacer()
             Button {
+                print("detail button pressed")
+                detailTodoViewModel.timePosition = detailTodoViewModel.getTimePosition(of: todoViewModel.searchDate)
+                detailTodoViewModel.isDetailSheetShowing.toggle() /// isDetailSheetShowing true일 때 -> bottom sheet가 밑에서 올라오는 애니메이션과 함께 등장
+                /// isDetailSheetShowing false일 때 -> bottom sheet가 밑으로 내려가는 애니메이션과 함께 사라짐
                 
+                detailTodoViewModel.setPickedTodo(pickedTodo: todoItem)
             } label: {
                 Image(systemName: "ellipsis")
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 20)
-            .onTapGesture {
-                detailTodoViewModel.timePosition = detailTodoViewModel.getTimePosition(of: todoViewModel.searchDate)
-                detailTodoViewModel.isDetailSheetShowing.toggle() /// isDetailSheetShowing true일 때 -> bottom sheet가 밑에서 올라오는 애니메이션과 함께 등장
-                                                                  /// isDetailSheetShowing false일 때 -> bottom sheet가 밑으로 내려가는 애니메이션과 함께 사라짐
-            }
-            .onChange(of: detailTodoViewModel.isDetailSheetShowing) { newValue in
-                print("is detail sheet showing: ", newValue)
-            }
+//            .onTapGesture {
+//                print("detail button pressed")
+//                detailTodoViewModel.timePosition = detailTodoViewModel.getTimePosition(of: todoViewModel.searchDate)
+//                detailTodoViewModel.isDetailSheetShowing.toggle() /// isDetailSheetShowing true일 때 -> bottom sheet가 밑에서 올라오는 애니메이션과 함께 등장
+//                                                                  /// isDetailSheetShowing false일 때 -> bottom sheet가 밑으로 내려가는 애니메이션과 함께 사라짐
+//
+//                detailTodoViewModel.setPickedTodo(pickedTodo: todoItem)
+//            }
+            .background(Color.yellow)
             
         }
         .foregroundColor(.themeColor40)
