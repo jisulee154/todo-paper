@@ -9,6 +9,7 @@ import SwiftUI
 import CoreData
 import Combine
 import BottomSheetSwiftUI
+import AlertToast
 
 
 /// 일별 투두 보기 탭
@@ -29,12 +30,8 @@ struct DailyTodoView: View {
     var body: some View {
         ZStack {
             /// 날짜 선택 스크롤과 투두 리스트 목록
-            
             makeTodoList()
                 .zIndex(0)
-            
-            
-            
             
             /// 투두 생성, 스티커 생성 버튼
             makeAddButtonAndSticker()
@@ -67,6 +64,13 @@ struct DailyTodoView: View {
             /// - 투두 제목 수정 바텀 시트
             makeTitleEditBottomSheet()
                 .zIndex(5)
+        }
+        //MARK: - 토스트 메시지
+        .toast(isPresenting: $detailTodoViewModel.showDeletedToast) {
+            AlertToast(displayMode: .hud, type: .regular, title: "투두가 삭제되었습니다.")
+        }
+        .toast(isPresenting: $detailTodoViewModel.showPostponedToast) {
+            AlertToast(displayMode: .hud, type: .complete(.green), title: "내일도 같은 투두가 추가되었습니다.")
         }
     }
     

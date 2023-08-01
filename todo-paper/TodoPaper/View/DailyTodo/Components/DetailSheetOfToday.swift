@@ -75,6 +75,9 @@ struct DetailSheetOfToday: View {
                         todoViewModel.todos = todoViewModel.addATodo(
                             TodoItem(title: detailTodoViewModel.pickedTodo.title, duedate: tomorrow)
                         )
+                        
+                        // 실행 완료 토스트 메시지
+                        detailTodoViewModel.showPostponedToast.toggle()
                     } label: {
                         Text("내일 하기")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)
@@ -99,6 +102,9 @@ struct DetailSheetOfToday: View {
                         
                         // 선택된 투두 삭제하기
                         todoViewModel.todos = todoViewModel.deleteATodo(uuid: detailTodoViewModel.pickedTodo.uuid)
+                        
+                        // 삭제 토스트 메시지
+                        detailTodoViewModel.showDeletedToast.toggle()
                     } label: {
                         Text("삭제")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)

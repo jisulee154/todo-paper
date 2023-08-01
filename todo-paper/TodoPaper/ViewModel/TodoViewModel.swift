@@ -56,7 +56,6 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     @Published var completeSticker: CompleteStickerStatus = CompleteStickerStatus.none
     @Published var scrollTargetDate: Date = Date()
     @Published var delayedDays: Int? = 0
-//    @Published var timePosition: TimePosition = .today
     
     init() {
         self.todos = fetchTodos()

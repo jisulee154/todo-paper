@@ -6,6 +6,7 @@
 //
 
 import BottomSheetSwiftUI
+import AlertToast
 
 class DetailTodoViewModel: ObservableObject {
     @Published var timePosition: TimePosition = .today
@@ -18,6 +19,9 @@ class DetailTodoViewModel: ObservableObject {
     @Published var editBottomSheetPosition: BottomSheetPosition = .hidden
     
     @Published var editingTitle: String = "" // 투두 수정하기 텍스트필드 입력값
+    
+    @Published var showPostponedToast: Bool = false
+    @Published var showDeletedToast: Bool = false
     
     init(
         timePosition: TimePosition = .today,
