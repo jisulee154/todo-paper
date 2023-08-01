@@ -8,10 +8,6 @@
 import BottomSheetSwiftUI
 
 class DetailTodoViewModel: ObservableObject {
-//    @Published var isDetailSheetShowing: Bool = false
-//    @Published var isDatePickerShowing: Bool = false
-//    @Published var isEditBottomSheetShowing: Bool = false
-    
     @Published var timePosition: TimePosition = .today
     @Published var updatingDate: Date = Date()
     @Published var pickedTodo: TodoItem = TodoItem(title: "")
@@ -21,9 +17,9 @@ class DetailTodoViewModel: ObservableObject {
     @Published var datePickerBottomSheetPosition: BottomSheetPosition = .hidden
     @Published var editBottomSheetPosition: BottomSheetPosition = .hidden
     
-    init(//isDetailSheetShowing: Bool = false,
-//         isDatePickerShowing: Bool = false,
-//         isEditBottomSheetShowing: Bool = false,
+    @Published var editingTitle: String = "" // 투두 수정하기 텍스트필드 입력값
+    
+    init(
         timePosition: TimePosition = .today,
         updatingDate: Date = Date(),
         pickedTodo: TodoItem = TodoItem(title: ""),
@@ -32,10 +28,6 @@ class DetailTodoViewModel: ObservableObject {
         datePickerBottomSheetPosition: BottomSheetPosition = .hidden,
         editBottomSheetPosition: BottomSheetPosition = .hidden
     ) {
-            //        self.isDetailSheetShowing = isDetailSheetShowing
-            //        self.isDatePickerShowing = isDatePickerShowing
-            //        self.isEditBottomSheetShowing = isEditBottomSheetShowing
-            
         self.timePosition = timePosition
         self.updatingDate = updatingDate // Date Picker에서 선택한 날짜
         self.pickedTodo = pickedTodo

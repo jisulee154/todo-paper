@@ -22,7 +22,6 @@ struct DailyTodoView: View {
     @StateObject var detailTodoViewModel: DetailTodoViewModel = DetailTodoViewModel()
     
     /// BottomSheet 관련
-    @State var editingTitle: String = "" // 투두 수정하기 텍스트필드 입력값
     @State var newTodo: TodoItem = TodoItem(title: "")
     @State var newTitle: String = ""
     
@@ -30,8 +29,12 @@ struct DailyTodoView: View {
     var body: some View {
         ZStack {
             /// 날짜 선택 스크롤과 투두 리스트 목록
+            
             makeTodoList()
                 .zIndex(0)
+            
+            
+            
             
             /// 투두 생성, 스티커 생성 버튼
             makeAddButtonAndSticker()
@@ -64,7 +67,6 @@ struct DailyTodoView: View {
             /// - 투두 제목 수정 바텀 시트
             makeTitleEditBottomSheet()
                 .zIndex(5)
-            
         }
     }
     
@@ -75,54 +77,60 @@ struct DailyTodoView: View {
             DateHeader(todoViewModel: todoViewModel)
             
             if (todoViewModel.todos.count > 0) || (todoViewModel.oldTodos.count > 0) {
-                ///투두 목록 부분
-                List {
-                    Section("list") {
-                        VStack {
-                            ForEach(todoViewModel.todos) { todo in
-                                TodoItemRow(with: TodoItem(uuid: todo.uuid,
-                                                           title: todo.title,
-                                                           duedate: todo.duedate,
-                                                           status: todo.status,
-                                                           section: todo.section),
-                                            todoViewModel: todoViewModel,
-                                            todoItemRowType: TodoItemRowType.today,
-                                            detailTodoViewModel: detailTodoViewModel)
-                                Divider()
-                                
-                            }
-                        }
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color.themeColor40, lineWidth: 2)
-                        )
-                    } // Section - Today
-                    .listRowInsets(EdgeInsets.init())
-                    
-                    
-                    // 보여지는 일자가 오늘인 경우 기한이 지난 투두를 old 섹션에 출력한다.
-                    if todoViewModel.canShowOldTodos() {
-                        Section("old") {
+                VStack {
+                    ///투두 목록 부분
+                    List {
+                        Section("list") {
                             VStack {
-                                ForEach(todoViewModel.oldTodos) { todo in
+                                ForEach(todoViewModel.todos) { todo in
                                     TodoItemRow(with: TodoItem(uuid: todo.uuid,
                                                                title: todo.title,
                                                                duedate: todo.duedate,
                                                                status: todo.status,
                                                                section: todo.section),
                                                 todoViewModel: todoViewModel,
-                                                todoItemRowType: TodoItemRowType.old,
+                                                todoItemRowType: TodoItemRowType.today,
                                                 detailTodoViewModel: detailTodoViewModel)
-                                    
                                     Divider()
+                                    
                                 }
                             }
                             .overlay(
                                 RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color.themeColor40, lineWidth: 2)
                             )
-                        } // Section - Old
+                        } // Section - Today
                         .listRowInsets(EdgeInsets.init())
-                    }
-                } // List
+                        
+                        
+                        // 보여지는 일자가 오늘인 경우 기한이 지난 투두를 old 섹션에 출력한다.
+                        if todoViewModel.canShowOldTodos() {
+                            Section("old") {
+                                VStack {
+                                    ForEach(todoViewModel.oldTodos) { todo in
+                                        TodoItemRow(with: TodoItem(uuid: todo.uuid,
+                                                                   title: todo.title,
+                                                                   duedate: todo.duedate,
+                                                                   status: todo.status,
+                                                                   section: todo.section),
+                                                    todoViewModel: todoViewModel,
+                                                    todoItemRowType: TodoItemRowType.old,
+                                                    detailTodoViewModel: detailTodoViewModel)
+                                        
+                                        Divider()
+                                    }
+                                }
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color.themeColor40, lineWidth: 2)
+                                )
+                                
+                            } // Section - Old
+                            .listRowInsets(EdgeInsets.init())
+                        }
+                        
+                        Color.clear.frame(height:100)
+                            .listRowBackground(Color.clear)
+                    } // List
+                }
             } else {
                 // 해당 날짜의 투두가 없을 때
                 HStack {
@@ -177,10 +185,36 @@ struct DailyTodoView: View {
                     .font(.title)
                     .padding(.horizontal, 30)
                     .padding(.vertical, 20)
-                    
+                
             }) {
                 VStack {
-                    TextField("새로운 할일을 입력해주세요.", text: $newTitle)
+                    TextField("새로운 투두를 입력해주세요.", text: $newTitle)
+                        .padding()
+                        .frame(minWidth: 300, maxWidth: 1000, maxHeight: 50)
+                        .background(.white)
+                        .cornerRadius(10)
+                        .autocorrectionDisabled()
+                        .onSubmit {
+                            newTodo.uuid = UUID()
+                            newTodo.duedate = todoViewModel.searchDate
+                            newTodo.status = TodoStatus.none
+                            newTodo.section = "Today"
+                            if newTitle != "" {
+                                newTodo.title = newTitle
+                                todoViewModel.todos = todoViewModel.addATodo(
+                                    TodoItem(uuid: newTodo.uuid,
+                                             title: newTodo.title,
+                                             duedate: newTodo.duedate,
+                                             status: newTodo.status,
+                                             section: newTodo.section)
+                                )
+                            }
+                            
+                            newTitle = "" // 초기화
+                            
+                            detailTodoViewModel.addTodoBottomSheetPosition = .hidden
+                        }
+                        .padding(.bottom, 30)
                     Button {
                         newTodo.uuid = UUID()
                         newTodo.duedate = todoViewModel.searchDate
@@ -208,7 +242,7 @@ struct DailyTodoView: View {
                     .buttonStyle(SettingButtonStyle())
                 }
                 .padding(.horizontal, 30)
-                .padding(.vertical, 20)
+                .padding(.top, 20)
             }
             .showCloseButton()
             .enableSwipeToDismiss()
@@ -233,40 +267,40 @@ struct DailyTodoView: View {
         Color.clear
             .bottomSheet(bottomSheetPosition: $detailTodoViewModel.datePickerBottomSheetPosition,
                          switchablePositions:[.dynamicBottom,.relative(0.7)])
-            {
-                DatePicker(
-                    "date picker",
-                    selection: $detailTodoViewModel.updatingDate,
-                    in: Date()...,
-                    displayedComponents: [.date]
-                )
-                .frame(width: 320, alignment: .center)
-                .datePickerStyle(.graphical)
-                .background(Color.clear)
+        {
+            DatePicker(
+                "date picker",
+                selection: $detailTodoViewModel.updatingDate,
+                in: Date()...,
+                displayedComponents: [.date]
+            )
+            .frame(width: 320, alignment: .center)
+            .datePickerStyle(.graphical)
+            .background(Color.clear)
+            
+            Button {
+                let updatingDate = Calendar.current.startOfDay(for: detailTodoViewModel.updatingDate)
                 
-                Button {
-                    let updatingDate = Calendar.current.startOfDay(for: detailTodoViewModel.updatingDate)
-                    
-                    todoViewModel.todos = todoViewModel.updateATodo(
-                        updatingTodo: detailTodoViewModel.pickedTodo,
-                        title: nil,
-                        status: nil,
-                        duedate: updatingDate
-                    )
-//                    todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
-                    detailTodoViewModel.datePickerBottomSheetPosition = .hidden
-                } label: {
-                    Text("설정 완료")
-                        .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)
-                        .contentShape(Capsule())
-                }
-                .buttonStyle(SettingButtonStyle())
-                .padding(.horizontal, 30)
-                .padding(.vertical, 20)
+                todoViewModel.todos = todoViewModel.updateATodo(
+                    updatingTodo: detailTodoViewModel.pickedTodo,
+                    title: nil,
+                    status: nil,
+                    duedate: updatingDate
+                )
+                //                    todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
+                detailTodoViewModel.datePickerBottomSheetPosition = .hidden
+            } label: {
+                Text("설정 완료")
+                    .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)
+                    .contentShape(Capsule())
             }
-            .showCloseButton()
-            .enableSwipeToDismiss()
-            .enableTapToDismiss()
+            .buttonStyle(SettingButtonStyle())
+            .padding(.horizontal, 30)
+            .padding(.vertical, 20)
+        }
+        .showCloseButton()
+        .enableSwipeToDismiss()
+        .enableTapToDismiss()
     }
     
     //MARK: - 투두 제목 수정 바텀 시트
@@ -281,21 +315,48 @@ struct DailyTodoView: View {
                     Text("수정")
                         .font(.title)
                         .padding(.horizontal, 30)
-                        .padding(.vertical, 20)
-            }) {
-            VStack {
-                HStack {
-                    TextField(detailTodoViewModel.pickedTodo.title, text: self.$editingTitle)
-                        .padding()
+                        .padding(.top, 20)
+                }) {
+                    VStack {
+                        TextField("텍스트를 입력해주세요.", text: $detailTodoViewModel.editingTitle)
+                            .padding()
+                            .frame(minWidth: 300, maxWidth: 1000, maxHeight: 50)
+                            .background(.white)
+                            .cornerRadius(10)
+                            .autocorrectionDisabled()
+                            .onAppear {
+                                detailTodoViewModel.editingTitle = detailTodoViewModel.pickedTodo.title
+                            }
+                            .onSubmit {
+                                detailTodoViewModel.editBottomSheetPosition = .hidden
+                                todoViewModel.todos = todoViewModel.updateATodo(
+                                    updatingTodo: detailTodoViewModel.pickedTodo, title: detailTodoViewModel.editingTitle, status: nil, duedate: nil
+                                )
+                                //                            print("onSubmit: ", detailTodoViewModel.editingTitle)
+                            }
+                            .padding(.bottom, 30)
+                        
+                        Button {
+                            detailTodoViewModel.editBottomSheetPosition = .hidden
+                            todoViewModel.todos = todoViewModel.updateATodo(
+                                updatingTodo: detailTodoViewModel.pickedTodo, title: detailTodoViewModel.editingTitle, status: nil, duedate: nil
+                            )
+                            
+                            //                        print("수정완료 버튼 클릭: ", detailTodoViewModel.editingTitle)
+                        } label: {
+                            Text("완료")
+                                .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)
+                                .contentShape(Capsule())
+                        }
+                        .buttonStyle(SettingButtonStyle())
+                    }
+                    .padding(.horizontal, 30)
+                    .padding(.vertical, 20)
                 }
-                    Text("you entered: \(editingTitle)")
-                }
-                .padding(.horizontal, 30)
-                .padding(.vertical, 20)
-            }
-            .showCloseButton()
-            .enableSwipeToDismiss()
-            .enableTapToDismiss()
+                .showCloseButton()
+                .enableSwipeToDismiss()
+                .enableTapToDismiss()
+        
     }
     
     

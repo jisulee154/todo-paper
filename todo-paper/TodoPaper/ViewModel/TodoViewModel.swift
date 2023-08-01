@@ -22,8 +22,8 @@ enum CompleteStickerStatus: Int32 {
 }
 
 enum ScrollDirection: Int32 {
-    case prevMonth  = 0
-    case nextMonth  = 1
+    case prev  = 0
+    case next  = 1
 }
 
 protocol TodoItemProtocol {
@@ -47,7 +47,12 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     @Published var todos: [TodoItem] = []
     @Published var oldTodos: [TodoItem] = []
     @Published var searchDate: Date = Calendar.current.startOfDay(for: Date())
-    @Published var datesInMonth: [Date] = []
+    
+    let settingDatesSize: Int = 7 // 날짜 캘린더에 처음 출력되는 일자 수
+    let addingDatesSize: Int = 3 // 스크롤하면 더 불러오는 일자 수
+    @Published var defaultDates: [Date] = []
+    //    @Published var datesInMonth: [Date] = []
+    
     @Published var completeSticker: CompleteStickerStatus = CompleteStickerStatus.none
     @Published var scrollTargetDate: Date = Date()
     @Published var delayedDays: Int? = 0
@@ -57,7 +62,8 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         self.todos = fetchTodos()
         self.oldTodos = fetchOldTodos()
         self.searchDate = setSearchDate(date: Date())
-        self.datesInMonth = getDatesInAMonth()
+//        self.datesInMonth = getDatesInAMonth()
+        self.defaultDates = getDefaultDates(numDates: settingDatesSize)
         self.completeSticker = setCompleteSticker(with: "")
         self.scrollTargetDate = setScrollTargetDate(with: Date())
         self.delayedDays = getDelayedDays(with: Calendar.current.startOfDay(for: Date()))
@@ -79,80 +85,121 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     
     //MARK: - 캘린더 관련
     
-    /// 이전달이나 다음달의 날짜를 반환한다
+    /// 주어진 일자(numDates)만큼의 일자를 반환한다.
     /// - Parameters:
-    ///   - direction: 이전달/다음달 중 어떤 데이터가 필요한지 입력
-    ///   - lastDate: 현재 달의 첫날/마지막 날
-    /// - Returns: 이전달/다음달에 해당하는 날짜들 반환
-    func getDatesOnNextMonth(on direction: ScrollDirection, after lastDate: Date) -> [Date] {
-        var targetDate: Date
+    ///   - direction: 기준일 이전인지 이후인지 입력
+    ///   - lastDate: 기준일
+    ///   - numDates: 얼마만큼의 일자를 더 가져올지 입력
+    /// - Returns: 주어진 일자만큼의 일자 배열
+    func getMoreDates(on direction: ScrollDirection, after lastDate: Date, numDates: Int) -> [Date] {
+        var resDates: [Date] = []
+        
         switch(direction) {
-        // 이전달의 일자 반환
-        case .prevMonth:
-            targetDate = Calendar.current.date(byAdding: .day, value: -1, to: lastDate) ?? Date()
+        case .prev:
+            // 이전 N일치의 일자 반환
+            for i in 1...numDates {
+                let newDate = Calendar.current.date(byAdding: .day, value: -i, to: lastDate) ?? Date()
+                resDates.insert(newDate, at: 0)
+            }
+            return resDates
             
-        // 다음달의 일자 반환
-        case .nextMonth:
-            targetDate = Calendar.current.date(byAdding: .day, value: +1, to: lastDate) ?? Date()
+        case .next:
+            // 다음 N일치의 일자 반환
+            for i in 1...numDates {
+                let newDate = Calendar.current.date(byAdding: .day, value: i, to: lastDate) ?? Date()
+                resDates.append(newDate)
+            }
+            return resDates
             
         default:
             print(#fileID, #function, #line, "- error: Getting Wrong Direction of Further Dates")
             return []
         }
-        print(#fileID, #function, #line, "- targetDate:", targetDate)
-        let numOfDays = Calendar.current.range(of: .day, in: .month, for: targetDate)?.count ?? 0
-        
-        if numOfDays > 0 {
-            let days = (0...numOfDays-1).map{
-                Calendar.current.date(
-                    byAdding: .day, value: $0, to: self.getAYearAndMonth(of: targetDate)
-                ) ?? Date()
-            }
-            return days
-        } else {
-            print(#fileID, #function, #line, "- error: Getting Wrong Direction of Further Dates")
-            return []
-        }
     }
+    
+//    /// 이전달이나 다음달의 날짜를 반환한다
+//    /// - Parameters:
+//    ///   - direction: 이전달/다음달 중 어떤 데이터가 필요한지 입력
+//    ///   - lastDate: 현재 달의 첫날/마지막 날
+//    /// - Returns: 이전달/다음달에 해당하는 날짜들 반환
+//    func getDatesOnNextMonth(on direction: ScrollDirection, after lastDate: Date) -> [Date] {
+//        var targetDate: Date
+//        switch(direction) {
+//        // 이전달의 일자 반환
+//        case .prev:
+//            targetDate = Calendar.current.date(byAdding: .day, value: -1, to: lastDate) ?? Date()
+//
+//        // 다음달의 일자 반환
+//        case .next:
+//            targetDate = Calendar.current.date(byAdding: .day, value: +1, to: lastDate) ?? Date()
+//
+//        default:
+//            print(#fileID, #function, #line, "- error: Getting Wrong Direction of Further Dates")
+//            return []
+//        }
+//
+//        let numOfDays = Calendar.current.range(of: .day, in: .month, for: targetDate)?.count ?? 0
+//
+//        if numOfDays > 0 {
+//            let days = (0...numOfDays-1).map{
+//                Calendar.current.date(
+//                    byAdding: .day, value: $0, to: self.getAYearAndMonth(of: targetDate)
+//                ) ?? Date()
+//            }
+//            return days
+//        } else {
+//            print(#fileID, #function, #line, "- error: Getting Wrong Direction of Further Dates")
+//            return []
+//        }
+//    }
     
     func setScrollTargetDate(with date: Date) -> Date {
         print(#fileID, #function, #line, "- Set scroll target date to: ", date)
         return Calendar.current.startOfDay(for: date)
     }
     
-//    func toggleDateBtnPressed() -> Bool {
-//        return didDateBtnPressed ? false : true
-//    }
-    
-    func getDatesInAMonth() -> [Date] {
-        // 해당 월의 일자 수
-        let numOfDays = Calendar.current.range(of: .day, in: .month, for: searchDate)?.count ?? 0
-        if numOfDays > 0 {
-            let days = (0...numOfDays-1).map{
-                Calendar.current.date(
-                    byAdding: .day,
-                    value: $0,
-                    to: self.getAYearAndMonth(of: self.searchDate)
-                ) ?? Date()
-            }
-            return days
-        } else {
-            return []
+    func getDefaultDates(numDates: Int) -> [Date] {
+        var resDates : [Date] = [searchDate]
+        
+        for i in 1...numDates/2 {
+            let newDate = Calendar.current.date(byAdding: .day, value: -i, to: searchDate) ?? Date()
+            resDates.insert(newDate, at: 0)
         }
+        
+        for i in 1...numDates/2 {
+            let newDate = Calendar.current.date(byAdding: .day, value: i, to: searchDate) ?? Date()
+            resDates.append(newDate)
+        }
+        
+        return resDates
     }
+    
+//    func getDatesInAMonth() -> [Date] {
+//        // 해당 월의 일자 수
+//        let numOfDays = Calendar.current.range(of: .day, in: .month, for: searchDate)?.count ?? 0
+//        if numOfDays > 0 {
+//            let days = (0...numOfDays-1).map{
+//                Calendar.current.date(
+//                    byAdding: .day,
+//                    value: $0,
+//                    to: self.getAYearAndMonth(of: self.searchDate)
+//                ) ?? Date()
+//            }
+//            return days
+//        } else {
+//            return []
+//        }
+//    }
     
     func setSearchDate(date: Date) -> Date {
         // 어떤 날짜이건 0시 0분으로 맞춘다.
-//        print(#fileID, #function, #line, "- set date: \(date)")
         return Calendar.current.startOfDay(for: date)
     }
     
     func canShowOldTodos() -> Bool {
         if self.searchDate == Calendar.current.startOfDay(for: Date()) {
-//            print(#fileID, #function, #line, "It is Today.")
             return true
         } else {
-//            print(#fileID, #function, #line, "It isn't Today.")
             return false
         }
     }

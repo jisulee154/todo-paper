@@ -16,7 +16,7 @@ struct DateHeader: View {
     
     init(todoViewModel: TodoViewModel) {
         self._scrollViewModel = StateObject.init(
-            wrappedValue: ScrollViewModel(lthreshold: 0, rthreshold: 0)
+            wrappedValue: ScrollViewModel(lthreshold: -10, rthreshold: 0)
         )
         self.todoViewModel = todoViewModel
     }
@@ -49,7 +49,7 @@ struct DateHeader: View {
                 .padding(.vertical, 5)
                 .overlay {
                     RoundedRectangle(cornerRadius: 15)
-                        .stroke(Color.themeColor40, lineWidth: 1)
+                        .stroke(Color.themeColor40, lineWidth: 2)
                 }
                 
         }
@@ -78,7 +78,11 @@ struct DateHeader: View {
         ScrollViewReader { proxy in
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack {
-                    ForEach(todoViewModel.datesInMonth, id:\.self) { date in
+//                    ForEach(todoViewModel.datesInMonth, id:\.self) { date in
+//                        DateCell(todoViewModel: todoViewModel, date: date)
+//                            .id(date)
+//                    }
+                    ForEach(todoViewModel.defaultDates, id:\.self) { date in
                         DateCell(todoViewModel: todoViewModel, date: date)
                             .id(date)
                     }
@@ -89,25 +93,41 @@ struct DateHeader: View {
                     }
                     .onChange(of: scrollViewModel.isLeadingValue) { isLeading in
                         if isLeading {
-                            todoViewModel.datesInMonth.insert(
-                                contentsOf: todoViewModel.getDatesOnNextMonth(
-                                    on: .prevMonth,
-                                    after: todoViewModel.datesInMonth.first!
-                                )
+                            let anchorDate = todoViewModel.defaultDates.first!
+                            todoViewModel.defaultDates.insert(
+                                contentsOf: todoViewModel.getMoreDates(on: .prev, after: anchorDate, numDates: todoViewModel.addingDatesSize)
                                 ,at: 0)
+//                            scrollViewModel.isLeadingValue = false
                         }
                     }
                     .onChange(of: scrollViewModel.isTrailingValue) { isTrailing in
                         if isTrailing {
-                            let anchorDate: Date = todoViewModel.datesInMonth.last!
-                            todoViewModel.datesInMonth.append(
-                                contentsOf: todoViewModel.getDatesOnNextMonth(
-                                    on: .nextMonth,
-                                    after: todoViewModel.datesInMonth.last!
-                                ))
-                            todoViewModel.scrollTargetDate = todoViewModel.searchDate
+                            let anchorDate = todoViewModel.defaultDates.last!
+                            todoViewModel.defaultDates.append(
+                                contentsOf: todoViewModel.getMoreDates(on: .next, after: anchorDate, numDates: todoViewModel.addingDatesSize))
                         }
                     }
+//                    .onChange(of: scrollViewModel.isLeadingValue) { isLeading in
+//                        if isLeading {
+//                            todoViewModel.datesInMonth.insert(
+//                                contentsOf: todoViewModel.getDatesOnNextMonth(
+//                                    on: .prev,
+//                                    after: todoViewModel.datesInMonth.first!
+//                                )
+//                                ,at: 0)
+//                        }
+//                    }
+//                    .onChange(of: scrollViewModel.isTrailingValue) { isTrailing in
+//                        if isTrailing {
+//                            let anchorDate: Date = todoViewModel.datesInMonth.last!
+//                            todoViewModel.datesInMonth.append(
+//                                contentsOf: todoViewModel.getDatesOnNextMonth(
+//                                    on: .next,
+//                                    after: todoViewModel.datesInMonth.last!
+//                                ))
+//                            todoViewModel.scrollTargetDate = todoViewModel.searchDate
+//                        }
+//                    }
                 }
                 .onChange(of: todoViewModel.scrollTargetDate) { newTarget in
                     print("바뀐 스크롤 타겟: ", newTarget)
@@ -121,12 +141,7 @@ struct DateHeader: View {
             .introspectScrollView(customize: { customScrollView in
                 customScrollView.delegate = scrollViewModel
             })
-            .onAppear{
-                todoViewModel.datesInMonth = todoViewModel.getDatesInAMonth()
-            }
-            //            .flipsForRightToLeftLayoutDirection(true)
-            //            .environment(\.layoutDirection, .leftToRight)
-            .frame(width: 400, height: 70) // 화면 크기에 맞게 수정 필요
+            .frame(maxWidth: 1000, minHeight: 60, maxHeight: 70) // 화면 크기에 맞게 수정 필요
         } // ScrollViewReader
     }
 }

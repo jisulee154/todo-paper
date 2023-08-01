@@ -19,6 +19,7 @@
 		413913A42A77DBF1007EFFF2 /* DetailSheetOfPast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913A32A77DBF1007EFFF2 /* DetailSheetOfPast.swift */; };
 		413913A62A77DC44007EFFF2 /* DetailSheetOfToday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913A52A77DC44007EFFF2 /* DetailSheetOfToday.swift */; };
 		413913A82A77DC6A007EFFF2 /* DetailSheetOfFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913A72A77DC6A007EFFF2 /* DetailSheetOfFuture.swift */; };
+		413913AC2A792677007EFFF2 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 413913AB2A792677007EFFF2 /* AlertToast */; };
 		417394AD2A6652C000205292 /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394AC2A6652C000205292 /* DateHeader.swift */; };
 		417394BB2A66876900205292 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394BA2A66876900205292 /* DateCell.swift */; };
 		41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */; };
@@ -72,6 +73,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				413913AC2A792677007EFFF2 /* AlertToast in Frameworks */,
 				4139135C2A716980007EFFF2 /* Introspect in Frameworks */,
 				DB6CB6F4399E41A888EBB1AF /* Pods_todo_paper.framework in Frameworks */,
 			);
@@ -254,6 +256,7 @@
 			name = "todo-paper";
 			packageProductDependencies = (
 				4139135B2A716980007EFFF2 /* Introspect */,
+				413913AB2A792677007EFFF2 /* AlertToast */,
 			);
 			productName = "todo-paper";
 			productReference = 41E1DC3B2A58277B005A5EAA /* todo-paper.app */;
@@ -285,6 +288,7 @@
 			mainGroup = 41E1DC322A58277B005A5EAA;
 			packageReferences = (
 				4139135A2A716980007EFFF2 /* XCRemoteSwiftPackageReference "swiftui-introspect" */,
+				413913AA2A792677007EFFF2 /* XCRemoteSwiftPackageReference "AlertToast" */,
 			);
 			productRefGroup = 41E1DC3C2A58277B005A5EAA /* Products */;
 			projectDirPath = "";
@@ -588,6 +592,14 @@
 				minimumVersion = 0.10.0;
 			};
 		};
+		413913AA2A792677007EFFF2 /* XCRemoteSwiftPackageReference "AlertToast" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/elai950/AlertToast.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -595,6 +607,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4139135A2A716980007EFFF2 /* XCRemoteSwiftPackageReference "swiftui-introspect" */;
 			productName = Introspect;
+		};
+		413913AB2A792677007EFFF2 /* AlertToast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 413913AA2A792677007EFFF2 /* XCRemoteSwiftPackageReference "AlertToast" */;
+			productName = AlertToast;
 		};
 /* End XCSwiftPackageProductDependency section */
 

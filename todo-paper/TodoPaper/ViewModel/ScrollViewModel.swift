@@ -23,14 +23,13 @@ enum ScrollPosition {
 
 class ScrollViewModel: NSObject, UIScrollViewDelegate, ObservableObject {
     @Published var isTrailingValue: Bool = false
-    @Published var isLeadingValue: Bool = true
+    @Published var isLeadingValue: Bool = false
     
     lazy var isLeading : AnyPublisher<Bool, Never> = $isLeadingValue.removeDuplicates().eraseToAnyPublisher()
     lazy var isTrailing : AnyPublisher<Bool, Never> = $isTrailingValue.removeDuplicates().eraseToAnyPublisher()
     
     let lthreshold: CGFloat
     let rthreshold: CGFloat
-    let addingDatesSize: Int = 5
     
     init(lthreshold: CGFloat = 0, rthreshold: CGFloat = 0) {
         self.lthreshold = lthreshold
@@ -40,13 +39,13 @@ class ScrollViewModel: NSObject, UIScrollViewDelegate, ObservableObject {
     /// 스크롤뷰 동작시 감지
     /// - Parameter scrollView: 스크롤뷰 인스턴스
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        print("ScrollViewHelper scrollViewDidScroll() called \(scrollView.contentOffset.x)")
+        print("ScrollViewHelper scrollViewDidScroll() called \(scrollView.contentOffset.x)")
         
         self.isTrailingValue = isScrollTrailing(scrollView, rthreshold)
         self.isLeadingValue = isScrollLeading(scrollView, lthreshold)
         
-//        print("isTrailing: ", isTrailingValue)
-//        print("isLeading: ", isLeadingValue)
+        print("isTrailing: ", isTrailingValue)
+        print("isLeading: ", isLeadingValue)
     }
     
     
@@ -57,6 +56,6 @@ fileprivate func isScrollTrailing(_ scrollView: UIScrollView, _ rthreshold: CGFl
 }
 
 fileprivate func isScrollLeading(_ scrollView: UIScrollView, _ lthreshold: CGFloat) -> Bool {
-    return scrollView.contentOffset.x < lthreshold
+    return (-lthreshold < scrollView.contentOffset.x) || (scrollView.contentOffset.x < lthreshold)
 }
 
