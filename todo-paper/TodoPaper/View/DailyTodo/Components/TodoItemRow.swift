@@ -67,6 +67,7 @@ struct TodoItemRow: View {
                 if todoViewModel.canShowOldTodos() {
                     todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
                 }
+                print("완료하고자 하는 투두: ", todoItem.title)
             }
             // TodoItemRowType에 따라 다른 형태로 보여주기
             // 현재 일자
@@ -93,17 +94,17 @@ struct TodoItemRow: View {
             
             Spacer()
             Button {
-                print("detail button pressed")
-                detailTodoViewModel.timePosition = detailTodoViewModel.getTimePosition(of: todoViewModel.searchDate)
-                detailTodoViewModel.settingBottomSheetPosition = .relative(0.7)
-//                detailTodoViewModel.isDetailSheetShowing.toggle()
-                
-                detailTodoViewModel.setPickedTodo(pickedTodo: todoItem)
             } label: {
                 Image(systemName: "ellipsis")
             }
             .padding(.horizontal, 20)
             .padding(.vertical, 20)
+            .onTapGesture {
+                    detailTodoViewModel.timePosition = detailTodoViewModel.getTimePosition(of: todoViewModel.searchDate)
+                    detailTodoViewModel.setPickedTodo(pickedTodo: todoItem)
+                    detailTodoViewModel.settingBottomSheetPosition = .relative(0.7)
+                    print("상세설정 하고자 하는 투두: ", todoItem.title)
+            }
             
         }
         .foregroundColor(.themeColor40)

@@ -251,7 +251,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         context.delete(foundItemEntity)
         do {
             try context.save()
-            return fetchTodos()
+            return fetchTodosBySelectedDate()
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
             return []

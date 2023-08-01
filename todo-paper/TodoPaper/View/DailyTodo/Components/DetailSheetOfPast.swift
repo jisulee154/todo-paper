@@ -10,9 +10,11 @@ import BottomSheetSwiftUI
 
 //MARK: - 상세 설정 시트 (과거)
 struct DetailSheetOfPast: View {
+    @ObservedObject var todoViewModel: TodoViewModel
     @ObservedObject var detailTodoViewModel: DetailTodoViewModel
     
-    init(_ detailTodoViewModel: DetailTodoViewModel) {
+    init(todoViewModel: TodoViewModel, detailTodoViewModel: DetailTodoViewModel) {
+        self.todoViewModel = todoViewModel
         self.detailTodoViewModel = detailTodoViewModel
     }
     
@@ -39,6 +41,9 @@ struct DetailSheetOfPast: View {
                     
                     Button {
                         detailTodoViewModel.settingBottomSheetPosition = .hidden
+                        
+                        let today = Calendar.current.startOfDay(for: Date())
+                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: nil, duedate: today)
                     } label: {
                         Text("오늘 하기")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)

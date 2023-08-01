@@ -10,9 +10,11 @@ import BottomSheetSwiftUI
 
 //MARK: - 상세 설정 시트 (미래)
 struct DetailSheetOfFuture: View {
+    @ObservedObject var todoViewModel: TodoViewModel
     @ObservedObject var detailTodoViewModel: DetailTodoViewModel
     
-    init(_ detailTodoViewModel: DetailTodoViewModel) {
+    init(todoViewModel: TodoViewModel, detailTodoViewModel: DetailTodoViewModel) {
+        self.todoViewModel = todoViewModel
         self.detailTodoViewModel = detailTodoViewModel
     }
     
@@ -54,6 +56,9 @@ struct DetailSheetOfFuture: View {
                     
                     Button {
                         detailTodoViewModel.settingBottomSheetPosition = .hidden
+                        
+                        let today = Calendar.current.startOfDay(for: Date())
+                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: nil, duedate: today)
                     } label: {
                         Text("오늘 하기")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)
@@ -63,6 +68,9 @@ struct DetailSheetOfFuture: View {
                     
                     Button {
                         detailTodoViewModel.settingBottomSheetPosition = .hidden
+                        
+                        // 상태 업데이트 .none -> .canceled
+                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .canceled, duedate: nil)
                     } label: {
                         Text("포기하기")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)
@@ -72,6 +80,9 @@ struct DetailSheetOfFuture: View {
                     
                     Button {
                         detailTodoViewModel.settingBottomSheetPosition = .hidden
+                        
+                        // 선택된 투두 삭제하기
+                        todoViewModel.todos = todoViewModel.deleteATodo(uuid: detailTodoViewModel.pickedTodo.uuid)
                     } label: {
                         Text("삭제")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)

@@ -30,6 +30,7 @@ class ScrollViewModel: NSObject, UIScrollViewDelegate, ObservableObject {
     
     let lthreshold: CGFloat
     let rthreshold: CGFloat
+    let addingDatesSize: Int = 5
     
     init(lthreshold: CGFloat = 0, rthreshold: CGFloat = 0) {
         self.lthreshold = lthreshold

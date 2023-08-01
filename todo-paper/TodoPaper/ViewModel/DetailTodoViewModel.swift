@@ -13,7 +13,7 @@ class DetailTodoViewModel: ObservableObject {
 //    @Published var isEditBottomSheetShowing: Bool = false
     
     @Published var timePosition: TimePosition = .today
-    @Published var changedDate: Date = Date()
+    @Published var updatingDate: Date = Date()
     @Published var pickedTodo: TodoItem = TodoItem(title: "")
     
     @Published var addTodoBottomSheetPosition: BottomSheetPosition = .hidden
@@ -25,7 +25,7 @@ class DetailTodoViewModel: ObservableObject {
 //         isDatePickerShowing: Bool = false,
 //         isEditBottomSheetShowing: Bool = false,
         timePosition: TimePosition = .today,
-        changedDate: Date = Date(),
+        updatingDate: Date = Date(),
         pickedTodo: TodoItem = TodoItem(title: ""),
         addTodoBottomSheetPosition: BottomSheetPosition = .hidden,
         settingBottomSheetPosition: BottomSheetPosition = .hidden,
@@ -37,7 +37,7 @@ class DetailTodoViewModel: ObservableObject {
             //        self.isEditBottomSheetShowing = isEditBottomSheetShowing
             
         self.timePosition = timePosition
-        self.changedDate = changedDate
+        self.updatingDate = updatingDate // Date Picker에서 선택한 날짜
         self.pickedTodo = pickedTodo
         
         self.addTodoBottomSheetPosition = addTodoBottomSheetPosition

@@ -175,6 +175,9 @@ struct DailyTodoView: View {
                          headerContent: {
                 Text("새로운 투두")
                     .font(.title)
+                    .padding(.horizontal, 30)
+                    .padding(.vertical, 20)
+                    
             }) {
                 VStack {
                     TextField("새로운 할일을 입력해주세요.", text: $newTitle)
@@ -199,11 +202,13 @@ struct DailyTodoView: View {
                         detailTodoViewModel.addTodoBottomSheetPosition = .hidden
                     } label: {
                         Text("완료")
+                            .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)
+                            .contentShape(Capsule())
                     }
                     .buttonStyle(SettingButtonStyle())
-                    .padding(.horizontal, 30)
-                    .padding(.vertical, 20)
                 }
+                .padding(.horizontal, 30)
+                .padding(.vertical, 20)
             }
             .showCloseButton()
             .enableSwipeToDismiss()
@@ -212,15 +217,15 @@ struct DailyTodoView: View {
     
     //MARK: - 투두 상세 설정 바텀 시트
     private func makePastDetailSettingBottomSheet() -> some View {
-        DetailSheetOfPast(detailTodoViewModel)
+        DetailSheetOfPast(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel)
     }
     
     private func makeTodayDetailSettingBottomSheet() -> some View {
-        DetailSheetOfToday(detailTodoViewModel)
+        DetailSheetOfToday(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel)
     }
     
     private func makeFutureDetailSettingBottomSheet() -> some View {
-        DetailSheetOfFuture(detailTodoViewModel)
+        DetailSheetOfFuture(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel)
     }
     
     //MARK: - 투두 일자 수정 바텀 시트
@@ -231,7 +236,7 @@ struct DailyTodoView: View {
             {
                 DatePicker(
                     "date picker",
-                    selection: $detailTodoViewModel.changedDate,
+                    selection: $detailTodoViewModel.updatingDate,
                     in: Date()...,
                     displayedComponents: [.date]
                 )
@@ -240,13 +245,15 @@ struct DailyTodoView: View {
                 .background(Color.clear)
                 
                 Button {
+                    let updatingDate = Calendar.current.startOfDay(for: detailTodoViewModel.updatingDate)
+                    
                     todoViewModel.todos = todoViewModel.updateATodo(
                         updatingTodo: detailTodoViewModel.pickedTodo,
                         title: nil,
                         status: nil,
-                        duedate: detailTodoViewModel.changedDate
+                        duedate: updatingDate
                     )
-                    todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
+//                    todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
                     detailTodoViewModel.datePickerBottomSheetPosition = .hidden
                 } label: {
                     Text("설정 완료")
