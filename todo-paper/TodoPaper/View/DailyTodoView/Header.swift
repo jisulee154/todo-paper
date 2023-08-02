@@ -1,5 +1,5 @@
 //
-//  DateHeader.swift
+//  Header.swift
 //  todo-paper
 //
 //  Created by 이지수 on 2023/07/18.
@@ -61,7 +61,9 @@ struct Header: View {
     
     //MARK: - 환경 설정 버튼
     private func makeSettingButton() -> some View {
-        NavigationLink(destination: SettingView()) {
+        Button {
+            todoViewModel.showSettingView.toggle()
+        } label: {
             Image(systemName: "gearshape")
                 .resizable()
                 .frame(width: 25, height: 25)
@@ -69,6 +71,11 @@ struct Header: View {
         }
         .padding(.horizontal, 30)
         .padding(.vertical, 5)
+        .fullScreenCover(isPresented: $todoViewModel.showSettingView) {
+            SettingView(todoViewModel: todoViewModel)
+        }
+    
+        
     }
     
     //MARK: - 캘린더 스크롤

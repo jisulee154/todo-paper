@@ -21,6 +21,7 @@
 		413913A82A77DC6A007EFFF2 /* DetailSheetOfFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913A72A77DC6A007EFFF2 /* DetailSheetOfFuture.swift */; };
 		413913AC2A792677007EFFF2 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 413913AB2A792677007EFFF2 /* AlertToast */; };
 		413913B02A796ED8007EFFF2 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913AF2A796ED8007EFFF2 /* SettingView.swift */; };
+		413913B22A7A2A4D007EFFF2 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913B12A7A2A4D007EFFF2 /* SettingViewModel.swift */; };
 		417394AD2A6652C000205292 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394AC2A6652C000205292 /* Header.swift */; };
 		417394BB2A66876900205292 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394BA2A66876900205292 /* DateCell.swift */; };
 		41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */; };
@@ -51,6 +52,7 @@
 		413913A52A77DC44007EFFF2 /* DetailSheetOfToday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSheetOfToday.swift; sourceTree = "<group>"; };
 		413913A72A77DC6A007EFFF2 /* DetailSheetOfFuture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSheetOfFuture.swift; sourceTree = "<group>"; };
 		413913AF2A796ED8007EFFF2 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		413913B12A7A2A4D007EFFF2 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		416C2D3F2A6822A500F06242 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		416C2D412A6822B100F06242 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		417394AC2A6652C000205292 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				4136515F2A6A3EBB006C6361 /* TodoViewModel.swift */,
 				413913362A702EEB007EFFF2 /* ScrollViewModel.swift */,
 				4139135D2A72A4EA007EFFF2 /* DetailTodoViewModel.swift */,
+				413913B12A7A2A4D007EFFF2 /* SettingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -388,6 +391,7 @@
 				413913A42A77DBF1007EFFF2 /* DetailSheetOfPast.swift in Sources */,
 				417394AD2A6652C000205292 /* Header.swift in Sources */,
 				4124E8F02A6BF0ED0045E220 /* MappingModelV1ToV4.xcmappingmodel in Sources */,
+				413913B22A7A2A4D007EFFF2 /* SettingViewModel.swift in Sources */,
 				41E1DC792A5EA161005A5EAA /* Extension.swift in Sources */,
 				413913602A72A80F007EFFF2 /* BottomSheet.swift in Sources */,
 			);
