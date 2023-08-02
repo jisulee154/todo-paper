@@ -48,7 +48,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     @Published var oldTodos: [TodoItem] = []
     @Published var searchDate: Date = Calendar.current.startOfDay(for: Date())
     
-    let settingDatesSize: Int = 7 // 날짜 캘린더에 처음 출력되는 일자 수
+    let settingDatesSize: Int = 30 // 날짜 캘린더에 처음 출력되는 일자 수
     let addingDatesSize: Int = 3 // 스크롤하면 더 불러오는 일자 수
     @Published var defaultDates: [Date] = []
     //    @Published var datesInMonth: [Date] = []
@@ -56,6 +56,8 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     @Published var completeSticker: CompleteStickerStatus = CompleteStickerStatus.none
     @Published var scrollTargetDate: Date = Date()
     @Published var delayedDays: Int? = 0
+    
+    @Published var showSettingView: Bool = false
     
     init() {
         self.todos = fetchTodos()

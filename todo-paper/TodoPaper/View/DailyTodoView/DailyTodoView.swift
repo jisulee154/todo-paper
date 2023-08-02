@@ -72,13 +72,21 @@ struct DailyTodoView: View {
         .toast(isPresenting: $detailTodoViewModel.showPostponedToast) {
             AlertToast(displayMode: .hud, type: .complete(.green), title: "내일도 같은 투두가 추가되었습니다.")
         }
+        .toast(isPresenting: $detailTodoViewModel.showChangedAsTodayToast) {
+            AlertToast(displayMode: .hud, type: .complete(.green), title: "오늘 목록으로 이동되었습니다.")
+        }
+        .toast(isPresenting: $detailTodoViewModel.showAnotherDayToast) {
+            AlertToast(displayMode: .hud, type: .complete(.green), title: "선택한 일자로 투두가 이동되었습니다.")
+        }
+        
+        
     }
     
     //MARK: - 날짜 선택 스크롤과 투두 리스트 목록
     private func makeTodoList() -> some View {
         VStack {
-            ///캘린더 스크롤 부분
-            DateHeader(todoViewModel: todoViewModel)
+            ///캘린더 스크롤 부분 & 오늘로 이동 & 앱 설정
+            Header(todoViewModel: todoViewModel)
             
             if (todoViewModel.todos.count > 0) || (todoViewModel.oldTodos.count > 0) {
                 VStack {
@@ -266,7 +274,7 @@ struct DailyTodoView: View {
         DetailSheetOfFuture(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel)
     }
     
-    //MARK: - 투두 일자 수정 바텀 시트
+    //MARK: - 투두 일자 변경 바텀 시트
     private func makeDatePickerBottomSheet() -> some View {
         Color.clear
             .bottomSheet(bottomSheetPosition: $detailTodoViewModel.datePickerBottomSheetPosition,
@@ -293,6 +301,11 @@ struct DailyTodoView: View {
                 )
                 //                    todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
                 detailTodoViewModel.datePickerBottomSheetPosition = .hidden
+                
+                
+                // 날짜 변경 토스트 메시지 띄우기
+                detailTodoViewModel.showAnotherDayToast.toggle()
+                
             } label: {
                 Text("설정 완료")
                     .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)

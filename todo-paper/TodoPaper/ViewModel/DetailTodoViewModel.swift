@@ -22,6 +22,8 @@ class DetailTodoViewModel: ObservableObject {
     
     @Published var showPostponedToast: Bool = false
     @Published var showDeletedToast: Bool = false
+    @Published var showChangedAsTodayToast: Bool = false
+    @Published var showAnotherDayToast: Bool = false
     
     init(
         timePosition: TimePosition = .today,

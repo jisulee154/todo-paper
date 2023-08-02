@@ -9,7 +9,7 @@ import SwiftUI
 import Introspect
 
 
-struct DateHeader: View {
+struct Header: View {
     //    var onNewDateClicked: (Date) -> Void
     @ObservedObject var todoViewModel: TodoViewModel
     @StateObject var scrollViewModel: ScrollViewModel
@@ -61,9 +61,7 @@ struct DateHeader: View {
     
     //MARK: - 환경 설정 버튼
     private func makeSettingButton() -> some View {
-        Button {
-            // action
-        } label: {
+        NavigationLink(destination: SettingView()) {
             Image(systemName: "gearshape")
                 .resizable()
                 .frame(width: 25, height: 25)

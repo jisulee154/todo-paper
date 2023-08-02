@@ -44,6 +44,7 @@ struct DetailSheetOfToday: View {
                         Button {
                             detailTodoViewModel.settingBottomSheetPosition = .hidden
                             detailTodoViewModel.datePickerBottomSheetPosition = .relative(0.7)
+                            
                             //                        detailTodoViewModel.isDetailSheetShowing.toggle() // 기존 상세설정 bottom sheet가 밑으로 내려감.
                             //                        detailTodoViewModel.isDatePickerShowing.toggle() // Date Picker bottom sheet가 위로 올라옴.
                         } label: {
