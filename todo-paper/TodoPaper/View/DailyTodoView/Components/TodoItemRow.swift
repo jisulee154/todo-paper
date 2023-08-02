@@ -53,15 +53,18 @@ struct TodoItemRow: View {
             .onTapGesture {
                 if (todoItem.status == TodoStatus.none) {
                     todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: todoItem,
-                                                                    title: todoItem.title,
+                                                                    title: nil,
                                                                     status: TodoStatus.completed,
-                                                                    duedate: todoItem.duedate)
+                                                                    duedate: nil,
+                                                                    completeDate: todoViewModel.searchDate)
                 } else {
                     todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: todoItem,
-                                                                    title: todoItem.title,
+                                                                    title: nil,
                                                                     status: TodoStatus.none,
-                                                                    duedate: todoItem.duedate)
+                                                                    duedate: nil,
+                                                                    completeDate: nil)
                 }
+                
                 
                 todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
                 if todoViewModel.canShowOldTodos() {

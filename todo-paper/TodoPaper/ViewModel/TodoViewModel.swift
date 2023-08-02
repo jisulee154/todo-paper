@@ -31,12 +31,13 @@ protocol TodoItemProtocol {
     func fetchTodos() -> [TodoItem]
     func deleteATodo(uuid: UUID) -> [TodoItem]
     func addATodo(_ newTodo: TodoItem) -> [TodoItem]
-    func updateATodo(updatingTodo: TodoItem, title: String?, status: TodoStatus?, duedate: Date?) -> [TodoItem]
+    func updateATodo(updatingTodo: TodoItem, title: String?, status: TodoStatus?, duedate: Date?, completeDate: Date?) -> [TodoItem]
     func clearAllTodos()
 }
 
 //MARK: - Core Data Stack
 class TodoViewModel: ObservableObject, TodoItemProtocol {
+    
     let container = PersistenceController.shared.container
     
     // 모든 테이블 관리자, 중재자.
@@ -46,6 +47,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     
     @Published var todos: [TodoItem] = []
     @Published var oldTodos: [TodoItem] = []
+    @Published var allTodosOnToday: [TodoItem] = []
     @Published var searchDate: Date = Calendar.current.startOfDay(for: Date())
     
     let settingDatesSize: Int = 30 // 날짜 캘린더에 처음 출력되는 일자 수
@@ -86,6 +88,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
                 return false
             }
         }
+        
         return true
     }
     
@@ -249,7 +252,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
                                                title: $0.title ?? "",
                                                duedate: $0.duedate ?? Date(),
                                                status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
-                                               section: $0.section ?? "Today") }
+                                               completeDate: $0.completeDate) }
             return modifiedTodos
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
@@ -275,7 +278,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
                                                title: $0.title ?? "",
                                                duedate: $0.duedate ?? Date(),
                                                status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
-                                               section: $0.section ?? "Today") }
+                                               completeDate: $0.completeDate) }
 //            print(modifiedTodos)
             return modifiedTodos
         } catch {
@@ -289,16 +292,44 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         let date = self.searchDate
         var modifiedTodos: [TodoItem] = []
         
-        request.predicate = Item.searchOldByDatePredicate.withSubstitutionVariables(["date" : date, "status" : TodoStatus.none.rawValue])
+        modifiedTodos += fetchOldTodosOnToday()
+        
+        request.predicate = Item.searchOldByDatePredicate.withSubstitutionVariables(["date" : date, "status_none" : TodoStatus.none.rawValue, "status_postponed" : TodoStatus.postponed.rawValue])
+        
+        do {
+            let fetchedTodos = try context.fetch(request) as [Item]
+            modifiedTodos += fetchedTodos.map{ TodoItem(uuid: $0.uuid ?? UUID(),
+                                               title: $0.title ?? "",
+                                               duedate: $0.duedate ?? Date(),
+                                               status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
+                                               completeDate: $0.completeDate) }
+//            print(modifiedTodos)
+            return modifiedTodos
+        } catch {
+            print(#fileID, #function, #line, "- error: \(error)")
+            return []
+        }
+    }
+    
+    /// 오늘 해야하는 투두 가져오기 (과거 미완료 투두 포함)
+    /// - Returns: 오늘 해야하는 투두들
+    func fetchOldTodosOnToday() -> [TodoItem] {
+        let request = Item.fetchRequest()
+        let date = self.searchDate
+        var modifiedTodos: [TodoItem] = []
+        
+        let today = Calendar.current.startOfDay(for: Date())
+        
+        // NSPredicate(format: "%K < $date && %K == $completeDate", #keyPath(duedate), #keyPath(completeDate))
+        request.predicate = Item.searchOldTodosCompletedOnTodayPredicate.withSubstitutionVariables(["date" : today, "completeDate" : today])
         
         do {
             let fetchedTodos = try context.fetch(request) as [Item]
             modifiedTodos = fetchedTodos.map{ TodoItem(uuid: $0.uuid ?? UUID(),
-                                               title: $0.title ?? "",
-                                               duedate: $0.duedate ?? Date(),
-                                               status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
-                                               section: $0.section ?? "Today") }
-//            print(modifiedTodos)
+                                                       title: $0.title ?? "",
+                                                       duedate: $0.duedate ?? Date(),
+                                                       status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
+                                                       completeDate: $0.completeDate) }
             return modifiedTodos
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
@@ -333,8 +364,10 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         newItemEntity.uuid = newTodo.uuid
         newItemEntity.title = newTodo.title
         newItemEntity.duedate = newTodo.duedate
-        newItemEntity.section = newTodo.section
         newItemEntity.status = newTodo.status.rawValue
+        newItemEntity.completeDate = newTodo.completeDate
+//        newItemEntity.section = newTodo.section
+//        newItemEntity.onToday = newTodo.onToday
         print(#fileID, #function, #line, "-추가하려는 투두: \(newItemEntity)")
         
         context.insert(newItemEntity)
@@ -355,7 +388,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     ///   - status: 수정될 투두 상태 (옵셔널)
     ///   - duedate: 수정될 투두 기한 (옵셔널)
     /// - Returns: 특정 투두가 수정된 투두 목록
-    func updateATodo(updatingTodo: TodoItem, title: String?, status: TodoStatus?, duedate: Date?) -> [TodoItem] {
+    func updateATodo(updatingTodo: TodoItem, title: String?, status: TodoStatus?, duedate: Date?, completeDate: Date?) -> [TodoItem] {
         guard let targetTodo = findATodo(uuid: updatingTodo.uuid) else { return [] }
         
         if let safeTitle = title {
@@ -367,6 +400,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         if let safeDuedate = duedate {
             targetTodo.duedate = safeDuedate
         }
+        targetTodo.completeDate = completeDate
         
         do {
             try context.save()

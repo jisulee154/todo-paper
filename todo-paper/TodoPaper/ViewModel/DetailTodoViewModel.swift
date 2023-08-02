@@ -22,10 +22,14 @@ class DetailTodoViewModel: ObservableObject {
     @Published var editingTitle: String = "" // 투두 수정하기 텍스트필드 입력값
     
     @Published var showPostponedToast: Bool = false
+//    @Published var showOldTodoPostponedToast: Bool = false
     @Published var showDeletedToast: Bool = false
     @Published var showChangedAsTodayToast: Bool = false
     @Published var showAnotherDayToast: Bool = false
     @Published var showUnfinishedTodosToast: Bool = false
+    @Published var showCantPutStickerYet: Bool = false
+    @Published var showCantPutStickerNone: Bool = false
+    @Published var showCantPutStickerNonePast: Bool = false
     
     init(
         timePosition: TimePosition = .today,

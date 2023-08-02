@@ -20,15 +20,41 @@ struct FloatingFooter: View{
             HStack (spacing: 10) {
                 Spacer()
                 Button {
-                    if todoViewModel.isTodosDone {
-                        //할일 완료
+                    // 미완료한 일이 없는 날(미래 제외)에만 칭찬 스티커를 붙일 수 있다.
+                    let timePosition = detailTodoViewModel.getTimePosition(of: todoViewModel.searchDate)
+                    let todos = todoViewModel.fetchTodosBySelectedDate()
+                    var oldTodos: [TodoItem] = []
+                    if timePosition == .today {
+                        oldTodos = todoViewModel.fetchOldTodos()
+                    }
+                    
+                    todoViewModel.isTodosDone = todoViewModel.getTodosDone(todos: todos, oldTodos: oldTodos)
+                    
+                    if (timePosition == .today || timePosition == .past) {
+                        if todoViewModel.isTodosDone {
+                            //미완료 투두가 없음
+                            
+                            if todos.isEmpty && oldTodos.isEmpty {
+                                // 설정된 투두가 없어 칭찬 스티커 붙일 수 없음 안내
+                                if timePosition == .past {
+                                    detailTodoViewModel.showCantPutStickerNonePast.toggle()
+                                } else {
+                                    detailTodoViewModel.showCantPutStickerNone.toggle()
+                                }
+                            } else {
+                                detailTodoViewModel.setStickerBottomSheetPosition = .relative(0.5)
+                            }
+                        } else {
+                            //미완료 투두 있음
+                            
+                            // 미완료 투두 있음 토스트 메시지
+                            detailTodoViewModel.showUnfinishedTodosToast.toggle()
+                        }
                         
-                        detailTodoViewModel.setStickerBottomSheetPosition = .relative(0.5)
-                    } else {
-                        //미완료
-                        
-                        // 미완료 투두 있음 토스트 메시지
-                        detailTodoViewModel.showUnfinishedTodosToast.toggle()
+                    }
+                    else {
+                        // 해당 일자(미래)엔 아직 칭찬 스티커 붙일 수 없음 안내
+                        detailTodoViewModel.showCantPutStickerYet.toggle()
                     }
                 } label: {
                     Image(systemName: "checkmark.seal")

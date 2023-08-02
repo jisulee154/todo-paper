@@ -59,7 +59,7 @@ struct DetailSheetOfFuture: View {
                         detailTodoViewModel.settingBottomSheetPosition = .hidden
                         
                         let today = Calendar.current.startOfDay(for: Date())
-                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: nil, duedate: today)
+                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: nil, duedate: today, completeDate: nil)
                         
                         // 변경 토스트 메시지 띄우기
                         detailTodoViewModel.showChangedAsTodayToast.toggle()
@@ -74,7 +74,7 @@ struct DetailSheetOfFuture: View {
                         detailTodoViewModel.settingBottomSheetPosition = .hidden
                         
                         // 상태 업데이트 .none -> .canceled
-                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .canceled, duedate: nil)
+                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .canceled, duedate: nil, completeDate: nil)
                     } label: {
                         Text("포기하기")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)

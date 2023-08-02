@@ -15,14 +15,18 @@ struct TodoItem: Identifiable {
     var title: String = ""
     var duedate = Date()
     var status = TodoStatus.none
-    var section: String = "Today"
+    var completeDate: Date? = nil
+//    var section: String = "Today"
+//    var onToday: Bool = false
     
-    init(uuid: UUID = UUID(), title: String, duedate: Date = Date(), status: TodoStatus = TodoStatus.none, section: String = "Today") {
+    init(uuid: UUID = UUID(), title: String, duedate: Date = Date(), status: TodoStatus = TodoStatus.none, completeDate: Date? = nil) {
         self.uuid = uuid
         self.title = title
         self.duedate = duedate
         self.status = status
-        self.section = section
+        self.completeDate = completeDate
+//        self.onToday = onToday
+//        self.section = section
     }
     
 //    init(newTodoItem: TodoItem) {

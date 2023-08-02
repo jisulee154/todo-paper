@@ -43,7 +43,7 @@ struct DetailSheetOfPast: View {
                         detailTodoViewModel.settingBottomSheetPosition = .hidden
                         
                         let today = Calendar.current.startOfDay(for: Date())
-                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: nil, duedate: today)
+                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: nil, duedate: today, completeDate: nil)
                         
                         // 변경 토스트 메시지 띄우기
                         detailTodoViewModel.showChangedAsTodayToast.toggle()

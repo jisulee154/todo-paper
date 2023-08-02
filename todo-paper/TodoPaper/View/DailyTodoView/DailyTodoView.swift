@@ -67,19 +67,28 @@ struct DailyTodoView: View {
         }
         //MARK: - 토스트 메시지
         .toast(isPresenting: $detailTodoViewModel.showDeletedToast) {
-            AlertToast(displayMode: .hud, type: .regular, title: "투두가 삭제되었습니다.")
+            AlertToast(displayMode: .hud, type: .regular, title: "투두가 삭제되었어요.")
         }
         .toast(isPresenting: $detailTodoViewModel.showPostponedToast) {
-            AlertToast(displayMode: .hud, type: .complete(.green), title: "내일도 같은 투두가 추가되었습니다.")
+            AlertToast(displayMode: .hud, type: .complete(.green), title: "내일도 같은 투두를 추가했어요.")
         }
         .toast(isPresenting: $detailTodoViewModel.showChangedAsTodayToast) {
-            AlertToast(displayMode: .hud, type: .complete(.green), title: "오늘 목록으로 이동되었습니다.")
+            AlertToast(displayMode: .hud, type: .complete(.green), title: "오늘 목록으로 옮겼어요.")
         }
         .toast(isPresenting: $detailTodoViewModel.showAnotherDayToast) {
-            AlertToast(displayMode: .hud, type: .complete(.green), title: "선택한 일자로 투두가 이동되었습니다.")
+            AlertToast(displayMode: .hud, type: .complete(.green), title: "선택한 일자로 옮겼어요.")
         }
         .toast(isPresenting: $detailTodoViewModel.showUnfinishedTodosToast) {
-            AlertToast(displayMode: .hud, type: .regular, title: "🥺\n미완료인 투두가 있어\n칭찬 스티커를 붙일 수 없습니다. ")
+            AlertToast(displayMode: .hud, type: .regular, title: "🥺 미완료인 투두가 있어\n칭찬 스티커를 붙일 수 없어요.")
+        }
+        .toast(isPresenting: $detailTodoViewModel.showCantPutStickerYet) {
+            AlertToast(displayMode: .hud, type: .regular, title: "아직 칭찬 스티커를 붙일 수 없어요.")
+        }
+        .toast(isPresenting: $detailTodoViewModel.showCantPutStickerNone) {
+            AlertToast(displayMode: .hud, type: .regular, title: "우선 투두부터 추가해볼까요?")
+        }
+        .toast(isPresenting: $detailTodoViewModel.showCantPutStickerNonePast) {
+            AlertToast(displayMode: .hud, type: .regular, title: "😖 완료한 투두가 없어\n칭찬 스티커를 붙일 수 없어요.")
         }
     }
     
@@ -101,7 +110,7 @@ struct DailyTodoView: View {
                                                                    title: todo.title,
                                                                    duedate: todo.duedate,
                                                                    status: todo.status,
-                                                                   section: todo.section),
+                                                                   completeDate: todo.completeDate),
                                                     todoViewModel: todoViewModel,
                                                     todoItemRowType: TodoItemRowType.today,
                                                     detailTodoViewModel: detailTodoViewModel)
@@ -131,7 +140,7 @@ struct DailyTodoView: View {
                                                                        title: todo.title,
                                                                        duedate: todo.duedate,
                                                                        status: todo.status,
-                                                                       section: todo.section),
+                                                                       completeDate: todo.completeDate),
                                                         todoViewModel: todoViewModel,
                                                         todoItemRowType: TodoItemRowType.old,
                                                         detailTodoViewModel: detailTodoViewModel)
@@ -184,10 +193,14 @@ struct DailyTodoView: View {
             todoViewModel.searchDate = todoViewModel.setSearchDate(date: Date())
             //todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date())
             todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
+            todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
             
-            if todoViewModel.canShowOldTodos() {
-                todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
+            for oldTodo in todoViewModel.oldTodos {
+                todoViewModel.oldTodos = todoViewModel.updateATodo(updatingTodo: oldTodo, title: nil, status: nil, duedate: nil, completeDate: nil)
             }
+//            if todoViewModel.canShowOldTodos() {
+//
+//            }
         }
     }
     
@@ -219,7 +232,8 @@ struct DailyTodoView: View {
                             newTodo.uuid = UUID()
                             newTodo.duedate = todoViewModel.searchDate
                             newTodo.status = TodoStatus.none
-                            newTodo.section = "Today"
+                            newTodo.completeDate = nil
+                            
                             if newTitle != "" {
                                 newTodo.title = newTitle
                                 todoViewModel.todos = todoViewModel.addATodo(
@@ -227,7 +241,7 @@ struct DailyTodoView: View {
                                              title: newTodo.title,
                                              duedate: newTodo.duedate,
                                              status: newTodo.status,
-                                             section: newTodo.section)
+                                             completeDate: newTodo.completeDate)
                                 )
                             }
                             
@@ -240,7 +254,8 @@ struct DailyTodoView: View {
                         newTodo.uuid = UUID()
                         newTodo.duedate = todoViewModel.searchDate
                         newTodo.status = TodoStatus.none
-                        newTodo.section = "Today"
+                        newTodo.completeDate = nil
+                        
                         if newTitle != "" {
                             newTodo.title = newTitle
                             todoViewModel.todos = todoViewModel.addATodo(
@@ -248,7 +263,7 @@ struct DailyTodoView: View {
                                          title: newTodo.title,
                                          duedate: newTodo.duedate,
                                          status: newTodo.status,
-                                         section: newTodo.section)
+                                         completeDate: newTodo.completeDate)
                             )
                         }
                         
@@ -301,12 +316,14 @@ struct DailyTodoView: View {
             
             Button {
                 let updatingDate = Calendar.current.startOfDay(for: detailTodoViewModel.updatingDate)
+                let today = Calendar.current.startOfDay(for: Date())
                 
                 todoViewModel.todos = todoViewModel.updateATodo(
                     updatingTodo: detailTodoViewModel.pickedTodo,
                     title: nil,
                     status: nil,
-                    duedate: updatingDate
+                    duedate: updatingDate,
+                    completeDate: nil
                 )
                 //                    todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
                 detailTodoViewModel.datePickerBottomSheetPosition = .hidden
@@ -356,7 +373,7 @@ struct DailyTodoView: View {
                             .onSubmit {
                                 detailTodoViewModel.editBottomSheetPosition = .hidden
                                 todoViewModel.todos = todoViewModel.updateATodo(
-                                    updatingTodo: detailTodoViewModel.pickedTodo, title: detailTodoViewModel.editingTitle, status: nil, duedate: nil
+                                    updatingTodo: detailTodoViewModel.pickedTodo, title: detailTodoViewModel.editingTitle, status: nil, duedate: nil, completeDate: nil
                                 )
                                 //                            print("onSubmit: ", detailTodoViewModel.editingTitle)
                             }
@@ -365,7 +382,7 @@ struct DailyTodoView: View {
                         Button {
                             detailTodoViewModel.editBottomSheetPosition = .hidden
                             todoViewModel.todos = todoViewModel.updateATodo(
-                                updatingTodo: detailTodoViewModel.pickedTodo, title: detailTodoViewModel.editingTitle, status: nil, duedate: nil
+                                updatingTodo: detailTodoViewModel.pickedTodo, title: detailTodoViewModel.editingTitle, status: nil, duedate: nil, completeDate: nil
                             )
                             
                             //                        print("수정완료 버튼 클릭: ", detailTodoViewModel.editingTitle)

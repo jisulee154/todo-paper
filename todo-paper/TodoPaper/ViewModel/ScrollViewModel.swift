@@ -39,13 +39,13 @@ class ScrollViewModel: NSObject, UIScrollViewDelegate, ObservableObject {
     /// 스크롤뷰 동작시 감지
     /// - Parameter scrollView: 스크롤뷰 인스턴스
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print("ScrollViewHelper scrollViewDidScroll() called \(scrollView.contentOffset.x)")
+//        print("ScrollViewHelper scrollViewDidScroll() called \(scrollView.contentOffset.x)")
         
         self.isTrailingValue = isScrollTrailing(scrollView, rthreshold)
         self.isLeadingValue = isScrollLeading(scrollView, lthreshold)
         
-        print("isTrailing: ", isTrailingValue)
-        print("isLeading: ", isLeadingValue)
+//        print("isTrailing: ", isTrailingValue)
+//        print("isLeading: ", isLeadingValue)
     }
     
     

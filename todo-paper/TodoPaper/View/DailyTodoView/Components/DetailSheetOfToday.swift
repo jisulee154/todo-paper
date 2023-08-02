@@ -67,15 +67,22 @@ struct DetailSheetOfToday: View {
                     Button {
                         detailTodoViewModel.settingBottomSheetPosition = .hidden
                         
-                        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Calendar.current.startOfDay(for: Date())) ?? Date()
+                        let today = Calendar.current.startOfDay(for: Date())
+                        let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today) ?? Date()
                         
-                        // 상태 업데이트 .none -> .postponed
-                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .postponed, duedate: nil)
+                        // 상태와 duedate 업데이트 .none -> .postponed
+                        if detailTodoViewModel.pickedTodo.duedate < today {
+                            todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .postponed, duedate: today, completeDate: nil)
+                        } else {
+                            todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .postponed, duedate: nil, completeDate: nil)
+                        }
                         
                         // 내일 목록에 투두 복사
                         todoViewModel.todos = todoViewModel.addATodo(
-                            TodoItem(title: detailTodoViewModel.pickedTodo.title, duedate: tomorrow)
+                            TodoItem(title: detailTodoViewModel.pickedTodo.title, duedate: tomorrow, completeDate: nil)
                         )
+                        todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
+                        todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
                         
                         // 실행 완료 토스트 메시지
                         detailTodoViewModel.showPostponedToast.toggle()
@@ -90,7 +97,7 @@ struct DetailSheetOfToday: View {
                         detailTodoViewModel.settingBottomSheetPosition = .hidden
                         
                         // 상태 업데이트 .none -> .canceled
-                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .canceled, duedate: nil)
+                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .canceled, duedate: nil, completeDate: nil)
                     } label: {
                         Text("포기하기")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)

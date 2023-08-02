@@ -22,6 +22,8 @@
 		413913AC2A792677007EFFF2 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 413913AB2A792677007EFFF2 /* AlertToast */; };
 		413913B02A796ED8007EFFF2 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913AF2A796ED8007EFFF2 /* SettingView.swift */; };
 		413913B22A7A2A4D007EFFF2 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913B12A7A2A4D007EFFF2 /* SettingViewModel.swift */; };
+		413913B52A7A656C007EFFF2 /* MappingModelV4Tov5.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 413913B42A7A656C007EFFF2 /* MappingModelV4Tov5.xcmappingmodel */; };
+		413913B82A7A79D7007EFFF2 /* MappingModelV5ToV6.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 413913B72A7A79D7007EFFF2 /* MappingModelV5ToV6.xcmappingmodel */; };
 		417394AD2A6652C000205292 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394AC2A6652C000205292 /* Header.swift */; };
 		417394BB2A66876900205292 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394BA2A66876900205292 /* DateCell.swift */; };
 		41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */; };
@@ -53,6 +55,10 @@
 		413913A72A77DC6A007EFFF2 /* DetailSheetOfFuture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSheetOfFuture.swift; sourceTree = "<group>"; };
 		413913AF2A796ED8007EFFF2 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		413913B12A7A2A4D007EFFF2 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		413913B32A7A6471007EFFF2 /* todo_paper_5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = todo_paper_5.xcdatamodel; sourceTree = "<group>"; };
+		413913B42A7A656C007EFFF2 /* MappingModelV4Tov5.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MappingModelV4Tov5.xcmappingmodel; sourceTree = "<group>"; };
+		413913B62A7A7958007EFFF2 /* todo_paper_ 6.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "todo_paper_ 6.xcdatamodel"; sourceTree = "<group>"; };
+		413913B72A7A79D7007EFFF2 /* MappingModelV5ToV6.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MappingModelV5ToV6.xcmappingmodel; sourceTree = "<group>"; };
 		416C2D3F2A6822A500F06242 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		416C2D412A6822B100F06242 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		417394AC2A6652C000205292 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
@@ -194,6 +200,9 @@
 				4136515B2A6A1F04006C6361 /* Item+CoreDataClass.swift */,
 				4136515C2A6A1F04006C6361 /* Item+CoreDataProperties.swift */,
 				41E1DC472A58277C005A5EAA /* Persistence.swift */,
+				4124E8EF2A6BF0ED0045E220 /* MappingModelV1ToV4.xcmappingmodel */,
+				413913B42A7A656C007EFFF2 /* MappingModelV4Tov5.xcmappingmodel */,
+				413913B72A7A79D7007EFFF2 /* MappingModelV5ToV6.xcmappingmodel */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -201,7 +210,6 @@
 		41E1DC7C2A5EEF18005A5EAA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4124E8EF2A6BF0ED0045E220 /* MappingModelV1ToV4.xcmappingmodel */,
 				41E1DC422A58277C005A5EAA /* Assets.xcassets */,
 				41E1DC442A58277C005A5EAA /* Preview Content */,
 			);
@@ -374,6 +382,7 @@
 			files = (
 				413913A82A77DC6A007EFFF2 /* DetailSheetOfFuture.swift in Sources */,
 				4136515D2A6A1F04006C6361 /* Item+CoreDataClass.swift in Sources */,
+				413913B82A7A79D7007EFFF2 /* MappingModelV5ToV6.xcmappingmodel in Sources */,
 				41E1DC4B2A58277C005A5EAA /* todo_paper.xcdatamodeld in Sources */,
 				413913B02A796ED8007EFFF2 /* SettingView.swift in Sources */,
 				4136515E2A6A1F04006C6361 /* Item+CoreDataProperties.swift in Sources */,
@@ -385,6 +394,7 @@
 				413913A62A77DC44007EFFF2 /* DetailSheetOfToday.swift in Sources */,
 				41E1DC412A58277B005A5EAA /* DailyTodoView.swift in Sources */,
 				4139135E2A72A4EA007EFFF2 /* DetailTodoViewModel.swift in Sources */,
+				413913B52A7A656C007EFFF2 /* MappingModelV4Tov5.xcmappingmodel in Sources */,
 				41E1DC732A5DC427005A5EAA /* TodoItem.swift in Sources */,
 				413913372A702EEB007EFFF2 /* ScrollViewModel.swift in Sources */,
 				41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */,
@@ -635,12 +645,14 @@
 		41E1DC492A58277C005A5EAA /* todo_paper.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				413913B62A7A7958007EFFF2 /* todo_paper_ 6.xcdatamodel */,
+				413913B32A7A6471007EFFF2 /* todo_paper_5.xcdatamodel */,
 				4124E8EE2A6BF07B0045E220 /* todo_paper 4.xcdatamodel */,
 				4124E8ED2A6BEFF30045E220 /* todo_paper_ 3.xcdatamodel */,
 				4124E8EC2A6BEACC0045E220 /* todo_paper_2.xcdatamodel */,
 				41E1DC4A2A58277C005A5EAA /* todo_paper.xcdatamodel */,
 			);
-			currentVersion = 4124E8EE2A6BF07B0045E220 /* todo_paper 4.xcdatamodel */;
+			currentVersion = 413913B62A7A7958007EFFF2 /* todo_paper_ 6.xcdatamodel */;
 			path = todo_paper.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

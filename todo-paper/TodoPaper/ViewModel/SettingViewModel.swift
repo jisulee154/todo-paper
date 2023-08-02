@@ -16,6 +16,7 @@ class SettingViewModel: ObservableObject {
          isStickerNotificationOn: Bool = false,
          isUnfinishedTaskPostponeOn: Bool = false,
          isHideGaveUpTaskOn: Bool = false) {
+        
         self.isTodoNotificationOn = isTodoNotificationOn
         self.isStickerNotificationOn = isStickerNotificationOn
         self.isUnfinishedTaskPostponeOn = isUnfinishedTaskPostponeOn
