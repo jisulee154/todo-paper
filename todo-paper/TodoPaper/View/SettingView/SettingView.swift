@@ -55,10 +55,6 @@ struct SettingView: View {
                 }
                 
                 Section("투두 설정") {
-                    // 미완료 할일 다음날로 넘기기
-                    Toggle(isOn: $settingViewModel.isUnfinishedTaskPostponeOn) {
-                        Text("완료하지 못한 투두 다음날로 자동 넘기기")
-                    }
                     // 포기한 일 숨기기
                     Toggle(isOn: $settingViewModel.isHideGaveUpTaskOn) {
                         Text("포기한 투두 숨기기")

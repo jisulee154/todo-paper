@@ -70,22 +70,24 @@ struct DetailSheetOfToday: View {
                         let today = Calendar.current.startOfDay(for: Date())
                         let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today) ?? Date()
                         
-                        // 상태와 duedate 업데이트 .none -> .postponed
+                        // 상태와 duedate 업데이트 Status -> .postponed
                         if detailTodoViewModel.pickedTodo.duedate < today {
-                            todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .postponed, duedate: today, completeDate: nil)
+                            todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .postponed, duedate: today, completeDate: today)
                         } else {
-                            todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .postponed, duedate: nil, completeDate: nil)
+                            todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .postponed, duedate: nil, completeDate: today)
                         }
                         
                         // 내일 목록에 투두 복사
                         todoViewModel.todos = todoViewModel.addATodo(
                             TodoItem(title: detailTodoViewModel.pickedTodo.title, duedate: tomorrow, completeDate: nil)
                         )
-                        todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
                         todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
                         
                         // 실행 완료 토스트 메시지
                         detailTodoViewModel.showPostponedToast.toggle()
+                        
+                        // 칭찬 스티커 붙이기 활성화 업데이트
+                        todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
                     } label: {
                         Text("내일 하기")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)
@@ -96,8 +98,16 @@ struct DetailSheetOfToday: View {
                     Button {
                         detailTodoViewModel.settingBottomSheetPosition = .hidden
                         
-                        // 상태 업데이트 .none -> .canceled
-                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .canceled, duedate: nil, completeDate: nil)
+                        let today = Calendar.current.startOfDay(for: Date())
+                        
+                        // 상태 업데이트 Status -> .canceled
+                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .canceled, duedate: nil, completeDate: today)
+                        
+                        todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
+                        todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
+                        
+                        // 칭찬 스티커 붙이기 활성화 업데이트
+                        todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
                     } label: {
                         Text("포기하기")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)
@@ -110,9 +120,13 @@ struct DetailSheetOfToday: View {
                         
                         // 선택된 투두 삭제하기
                         todoViewModel.todos = todoViewModel.deleteATodo(uuid: detailTodoViewModel.pickedTodo.uuid)
+                        todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
                         
                         // 삭제 토스트 메시지
                         detailTodoViewModel.showDeletedToast.toggle()
+                        
+                        // 칭찬 스티커 붙이기 활성화 업데이트
+                        todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
                     } label: {
                         Text("삭제")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)

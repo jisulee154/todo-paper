@@ -125,15 +125,10 @@ struct DailyTodoView: View {
                             .listRowInsets(EdgeInsets.init())
                         }
                         
-                        
-                        
                         // 보여지는 일자가 오늘인 경우 기한이 지난 투두를 old 섹션에 출력한다.
                         if todoViewModel.canShowOldTodos() {
-                            Section("old") {
-                                if todoViewModel.oldTodos.count == 0 {
-                                    Color.clear
-                                        .listRowBackground(Color.clear)
-                                } else {
+                            if todoViewModel.oldTodos.count != 0 {
+                                Section("old") {
                                     VStack {
                                         ForEach(todoViewModel.oldTodos) { todo in
                                             TodoItemRow(with: TodoItem(uuid: todo.uuid,
@@ -151,12 +146,9 @@ struct DailyTodoView: View {
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color.themeColor40, lineWidth: 2)
                                     )
-                                }
-                                
-                            } // Section - Old
-                            .listRowInsets(EdgeInsets.init())
+                                }.listRowInsets(EdgeInsets.init())
+                            }
                         }
-                        
                         Color.clear.frame(height:100)
                             .listRowBackground(Color.clear)
                     } // List
@@ -195,12 +187,7 @@ struct DailyTodoView: View {
             todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
             todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
             
-            for oldTodo in todoViewModel.oldTodos {
-                todoViewModel.oldTodos = todoViewModel.updateATodo(updatingTodo: oldTodo, title: nil, status: nil, duedate: nil, completeDate: nil)
-            }
-//            if todoViewModel.canShowOldTodos() {
-//
-//            }
+            todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
         }
     }
     
@@ -270,6 +257,8 @@ struct DailyTodoView: View {
                         newTitle = "" // 초기화
                         
                         detailTodoViewModel.addTodoBottomSheetPosition = .hidden
+                        
+                        todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
                     } label: {
                         Text("완료")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)
@@ -331,6 +320,8 @@ struct DailyTodoView: View {
                 
                 // 날짜 변경 토스트 메시지 띄우기
                 detailTodoViewModel.showAnotherDayToast.toggle()
+                
+                todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
                 
             } label: {
                 Text("설정 완료")

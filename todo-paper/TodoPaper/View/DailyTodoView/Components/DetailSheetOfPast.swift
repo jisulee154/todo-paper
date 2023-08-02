@@ -25,6 +25,8 @@ struct DetailSheetOfPast: View {
                          headerContent: {
                 Text("상세 설정")
                     .font(.title)
+                    .padding(.horizontal, 30)
+                    .padding(.vertical, 20)
             }) {
                 VStack (spacing: 10) {
                     Button {
@@ -47,6 +49,9 @@ struct DetailSheetOfPast: View {
                         
                         // 변경 토스트 메시지 띄우기
                         detailTodoViewModel.showChangedAsTodayToast.toggle()
+                        
+                        // 칭찬 스티커 붙이기 활성화 업데이트
+                        todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
                     } label: {
                         Text("오늘 하기")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)

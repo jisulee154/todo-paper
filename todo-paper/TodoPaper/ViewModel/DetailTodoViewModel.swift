@@ -54,7 +54,7 @@ class DetailTodoViewModel: ObservableObject {
         self.pickedTodo = pickedTodo
     }
     
-    func getTimePosition(of date: Date) -> TimePosition {
+    static func getTimePosition(of date: Date) -> TimePosition {
         let startOfToday = Calendar.current.startOfDay(for: Date()) ?? Date()
         let startOfTomorrow = Calendar.current.date(byAdding: .day, value: 1, to: startOfToday) ?? Date()
         

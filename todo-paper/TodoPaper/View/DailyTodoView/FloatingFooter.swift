@@ -21,7 +21,7 @@ struct FloatingFooter: View{
                 Spacer()
                 Button {
                     // 미완료한 일이 없는 날(미래 제외)에만 칭찬 스티커를 붙일 수 있다.
-                    let timePosition = detailTodoViewModel.getTimePosition(of: todoViewModel.searchDate)
+                    let timePosition = DetailTodoViewModel.getTimePosition(of: todoViewModel.searchDate)
                     let todos = todoViewModel.fetchTodosBySelectedDate()
                     var oldTodos: [TodoItem] = []
                     if timePosition == .today {
@@ -57,15 +57,31 @@ struct FloatingFooter: View{
                         detailTodoViewModel.showCantPutStickerYet.toggle()
                     }
                 } label: {
-                    Image(systemName: "checkmark.seal")
-                        .resizable()
-                        .frame(width: 40, height: 40)
-                        .padding(.all, 10)
-                        .foregroundColor(.white)
-                        .background(Color.gray)
-                        .cornerRadius(50)
-                        .opacity(0.3)
-                        .padding(.bottom, 20)
+                    
+                    if todoViewModel.isActivePutSticker {
+                        // 활성
+                        Image(systemName: "checkmark.seal")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .padding(.all, 10)
+                            .foregroundColor(.white)
+                            .background(Color.yellow)
+                            .cornerRadius(50)
+                            .padding(.bottom, 20)
+                    }
+                    else {
+                        // 비활성
+                        Image(systemName: "checkmark.seal")
+                            .resizable()
+                            .frame(width: 40, height: 40)
+                            .padding(.all, 10)
+                            .foregroundColor(.white)
+                            .background(Color.gray)
+                            .cornerRadius(50)
+                            .padding(.bottom, 20)
+                            .opacity(0.3) // 비활성 효과
+                    }
+                        
                 }
                 .onAppear {
                     todoViewModel.isTodosDone = todoViewModel.getTodosDone(todos: todoViewModel.todos, oldTodos: todoViewModel.oldTodos)

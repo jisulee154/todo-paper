@@ -58,10 +58,13 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     @Published var completeSticker: CompleteStickerStatus = CompleteStickerStatus.none
     @Published var scrollTargetDate: Date = Date()
     @Published var delayedDays: Int? = 0
+    @Published var isActivePutSticker: Bool = false
     
     @Published var showSettingView: Bool = false
     @Published var showCompleteStickerView: Bool = false
     @Published var isTodosDone: Bool = false
+    
+    
     
     init() {
         self.todos = fetchTodos()
@@ -77,6 +80,44 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     
     
     //MARK: - 완료 스티커 관련
+    func getActivePutSticker() -> Bool {
+        // 미완료한 일이 없는 날(미래 제외)에만 칭찬 스티커를 붙일 수 있다.
+        let timePosition = DetailTodoViewModel.getTimePosition(of: searchDate)
+        let todos = fetchTodosBySelectedDate()
+        var oldTodos: [TodoItem] = []
+        if timePosition == .today {
+            oldTodos = fetchOldTodos()
+        }
+        
+        isTodosDone = getTodosDone(todos: todos, oldTodos: oldTodos)
+        
+        if (timePosition == .today || timePosition == .past) {
+            if isTodosDone {
+                //미완료 투두가 없음
+                if todos.isEmpty && oldTodos.isEmpty {
+                    // 설정된 투두가 없어 칭찬 스티커 붙일 수 없음 안내
+                    if timePosition == .past {
+                        return false
+                    } else {
+                        return false
+                    }
+                } else {
+                    return true
+                }
+            } else {
+                //미완료 투두 있음
+                
+                // 미완료 투두 있음 토스트 메시지
+                return false
+            }
+            
+        }
+        else {
+            // 해당 일자(미래)엔 아직 칭찬 스티커 붙일 수 없음 안내
+            return false
+        }
+    }
+    
     func getTodosDone(todos: [TodoItem], oldTodos: [TodoItem]) -> Bool {
         for todo in todos {
             if todo.status == .none {

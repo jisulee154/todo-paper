@@ -41,7 +41,6 @@ struct DateCell: View {
                 todoViewModel.searchDate = todoViewModel.setSearchDate(date: date)
                 todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: date)
                 todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
-                print("투두 갯수 - ",todoViewModel.todos)
                 
                 if todoViewModel.canShowOldTodos() {
                     todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
@@ -49,6 +48,8 @@ struct DateCell: View {
                 else {
                     todoViewModel.oldTodos = []
                 }
+                
+                todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
 //                print(#fileID, #function, #line, "set new searchDate: \(todoViewModel.searchDate)")
             } label: {
                 VStack(alignment: .center) {

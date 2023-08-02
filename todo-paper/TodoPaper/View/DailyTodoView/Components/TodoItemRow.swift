@@ -22,7 +22,7 @@ struct TodoItemRow: View {
     
     init(with newTodo: TodoItem,
          todoViewModel: TodoViewModel,
-         todoItemRowType:TodoItemRowType = TodoItemRowType.today,
+         todoItemRowType: TodoItemRowType = TodoItemRowType.today,
          detailTodoViewModel: DetailTodoViewModel
     ) {
         self.todoItem = newTodo
@@ -45,9 +45,11 @@ struct TodoItemRow: View {
                 case .postponed:
                     Image(systemName: "arrow.forward.square")
                         .todoImageModifier()
+                        .foregroundColor(.gray)
                 case .canceled:
                     Image(systemName: "xmark.square")
                         .todoImageModifier()
+                        .foregroundColor(.gray)
                 }
             }
             .onTapGesture {
@@ -70,12 +72,22 @@ struct TodoItemRow: View {
                 if todoViewModel.canShowOldTodos() {
                     todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
                 }
-                print("완료하고자 하는 투두: ", todoItem.title)
+                
+                todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
             }
             // TodoItemRowType에 따라 다른 형태로 보여주기
             // 현재 일자
-            if (todoItemRowType == TodoItemRowType.today) {
-                Text(todoItem.title)
+            if todoItemRowType == TodoItemRowType.today {
+                if todoItem.status == TodoStatus.canceled {
+                    Text(todoItem.title)
+                        .foregroundColor(.gray)
+                        .strikethrough()
+                } else if todoItem.status == TodoStatus.postponed {
+                    Text(todoItem.title)
+                        .foregroundColor(.gray)
+                } else {
+                    Text(todoItem.title)
+                }
             } else {
                 VStack {
                     // 지난 기한 표시
@@ -88,7 +100,16 @@ struct TodoItemRow: View {
                         Spacer()
                     }
                     HStack {
-                        Text(todoItem.title)
+                        if todoItem.status == TodoStatus.canceled {
+                            Text(todoItem.title)
+                                .foregroundColor(.gray)
+                                .strikethrough()
+                        } else if todoItem.status == TodoStatus.postponed {
+                            Text(todoItem.title)
+                                .foregroundColor(.gray)
+                        } else {
+                            Text(todoItem.title)
+                        }
                         Spacer()
                     }
                     
@@ -103,7 +124,7 @@ struct TodoItemRow: View {
             .padding(.horizontal, 20)
             .padding(.vertical, 20)
             .onTapGesture {
-                    detailTodoViewModel.timePosition = detailTodoViewModel.getTimePosition(of: todoViewModel.searchDate)
+                    detailTodoViewModel.timePosition = DetailTodoViewModel.getTimePosition(of: todoViewModel.searchDate)
                     detailTodoViewModel.setPickedTodo(pickedTodo: todoItem)
                     detailTodoViewModel.settingBottomSheetPosition = .relative(0.7)
                     print("상세설정 하고자 하는 투두: ", todoItem.title)
