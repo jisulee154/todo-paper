@@ -16,23 +16,37 @@ struct FloatingFooter: View{
     
     var body: some View {
         VStack {
-//            makeAddTodoBottomSheet()
             Spacer()
             HStack (spacing: 10) {
                 Spacer()
                 Button {
-                    //action
+                    if todoViewModel.isTodosDone {
+                        //할일 완료
+                        
+                        detailTodoViewModel.setStickerBottomSheetPosition = .relative(0.5)
+                    } else {
+                        //미완료
+                        
+                        // 미완료 투두 있음 토스트 메시지
+                        detailTodoViewModel.showUnfinishedTodosToast.toggle()
+                    }
                 } label: {
-                    Image(systemName: "medal")
+                    Image(systemName: "checkmark.seal")
                         .resizable()
                         .frame(width: 40, height: 40)
                         .padding(.all, 10)
                         .foregroundColor(.white)
                         .background(Color.gray)
                         .cornerRadius(50)
-                        .opacity(0.5)
+                        .opacity(0.3)
                         .padding(.bottom, 20)
                 }
+                .onAppear {
+                    todoViewModel.isTodosDone = todoViewModel.getTodosDone(todos: todoViewModel.todos, oldTodos: todoViewModel.oldTodos)
+                    
+                }
+                
+                
                 Button(action: {
                     detailTodoViewModel.addTodoBottomSheetPosition = .relative(0.7)
                 }) {

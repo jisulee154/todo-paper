@@ -58,6 +58,8 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     @Published var delayedDays: Int? = 0
     
     @Published var showSettingView: Bool = false
+    @Published var showCompleteStickerView: Bool = false
+    @Published var isTodosDone: Bool = false
     
     init() {
         self.todos = fetchTodos()
@@ -73,6 +75,20 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     
     
     //MARK: - 완료 스티커 관련
+    func getTodosDone(todos: [TodoItem], oldTodos: [TodoItem]) -> Bool {
+        for todo in todos {
+            if todo.status == .none {
+                return false
+            }
+        }
+        for oldTodo in oldTodos {
+            if oldTodo.status == .none {
+                return false
+            }
+        }
+        return true
+    }
+    
     func setCompleteSticker(with name: String) -> CompleteStickerStatus{
         switch name {
         case "1":

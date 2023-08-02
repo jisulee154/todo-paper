@@ -17,6 +17,7 @@ class DetailTodoViewModel: ObservableObject {
     @Published var settingBottomSheetPosition: BottomSheetPosition = .hidden
     @Published var datePickerBottomSheetPosition: BottomSheetPosition = .hidden
     @Published var editBottomSheetPosition: BottomSheetPosition = .hidden
+    @Published var setStickerBottomSheetPosition: BottomSheetPosition = .hidden
     
     @Published var editingTitle: String = "" // 투두 수정하기 텍스트필드 입력값
     
@@ -24,6 +25,7 @@ class DetailTodoViewModel: ObservableObject {
     @Published var showDeletedToast: Bool = false
     @Published var showChangedAsTodayToast: Bool = false
     @Published var showAnotherDayToast: Bool = false
+    @Published var showUnfinishedTodosToast: Bool = false
     
     init(
         timePosition: TimePosition = .today,

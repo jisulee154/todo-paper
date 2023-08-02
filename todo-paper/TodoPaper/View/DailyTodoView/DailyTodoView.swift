@@ -78,8 +78,9 @@ struct DailyTodoView: View {
         .toast(isPresenting: $detailTodoViewModel.showAnotherDayToast) {
             AlertToast(displayMode: .hud, type: .complete(.green), title: "선택한 일자로 투두가 이동되었습니다.")
         }
-        
-        
+        .toast(isPresenting: $detailTodoViewModel.showUnfinishedTodosToast) {
+            AlertToast(displayMode: .hud, type: .regular, title: "🥺\n미완료인 투두가 있어\n칭찬 스티커를 붙일 수 없습니다. ")
+        }
     }
     
     //MARK: - 날짜 선택 스크롤과 투두 리스트 목록
@@ -92,48 +93,56 @@ struct DailyTodoView: View {
                 VStack {
                     ///투두 목록 부분
                     List {
-                        Section("list") {
-                            VStack {
-                                ForEach(todoViewModel.todos) { todo in
-                                    TodoItemRow(with: TodoItem(uuid: todo.uuid,
-                                                               title: todo.title,
-                                                               duedate: todo.duedate,
-                                                               status: todo.status,
-                                                               section: todo.section),
-                                                todoViewModel: todoViewModel,
-                                                todoItemRowType: TodoItemRowType.today,
-                                                detailTodoViewModel: detailTodoViewModel)
-                                    Divider()
-                                    
-                                }
-                            }
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color.themeColor40, lineWidth: 2)
-                            )
-                        } // Section - Today
-                        .listRowInsets(EdgeInsets.init())
-                        
-                        
-                        // 보여지는 일자가 오늘인 경우 기한이 지난 투두를 old 섹션에 출력한다.
-                        if todoViewModel.canShowOldTodos() {
-                            Section("old") {
+                        if todoViewModel.todos.count > 0 {
+                            Section("list") {
                                 VStack {
-                                    ForEach(todoViewModel.oldTodos) { todo in
+                                    ForEach(todoViewModel.todos) { todo in
                                         TodoItemRow(with: TodoItem(uuid: todo.uuid,
                                                                    title: todo.title,
                                                                    duedate: todo.duedate,
                                                                    status: todo.status,
                                                                    section: todo.section),
                                                     todoViewModel: todoViewModel,
-                                                    todoItemRowType: TodoItemRowType.old,
+                                                    todoItemRowType: TodoItemRowType.today,
                                                     detailTodoViewModel: detailTodoViewModel)
-                                        
                                         Divider()
+                                        
                                     }
                                 }
                                 .overlay(
                                     RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color.themeColor40, lineWidth: 2)
                                 )
+                            }
+                            .listRowInsets(EdgeInsets.init())
+                        }
+                        
+                        
+                        
+                        // 보여지는 일자가 오늘인 경우 기한이 지난 투두를 old 섹션에 출력한다.
+                        if todoViewModel.canShowOldTodos() {
+                            Section("old") {
+                                if todoViewModel.oldTodos.count == 0 {
+                                    Color.clear
+                                        .listRowBackground(Color.clear)
+                                } else {
+                                    VStack {
+                                        ForEach(todoViewModel.oldTodos) { todo in
+                                            TodoItemRow(with: TodoItem(uuid: todo.uuid,
+                                                                       title: todo.title,
+                                                                       duedate: todo.duedate,
+                                                                       status: todo.status,
+                                                                       section: todo.section),
+                                                        todoViewModel: todoViewModel,
+                                                        todoItemRowType: TodoItemRowType.old,
+                                                        detailTodoViewModel: detailTodoViewModel)
+                                            
+                                            Divider()
+                                        }
+                                    }
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color.themeColor40, lineWidth: 2)
+                                    )
+                                }
                                 
                             } // Section - Old
                             .listRowInsets(EdgeInsets.init())
