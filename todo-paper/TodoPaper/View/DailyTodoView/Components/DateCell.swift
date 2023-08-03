@@ -14,10 +14,13 @@ struct DateCell: View {
 //    var onNewDateClicked: (Date) -> Void
 
     @ObservedObject var todoViewModel: TodoViewModel
+    @ObservedObject var stickerViewModel: StickerViewModel
+    
     private var date: Date
     
-    init(todoViewModel: TodoViewModel, date: Date) {
+    init(todoViewModel: TodoViewModel, stickerViewModel: StickerViewModel, date: Date) {
         self.todoViewModel = todoViewModel
+        self.stickerViewModel = stickerViewModel
         self.date = date
     }
     
@@ -50,6 +53,13 @@ struct DateCell: View {
                 }
                 
                 todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
+                
+                // 스티커 체크
+                stickerViewModel.isTodayStickerOn = stickerViewModel.getTodayStickerOn(date: todoViewModel.searchDate)
+                
+                if stickerViewModel.isTodayStickerOn {
+                    stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
+                }
 //                print(#fileID, #function, #line, "set new searchDate: \(todoViewModel.searchDate)")
             } label: {
                 VStack(alignment: .center) {
@@ -69,8 +79,3 @@ struct DateCell: View {
     }
 }
 
-struct DateCell_Previews: PreviewProvider {
-    static var previews: some View {
-        DateCell(todoViewModel: TodoViewModel(), date: Date())
-    }
-}

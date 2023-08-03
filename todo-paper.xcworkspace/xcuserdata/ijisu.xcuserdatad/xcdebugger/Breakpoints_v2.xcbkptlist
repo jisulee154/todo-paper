@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "4C2C426A-2A3B-4474-BED0-F35B626C1B25"
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F822D115-C0CC-49FB-8472-F27DDD7C830E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../StickerCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "54"
+            endingLineNumber = "54"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B58C14FE-AB7B-4D73-B371-26D37C826D8F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "todo-paper/TodoPaper/ViewModel/StickerViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "updateASticker(updatingSticker:date:isExist:stickerName:stickerBgColor:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B58C14FE-AB7B-4D73-B371-26D37C826D8F - b1f2532e3001f082"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "todo_paper.StickerViewModel.updateASticker(updatingSticker: todo_paper.StickerItem, date: Swift.Optional&lt;Foundation.Date&gt;, isExist: Swift.Optional&lt;Swift.Bool&gt;, stickerName: Swift.Optional&lt;Swift.String&gt;, stickerBgColor: Swift.Optional&lt;Swift.String&gt;) -&gt; Swift.Optional&lt;todo_paper.StickerItem&gt;"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/ViewModel/StickerViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "125"
+                  endingLineNumber = "125"
+                  offsetFromSymbolStart = "1620">
+               </Location>
+               <Location
+                  uuid = "B58C14FE-AB7B-4D73-B371-26D37C826D8F - af5535ae022659bc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "todo_paper.StickerViewModel.getTodayStickerOn(date: Foundation.Date) -&gt; Swift.Bool"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/ViewModel/StickerViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "126"
+                  endingLineNumber = "126"
+                  offsetFromSymbolStart = "228">
+               </Location>
+               <Location
+                  uuid = "B58C14FE-AB7B-4D73-B371-26D37C826D8F - af5535ae022659bc"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "todo_paper.StickerViewModel.getTodayStickerOn(date: Foundation.Date) -&gt; Swift.Bool"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/ViewModel/StickerViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "126"
+                  endingLineNumber = "126"
+                  offsetFromSymbolStart = "160">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F4DDD667-7BA9-456B-AD9B-2E5714798E4B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "todo-paper/TodoPaper/ViewModel/StickerViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "52"
+            endingLineNumber = "52"
+            landmarkName = "fetchSticker(on:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F4DDD667-7BA9-456B-AD9B-2E5714798E4B - b9a02a0f772ee831"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "todo_paper.StickerViewModel.getStickerCases() -&gt; Swift.Array&lt;todo_paper.StickerCase&gt;"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/ViewModel/StickerViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "196">
+               </Location>
+               <Location
+                  uuid = "F4DDD667-7BA9-456B-AD9B-2E5714798E4B - 98ffd64881e3adef"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "todo_paper.StickerViewModel.fetchSticker(on: Foundation.Date) -&gt; Swift.Optional&lt;todo_paper.StickerItem&gt;"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/ViewModel/StickerViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "52"
+                  endingLineNumber = "52"
+                  offsetFromSymbolStart = "432">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

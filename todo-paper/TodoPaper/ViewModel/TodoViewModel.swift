@@ -66,6 +66,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     
     
     
+    
     init() {
         self.todos = fetchTodos()
         self.oldTodos = fetchOldTodos()
@@ -418,6 +419,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         newItemEntity.duedate = newTodo.duedate
         newItemEntity.status = newTodo.status.rawValue
         newItemEntity.completeDate = newTodo.completeDate
+//        newItemEntity.stickerName = newTodo.stickerName
 //        newItemEntity.section = newTodo.section
 //        newItemEntity.onToday = newTodo.onToday
         print(#fileID, #function, #line, "-추가하려는 투두: \(newItemEntity)")
@@ -453,6 +455,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
             targetTodo.duedate = safeDuedate
         }
         targetTodo.completeDate = completeDate
+//        targetTodo.stickerName = stickerName
         
         do {
             try context.save()

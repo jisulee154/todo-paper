@@ -4,7 +4,6 @@
 //
 //  Created by 이지수 on 2023/07/12.
 //
-
 import Foundation
 
 struct TodoItem: Identifiable {

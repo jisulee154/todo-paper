@@ -12,13 +12,15 @@ import Introspect
 struct Header: View {
     //    var onNewDateClicked: (Date) -> Void
     @ObservedObject var todoViewModel: TodoViewModel
+    @ObservedObject var stickerViewModel: StickerViewModel
     @StateObject var scrollViewModel: ScrollViewModel
     
-    init(todoViewModel: TodoViewModel) {
+    init(todoViewModel: TodoViewModel, stickerViewModel: StickerViewModel) {
         self._scrollViewModel = StateObject.init(
             wrappedValue: ScrollViewModel(lthreshold: -10, rthreshold: 0)
         )
         self.todoViewModel = todoViewModel
+        self.stickerViewModel = stickerViewModel
     }
     
     var body: some View {
@@ -88,7 +90,7 @@ struct Header: View {
 //                            .id(date)
 //                    }
                     ForEach(todoViewModel.defaultDates, id:\.self) { date in
-                        DateCell(todoViewModel: todoViewModel, date: date)
+                        DateCell(todoViewModel: todoViewModel, stickerViewModel: stickerViewModel, date: date)
                             .id(date)
                     }
                     .onAppear {

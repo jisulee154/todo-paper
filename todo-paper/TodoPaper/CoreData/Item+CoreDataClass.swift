@@ -13,3 +13,8 @@ import CoreData
 public class Item: NSManagedObject {
 
 }
+
+@objc(Sticker)
+public class Sticker: NSManagedObject {
+    
+}

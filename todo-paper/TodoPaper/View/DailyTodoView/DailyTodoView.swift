@@ -21,6 +21,7 @@ struct DailyTodoView: View {
     //    @StateObject var previousTodoViewModel: TodoViewModel = TodoViewModel()
     @StateObject var todoViewModel: TodoViewModel = TodoViewModel()
     @StateObject var detailTodoViewModel: DetailTodoViewModel = DetailTodoViewModel()
+    @StateObject var stickerViewModel: StickerViewModel = StickerViewModel()
     
     /// BottomSheet 관련
     @State var newTodo: TodoItem = TodoItem(title: "")
@@ -39,31 +40,41 @@ struct DailyTodoView: View {
             
             /// 투두 만들기 바텀 시트
             makeAddTodoBottomSheet()
-                .zIndex(2)
+                .zIndex(3)
             
             /// 투두 상세 설정 바텀 시트
             switch (detailTodoViewModel.timePosition) {
             case .past:
                 makePastDetailSettingBottomSheet()
-                    .zIndex(3)
+                    .zIndex(4)
             case .today:
                 makeTodayDetailSettingBottomSheet()
-                    .zIndex(3)
+                    .zIndex(4)
             case .future:
                 makeFutureDetailSettingBottomSheet()
-                    .zIndex(3)
+                    .zIndex(4)
             case .none:
                 Text("Time Position Error.")
-                    .zIndex(3)
+                    .zIndex(4)
             }
             
             /// - 투두 일자 수정 바텀 시트
             makeDatePickerBottomSheet()
-                .zIndex(4)
+                .zIndex(5)
             
             /// - 투두 제목 수정 바텀 시트
             makeTitleEditBottomSheet()
-                .zIndex(5)
+                .zIndex(6)
+            
+            /// - 칭찬 스티커 바텀 시트
+            makeStickerBottomSheet()
+                .zIndex(7)
+            
+            /// - 칭찬 스티커 부착
+            if stickerViewModel.isTodayStickerOn {
+                makeSticker()
+                    .zIndex(2)
+            }
         }
         //MARK: - 토스트 메시지
         .toast(isPresenting: $detailTodoViewModel.showDeletedToast) {
@@ -96,7 +107,7 @@ struct DailyTodoView: View {
     private func makeTodoList() -> some View {
         VStack {
             ///캘린더 스크롤 부분 & 오늘로 이동 & 앱 설정
-            Header(todoViewModel: todoViewModel)
+            Header(todoViewModel: todoViewModel, stickerViewModel: stickerViewModel)
             
             if (todoViewModel.todos.count > 0) || (todoViewModel.oldTodos.count > 0) {
                 VStack {
@@ -188,6 +199,13 @@ struct DailyTodoView: View {
             todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
             
             todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
+            
+            // 스티커 체크
+            stickerViewModel.isTodayStickerOn = stickerViewModel.getTodayStickerOn(date: todoViewModel.searchDate)
+            
+//            if stickerViewModel.isTodayStickerOn {
+//                stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
+//            }
         }
     }
     
@@ -393,7 +411,47 @@ struct DailyTodoView: View {
         
     }
     
+    private func makeStickerBottomSheet() -> some View {
+        StickerBottomSheet(todoViewModel: todoViewModel,
+                           detailTodoViewModel: detailTodoViewModel,
+                           stickerViewModel: stickerViewModel)
+    }
     
+    private func makeSticker() -> some View {
+        VStack {
+            HStack {
+                Spacer()
+                Button {
+                    // action
+                } label: {
+                    ZStack {
+                        Circle()
+                            .fill(Color(stickerViewModel.sticker?.stickerBgColor ?? "ThemeColor20"))
+                            .opacity(0.7)
+                        //                            .shadow(color: .black, radius: 1)
+                        //                            .overlay {
+                        //                                Circle()
+                        //                                    .stroke(Color.themeColor40, lineWidth: 2)
+                        //                            }
+                            .frame(width: 50, height: 50)
+                            .zIndex(0)
+                        Image(systemName: stickerViewModel.sticker?.stickerName ?? "checkmark.seal.fill")
+                            .resizable()
+                            .frame(width: 30, height: 30)
+                            .foregroundColor(.themeColor40)
+                            .zIndex(1)
+                            .padding(.vertical, 10)
+                    }
+                    .background(Color.clear)
+                    .frame(width: 50, height: 50)
+                    .padding(.top, 130)
+                    .padding(.trailing, 20)
+                }
+            }
+            Spacer()
+        }
+        
+    }
 }
 
 

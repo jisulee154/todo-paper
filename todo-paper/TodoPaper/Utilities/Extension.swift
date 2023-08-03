@@ -31,11 +31,11 @@ extension Image {
 }
 
 struct PressableButtonStyle: ButtonStyle {
-    let scaledAmount: CGFloat
-    
-    init(scaledAmount: CGFloat = 0.1) {
-        self.scaledAmount = scaledAmount
-    }
+//    let scaledAmount: CGFloat
+//
+//    init(scaledAmount: CGFloat = 0.1) {
+//        self.scaledAmount = scaledAmount
+//    }
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -46,11 +46,11 @@ struct PressableButtonStyle: ButtonStyle {
 }
 
 struct SettingButtonStyle: ButtonStyle {
-    let scaledAmount: CGFloat
-    
-    init(scaledAmount: CGFloat = 0.1) {
-        self.scaledAmount = scaledAmount
-    }
+//    let scaledAmount: CGFloat
+//
+//    init(scaledAmount: CGFloat = 0.1) {
+//        self.scaledAmount = scaledAmount
+//    }
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -65,11 +65,11 @@ struct SettingButtonStyle: ButtonStyle {
 }
 
 struct DeleteButtonStyle: ButtonStyle {
-    let scaledAmount: CGFloat
-    
-    init(scaledAmount: CGFloat = 0.1) {
-        self.scaledAmount = scaledAmount
-    }
+//    let scaledAmount: CGFloat
+//
+//    init(scaledAmount: CGFloat = 0.1) {
+//        self.scaledAmount = scaledAmount
+//    }
     
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
@@ -80,5 +80,16 @@ struct DeleteButtonStyle: ButtonStyle {
             }
             .background(configuration.isPressed ? .red.opacity(0.3) : .clear)
             .cornerRadius(35)
+    }
+}
+
+struct SelectStickerStyle: ButtonStyle {
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .shadow(color: .themeColor40, radius: (configuration.isPressed ? 30 : 0), x: 1, y: 1)
+            .overlay {
+                Circle()
+                    .stroke(Color.themeColor40, lineWidth: (configuration.isPressed ? 1 : 0))
+            }
     }
 }

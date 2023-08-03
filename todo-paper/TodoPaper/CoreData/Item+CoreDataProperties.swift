@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-
+//MARK: - Todo Item 관련
 extension Item {
 
     //fetch All
@@ -26,17 +26,18 @@ extension Item {
     //데이터들
     @NSManaged public var duedate: Date?
     @NSManaged public var id: UUID?
-//    @NSManaged public var section: String?
     @NSManaged public var status: Int32
     @NSManaged public var title: String?
     @NSManaged public var uuid: UUID?
     @NSManaged public var completeDate: Date?
+//    @NSManaged public var stickerName: String?
+//    @NSManaged public var section: String?
 //    @NSManaged public var onToday: Bool
     
 
 }
 
-//MARK: - Predicate
+//MARK: - Item Predicate
 extension Item {
     // UUID 검색 필터링
     static var searchByUUIDPredicate: NSPredicate {
@@ -56,5 +57,40 @@ extension Item {
     // 오늘 완료한 old 투두 검색
     static var searchOldTodosCompletedOnTodayPredicate: NSPredicate {
         NSPredicate(format: "%K < $date && %K == $completeDate", #keyPath(duedate), #keyPath(completeDate))
+    }
+}
+
+//MARK: - Sticker 관련
+extension Sticker {
+    //fetch All
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Sticker> {
+        return NSFetchRequest<Sticker>(entityName: "Sticker")
+    }
+    
+    //delete All
+    @nonobjc public class func deleteAllRequest() -> NSBatchDeleteRequest{
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Sticker")
+        return NSBatchDeleteRequest(fetchRequest: request)
+    }
+    
+    //데이터들
+    @NSManaged public var uuid: UUID?
+    @NSManaged public var id: UUID?
+    @NSManaged public var date: Date?
+    @NSManaged public var isExist: Bool
+    @NSManaged public var stickerName: String?
+    @NSManaged public var stickerBgColor: String?
+}
+
+//MARK: - Sticker Predicate
+extension Sticker {
+    // Date 검색 필터링
+    static var searchByDatePredicate: NSPredicate {
+        NSPredicate(format: "%K == $search_date", #keyPath(date))
+    }
+    
+    // uuid 검색 필터링
+    static var searchByUUIDPredicate: NSPredicate {
+        NSPredicate(format: "%K == $search_uuid", #keyPath(uuid))
     }
 }

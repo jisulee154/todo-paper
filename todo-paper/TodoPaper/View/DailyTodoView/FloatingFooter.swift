@@ -8,9 +8,8 @@
 import SwiftUI
 import BottomSheetSwiftUI
 
+/// 새로운 투두 추가하기 버튼, 칭찬 스티커 붙이기 버튼
 struct FloatingFooter: View{
-//    @State var newTodo: TodoItem = TodoItem(title: "")
-//    @State var newTitle: String = ""
     @ObservedObject var todoViewModel: TodoViewModel
     @ObservedObject var detailTodoViewModel: DetailTodoViewModel
     
@@ -42,7 +41,7 @@ struct FloatingFooter: View{
                                     detailTodoViewModel.showCantPutStickerNone.toggle()
                                 }
                             } else {
-                                detailTodoViewModel.setStickerBottomSheetPosition = .relative(0.5)
+                                detailTodoViewModel.setStickerBottomSheetPosition = .relative(0.7)
                             }
                         } else {
                             //미완료 투두 있음
