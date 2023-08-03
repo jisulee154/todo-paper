@@ -309,6 +309,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         let date = self.searchDate
         let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: date)
         var modifiedTodos: [TodoItem] = []
+//        var resultTodos: [TodoItem] = []
         
         request.predicate = Item.searchByDatePredicate.withSubstitutionVariables(["dateToFind" : date, "nextDateToFind" : nextDate])
         
@@ -321,6 +322,12 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
                                                status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
                                                completeDate: $0.completeDate) }
 //            print(modifiedTodos)
+            
+            // 정렬
+            modifiedTodos.sort {
+                $0.status.rawValue < $1.status.rawValue
+            }
+            
             return modifiedTodos
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
@@ -344,7 +351,11 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
                                                duedate: $0.duedate ?? Date(),
                                                status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
                                                completeDate: $0.completeDate) }
-//            print(modifiedTodos)
+            // 정렬
+            modifiedTodos.sort {
+                $0.status.rawValue < $1.status.rawValue
+            }
+            
             return modifiedTodos
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
@@ -358,12 +369,12 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         let request = Item.fetchRequest()
         let date = self.searchDate
         var modifiedTodos: [TodoItem] = []
-        
+
         let today = Calendar.current.startOfDay(for: Date())
-        
+
         // NSPredicate(format: "%K < $date && %K == $completeDate", #keyPath(duedate), #keyPath(completeDate))
         request.predicate = Item.searchOldTodosCompletedOnTodayPredicate.withSubstitutionVariables(["date" : today, "completeDate" : today])
-        
+
         do {
             let fetchedTodos = try context.fetch(request) as [Item]
             modifiedTodos = fetchedTodos.map{ TodoItem(uuid: $0.uuid ?? UUID(),
