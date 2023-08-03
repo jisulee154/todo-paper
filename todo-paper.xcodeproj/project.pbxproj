@@ -35,6 +35,8 @@
 		413913CF2A7BF213007EFFF2 /* MappingModelV10ToV11.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 413913CE2A7BF213007EFFF2 /* MappingModelV10ToV11.xcmappingmodel */; };
 		417394AD2A6652C000205292 /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394AC2A6652C000205292 /* Header.swift */; };
 		417394BB2A66876900205292 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394BA2A66876900205292 /* DateCell.swift */; };
+		41C641CE2A7C49110000ABEE /* Sticker+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C641CD2A7C49110000ABEE /* Sticker+CoreDataClass.swift */; };
+		41C641CF2A7C49110000ABEE /* Sticker+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C641CC2A7C49110000ABEE /* Sticker+CoreDataProperties.swift */; };
 		41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */; };
 		41E1DC412A58277B005A5EAA /* DailyTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC402A58277B005A5EAA /* DailyTodoView.swift */; };
 		41E1DC432A58277C005A5EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E1DC422A58277C005A5EAA /* Assets.xcassets */; };
@@ -86,6 +88,8 @@
 		416C2D412A6822B100F06242 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		417394AC2A6652C000205292 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		417394BA2A66876900205292 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
+		41C641CC2A7C49110000ABEE /* Sticker+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Sticker+CoreDataProperties.swift"; path = "/Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/ViewModel/Sticker+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		41C641CD2A7C49110000ABEE /* Sticker+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Sticker+CoreDataClass.swift"; path = "/Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/ViewModel/Sticker+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		41E1DC3B2A58277B005A5EAA /* todo-paper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "todo-paper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todo_paperApp.swift; sourceTree = "<group>"; };
 		41E1DC402A58277B005A5EAA /* DailyTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTodoView.swift; sourceTree = "<group>"; };
@@ -225,6 +229,8 @@
 				41E1DC492A58277C005A5EAA /* todo_paper.xcdatamodeld */,
 				4136515B2A6A1F04006C6361 /* Item+CoreDataClass.swift */,
 				4136515C2A6A1F04006C6361 /* Item+CoreDataProperties.swift */,
+				41C641CD2A7C49110000ABEE /* Sticker+CoreDataClass.swift */,
+				41C641CC2A7C49110000ABEE /* Sticker+CoreDataProperties.swift */,
 				41E1DC472A58277C005A5EAA /* Persistence.swift */,
 				4124E8EF2A6BF0ED0045E220 /* MappingModelV1ToV4.xcmappingmodel */,
 				413913B42A7A656C007EFFF2 /* MappingModelV4Tov5.xcmappingmodel */,
@@ -418,9 +424,11 @@
 				4136515D2A6A1F04006C6361 /* Item+CoreDataClass.swift in Sources */,
 				413913BC2A7B7682007EFFF2 /* StickerBottomSheet.swift in Sources */,
 				413913B82A7A79D7007EFFF2 /* MappingModelV5ToV6.xcmappingmodel in Sources */,
+				41C641CF2A7C49110000ABEE /* Sticker+CoreDataProperties.swift in Sources */,
 				41E1DC4B2A58277C005A5EAA /* todo_paper.xcdatamodeld in Sources */,
 				413913CC2A7BECE8007EFFF2 /* MappingModelV9ToV10.xcmappingmodel in Sources */,
 				413913B02A796ED8007EFFF2 /* SettingView.swift in Sources */,
+				41C641CE2A7C49110000ABEE /* Sticker+CoreDataClass.swift in Sources */,
 				4136515E2A6A1F04006C6361 /* Item+CoreDataProperties.swift in Sources */,
 				417394BB2A66876900205292 /* DateCell.swift in Sources */,
 				41E1DC752A5DCD95005A5EAA /* TodoItemRow.swift in Sources */,

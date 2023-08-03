@@ -18,6 +18,8 @@ class StickerViewModel: ObservableObject {
         return self.container.viewContext
     }
     
+    //fileprivate var request = NSFetchRequest<NSFetchRequestResult>(entityName: "Sticker")
+    
     @Published var sticker: StickerItem? = nil
     @Published var stickerCases: [StickerCase] = []
     @Published var stickerName: String?
@@ -46,15 +48,20 @@ class StickerViewModel: ObservableObject {
     
     func fetchSticker(on date: Date) -> StickerItem? {
         let request = Sticker.fetchRequest()
-        
+        var modifiedResult: StickerItem
         request.predicate = Sticker.searchByDatePredicate.withSubstitutionVariables(["search_date" : date])
+        
         do {
-            if let fetchResult = try context.fetch(request) as? [StickerItem] {
-                print(fetchResult)
-                return fetchResult.first
-            }
+            let fetchResult = try context.fetch(request) as [Sticker]
+            modifiedResult = fetchResult.map {
+                StickerItem(uuid: $0.uuid ?? UUID(),
+                            date: $0.date ?? Date(),
+                            isExist: $0.isExist,
+                            stickerName: $0.stickerName,
+                            stickerBgColor: $0.stickerBgColor)
+            }.first!
             
-            return nil
+            return modifiedResult
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
             return nil

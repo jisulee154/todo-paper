@@ -8,10 +8,10 @@ import Foundation
 import SwiftUI
 
 struct StickerItem: Identifiable {
+    var uuid = UUID()
     var id: UUID {
         return uuid
     }
-    var uuid = UUID()
     var date: Date = Date()
     var isExist: Bool = false
     var stickerName: String? = nil
