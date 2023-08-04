@@ -8,10 +8,11 @@
 import SwiftUI
 import BottomSheetSwiftUI
 
-/// 새로운 투두 추가하기 버튼, 칭찬 스티커 붙이기 버튼
+/// 새로운 투두 추가하기 버튼, 완료 스티커 붙이기 버튼
 struct FloatingFooter: View{
     @ObservedObject var todoViewModel: TodoViewModel
     @ObservedObject var detailTodoViewModel: DetailTodoViewModel
+    @ObservedObject var stickerViewModel: StickerViewModel
     
     var body: some View {
         VStack {
@@ -19,7 +20,7 @@ struct FloatingFooter: View{
             HStack (spacing: 10) {
                 Spacer()
                 Button {
-                    // 미완료한 일이 없는 날(미래 제외)에만 칭찬 스티커를 붙일 수 있다.
+                    // 미완료한 일이 없는 날(미래 제외)에만 완료 스티커를 붙일 수 있다.
                     let timePosition = DetailTodoViewModel.getTimePosition(of: todoViewModel.searchDate)
                     let todos = todoViewModel.fetchTodosBySelectedDate()
                     var oldTodos: [TodoItem] = []
@@ -34,14 +35,14 @@ struct FloatingFooter: View{
                             //미완료 투두가 없음
                             
                             if todos.isEmpty && oldTodos.isEmpty {
-                                // 설정된 투두가 없어 칭찬 스티커 붙일 수 없음 안내
+                                // 설정된 투두가 없어 완료 스티커 붙일 수 없음 안내
                                 if timePosition == .past {
                                     detailTodoViewModel.showCantPutStickerNonePast.toggle()
                                 } else {
                                     detailTodoViewModel.showCantPutStickerNone.toggle()
                                 }
                             } else {
-                                detailTodoViewModel.setStickerBottomSheetPosition = .relative(0.7)
+                                detailTodoViewModel.setStickerBottomSheetPosition = .relative(0.5)
                             }
                         } else {
                             //미완료 투두 있음
@@ -52,7 +53,7 @@ struct FloatingFooter: View{
                         
                     }
                     else {
-                        // 해당 일자(미래)엔 아직 칭찬 스티커 붙일 수 없음 안내
+                        // 해당 일자(미래)엔 아직 완료 스티커 붙일 수 없음 안내
                         detailTodoViewModel.showCantPutStickerYet.toggle()
                     }
                 } label: {
@@ -90,6 +91,17 @@ struct FloatingFooter: View{
                 
                 Button(action: {
                     detailTodoViewModel.addTodoBottomSheetPosition = .relative(0.7)
+                    
+                    // 완료 스티커가 붙은 상태에서 투두 추가 하는 경우 -> 완료 스티커 떼기
+                    if stickerViewModel.getTodayStickerOn(date: todoViewModel.searchDate) {
+                        detailTodoViewModel.showStickerDeletedToast.toggle()
+                        
+                        stickerViewModel.isTodayStickerOn = false
+                        stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate
+    )
+                        stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!, date: todoViewModel.searchDate, isExist: false, stickerName: nil, stickerBgColor: nil)
+                    }
+                    
                 }) {
                     Image(systemName: "plus")
                         .resizable()

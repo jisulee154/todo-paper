@@ -15,6 +15,7 @@ enum TodoItemRowType {
 struct TodoItemRow: View {
     @ObservedObject var todoViewModel: TodoViewModel
     @ObservedObject var detailTodoViewModel: DetailTodoViewModel
+    @ObservedObject var stickerViewModel: StickerViewModel
     
     //    @State var isPressed: Bool = false
     var todoItem: TodoItem
@@ -23,13 +24,14 @@ struct TodoItemRow: View {
     init(with newTodo: TodoItem,
          todoViewModel: TodoViewModel,
          todoItemRowType: TodoItemRowType = TodoItemRowType.today,
-         detailTodoViewModel: DetailTodoViewModel
+         detailTodoViewModel: DetailTodoViewModel,
+         stickerViewModel: StickerViewModel
     ) {
         self.todoItem = newTodo
         self.todoItemRowType = todoItemRowType
         self.todoViewModel = todoViewModel
         self.detailTodoViewModel = detailTodoViewModel
-        
+        self.stickerViewModel = stickerViewModel
     }
     
     var body: some View {
@@ -74,6 +76,19 @@ struct TodoItemRow: View {
                 }
                 
                 todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
+                
+                
+                // 스티커 체크
+                if todoViewModel.isActivePutSticker {
+                    stickerViewModel.isTodayStickerOn = stickerViewModel.getTodayStickerOn(date: todoViewModel.searchDate)
+                    
+                    if stickerViewModel.isTodayStickerOn {
+                        stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
+                    }
+                } else {
+                    stickerViewModel.isTodayStickerOn = false
+                }
+                
             }
             // TodoItemRowType에 따라 다른 형태로 보여주기
             // 현재 일자

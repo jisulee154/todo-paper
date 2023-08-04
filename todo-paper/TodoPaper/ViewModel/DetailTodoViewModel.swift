@@ -30,6 +30,7 @@ class DetailTodoViewModel: ObservableObject {
     @Published var showCantPutStickerYet: Bool = false
     @Published var showCantPutStickerNone: Bool = false
     @Published var showCantPutStickerNonePast: Bool = false
+    @Published var showStickerDeletedToast: Bool = false
     
     init(
         timePosition: TimePosition = .today,

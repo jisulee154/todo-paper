@@ -48,7 +48,7 @@ class StickerViewModel: ObservableObject {
     
     func fetchSticker(on date: Date) -> StickerItem? {
         let request = Sticker.fetchRequest()
-        var modifiedResult: StickerItem
+        var modifiedResult: StickerItem?
         request.predicate = Sticker.searchByDatePredicate.withSubstitutionVariables(["search_date" : date])
         
         do {
@@ -59,9 +59,9 @@ class StickerViewModel: ObservableObject {
                             isExist: $0.isExist,
                             stickerName: $0.stickerName,
                             stickerBgColor: $0.stickerBgColor)
-            }.first!
+            }.first ?? nil
             
-            return modifiedResult
+            return modifiedResult                
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
             return nil
@@ -121,9 +121,23 @@ class StickerViewModel: ObservableObject {
         }
     }
     
+//    func getTodayStickerOn(date: Date) -> Bool {
+//        if let stickerItem = fetchSticker(on: date) {
+//            return true
+//        } else {
+//            return false
+//        }
+//    }
     func getTodayStickerOn(date: Date) -> Bool {
-        if let stickerItem = fetchSticker(on: date) {
-            return true
+        var fetchResult = fetchSticker(on: date)
+        
+        if let safeFetchResult = fetchResult {
+            if safeFetchResult.isExist {
+                return true
+            }
+            else {
+                return false
+            }
         } else {
             return false
         }

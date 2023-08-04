@@ -86,10 +86,10 @@ struct DeleteButtonStyle: ButtonStyle {
 struct SelectStickerStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .shadow(color: .themeColor40, radius: (configuration.isPressed ? 30 : 0), x: 1, y: 1)
+            .shadow(color: .gray, radius: (configuration.isPressed ? 10 : 0), x: 1, y: 1)
             .overlay {
                 Circle()
-                    .stroke(Color.themeColor40, lineWidth: (configuration.isPressed ? 1 : 0))
+                    .stroke(Color.white, lineWidth: (configuration.isPressed ? 1 : 0))
             }
     }
 }

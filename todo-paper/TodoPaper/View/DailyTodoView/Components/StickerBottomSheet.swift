@@ -15,7 +15,7 @@ struct StickerBottomSheet: View {
     
     var body: some View {
         Color.clear
-            .bottomSheet(bottomSheetPosition: $detailTodoViewModel.setStickerBottomSheetPosition, switchablePositions: [.dynamicBottom, .relative(0.7)], headerContent: {
+            .bottomSheet(bottomSheetPosition: $detailTodoViewModel.setStickerBottomSheetPosition, switchablePositions: [.dynamicBottom, .relative(0.5)], headerContent: {
                 Text("완료 스티커 ✅")
                     .font(.title)
                     .padding(.horizontal, 30)
@@ -29,11 +29,6 @@ struct StickerBottomSheet: View {
                     }
                     
                     Divider()
-                    HStack {
-                        Spacer()
-                        ColorPicker("배경 색상", selection: $stickerViewModel.stickerBgColor)
-                            .padding(.top, 30)
-                    }
                     
                     ScrollView(.horizontal) {
                         HStack(spacing: 10) {

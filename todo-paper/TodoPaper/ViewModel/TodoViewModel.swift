@@ -82,7 +82,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     
     //MARK: - 완료 스티커 관련
     func getActivePutSticker() -> Bool {
-        // 미완료한 일이 없는 날(미래 제외)에만 칭찬 스티커를 붙일 수 있다.
+        // 미완료한 일이 없는 날(미래 제외)에만 완료 스티커를 붙일 수 있다.
         let timePosition = DetailTodoViewModel.getTimePosition(of: searchDate)
         let todos = fetchTodosBySelectedDate()
         var oldTodos: [TodoItem] = []
@@ -96,7 +96,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
             if isTodosDone {
                 //미완료 투두가 없음
                 if todos.isEmpty && oldTodos.isEmpty {
-                    // 설정된 투두가 없어 칭찬 스티커 붙일 수 없음 안내
+                    // 설정된 투두가 없어 완료 스티커 붙일 수 없음 안내
                     if timePosition == .past {
                         return false
                     } else {
@@ -114,7 +114,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
             
         }
         else {
-            // 해당 일자(미래)엔 아직 칭찬 스티커 붙일 수 없음 안내
+            // 해당 일자(미래)엔 아직 완료 스티커 붙일 수 없음 안내
             return false
         }
     }

@@ -45,6 +45,13 @@ struct Header: View {
 //                    todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date())
             todoViewModel.scrollTargetDate = Calendar.current.date(byAdding: .second, value: 1, to: todoViewModel.searchDate) ?? Date() // 더 좋은 방법 없을까..?
             todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
+            
+            // 스티커 체크
+            stickerViewModel.isTodayStickerOn = stickerViewModel.getTodayStickerOn(date: todoViewModel.searchDate)
+            
+            if stickerViewModel.isTodayStickerOn {
+                stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
+            }
         } label: {
             Text("오늘")
                 .padding(.horizontal, 20)

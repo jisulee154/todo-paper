@@ -86,7 +86,7 @@ struct DetailSheetOfToday: View {
                         // 실행 완료 토스트 메시지
                         detailTodoViewModel.showPostponedToast.toggle()
                         
-                        // 칭찬 스티커 붙이기 활성화 업데이트
+                        // 완료 스티커 붙이기 활성화 업데이트
                         todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
                     } label: {
                         Text("내일 하기")
@@ -106,7 +106,7 @@ struct DetailSheetOfToday: View {
                         todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
                         todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
                         
-                        // 칭찬 스티커 붙이기 활성화 업데이트
+                        // 완료 스티커 붙이기 활성화 업데이트
                         todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
                     } label: {
                         Text("포기하기")
@@ -125,7 +125,7 @@ struct DetailSheetOfToday: View {
                         // 삭제 토스트 메시지
                         detailTodoViewModel.showDeletedToast.toggle()
                         
-                        // 칭찬 스티커 붙이기 활성화 업데이트
+                        // 완료 스티커 붙이기 활성화 업데이트
                         todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
                     } label: {
                         Text("삭제")

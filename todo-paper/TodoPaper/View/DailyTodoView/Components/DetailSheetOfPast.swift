@@ -50,7 +50,7 @@ struct DetailSheetOfPast: View {
                         // 변경 토스트 메시지 띄우기
                         detailTodoViewModel.showChangedAsTodayToast.toggle()
                         
-                        // 칭찬 스티커 붙이기 활성화 업데이트
+                        // 완료 스티커 붙이기 활성화 업데이트
                         todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
                     } label: {
                         Text("오늘 하기")

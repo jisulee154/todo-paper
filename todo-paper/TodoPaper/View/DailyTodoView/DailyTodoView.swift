@@ -66,15 +66,11 @@ struct DailyTodoView: View {
             makeTitleEditBottomSheet()
                 .zIndex(6)
             
-            /// - 칭찬 스티커 바텀 시트
+            /// - 완료 스티커 바텀 시트
             makeStickerBottomSheet()
                 .zIndex(7)
             
-            /// - 칭찬 스티커 부착
-            if stickerViewModel.isTodayStickerOn {
-                makeSticker()
-                    .zIndex(2)
-            }
+            
         }
         //MARK: - 토스트 메시지
         .toast(isPresenting: $detailTodoViewModel.showDeletedToast) {
@@ -90,16 +86,19 @@ struct DailyTodoView: View {
             AlertToast(displayMode: .hud, type: .complete(.green), title: "선택한 일자로 옮겼어요.")
         }
         .toast(isPresenting: $detailTodoViewModel.showUnfinishedTodosToast) {
-            AlertToast(displayMode: .hud, type: .regular, title: "🥺 미완료인 투두가 있어\n칭찬 스티커를 붙일 수 없어요.")
+            AlertToast(displayMode: .hud, type: .regular, title: "🥺 미완료인 투두가 있어\n완료 스티커를 붙일 수 없어요.")
         }
         .toast(isPresenting: $detailTodoViewModel.showCantPutStickerYet) {
-            AlertToast(displayMode: .hud, type: .regular, title: "아직 칭찬 스티커를 붙일 수 없어요.")
+            AlertToast(displayMode: .hud, type: .regular, title: "아직 완료 스티커를 붙일 수 없어요.")
         }
         .toast(isPresenting: $detailTodoViewModel.showCantPutStickerNone) {
             AlertToast(displayMode: .hud, type: .regular, title: "우선 투두부터 추가해볼까요?")
         }
         .toast(isPresenting: $detailTodoViewModel.showCantPutStickerNonePast) {
-            AlertToast(displayMode: .hud, type: .regular, title: "😖 완료한 투두가 없어\n칭찬 스티커를 붙일 수 없어요.")
+            AlertToast(displayMode: .hud, type: .regular, title: "😖 완료한 투두가 없어\n스티커를 붙일 수 없어요.")
+        }
+        .toast(isPresenting: $detailTodoViewModel.showStickerDeletedToast) {
+            AlertToast(displayMode: .hud, type: .regular, title: "스티커가 떼어졌어요.")
         }
     }
     
@@ -109,80 +108,91 @@ struct DailyTodoView: View {
             ///캘린더 스크롤 부분 & 오늘로 이동 & 앱 설정
             Header(todoViewModel: todoViewModel, stickerViewModel: stickerViewModel)
             
-            if (todoViewModel.todos.count > 0) || (todoViewModel.oldTodos.count > 0) {
-                VStack {
-                    ///투두 목록 부분
-                    List {
-                        if todoViewModel.todos.count > 0 {
-                            Section("list") {
-                                VStack {
-                                    ForEach(todoViewModel.todos) { todo in
-                                        TodoItemRow(with: TodoItem(uuid: todo.uuid,
-                                                                   title: todo.title,
-                                                                   duedate: todo.duedate,
-                                                                   status: todo.status,
-                                                                   completeDate: todo.completeDate),
-                                                    todoViewModel: todoViewModel,
-                                                    todoItemRowType: TodoItemRowType.today,
-                                                    detailTodoViewModel: detailTodoViewModel)
-                                        Divider()
-                                        
-                                    }
-                                }
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color.themeColor40, lineWidth: 2)
-                                )
-                            }
-                            .listRowInsets(EdgeInsets.init())
-                        }
-                        
-                        // 보여지는 일자가 오늘인 경우 기한이 지난 투두를 old 섹션에 출력한다.
-                        if todoViewModel.canShowOldTodos() {
-                            if todoViewModel.oldTodos.count != 0 {
-                                Section("old") {
+            ZStack {
+                /// - 완료 스티커 부착
+                if stickerViewModel.isTodayStickerOn && (stickerViewModel.sticker?.isExist ?? false){
+                    makeSticker()
+                        .contentShape(Circle())
+                        .zIndex(1)
+                }
+                
+                if (todoViewModel.todos.count > 0) || (todoViewModel.oldTodos.count > 0) {
+                    VStack {
+                        ///투두 목록 부분
+                        List {
+                            if todoViewModel.todos.count > 0 {
+                                Section("list") {
                                     VStack {
-                                        ForEach(todoViewModel.oldTodos) { todo in
+                                        ForEach(todoViewModel.todos) { todo in
                                             TodoItemRow(with: TodoItem(uuid: todo.uuid,
                                                                        title: todo.title,
                                                                        duedate: todo.duedate,
                                                                        status: todo.status,
                                                                        completeDate: todo.completeDate),
                                                         todoViewModel: todoViewModel,
-                                                        todoItemRowType: TodoItemRowType.old,
-                                                        detailTodoViewModel: detailTodoViewModel)
-                                            
+                                                        todoItemRowType: TodoItemRowType.today,
+                                                        detailTodoViewModel: detailTodoViewModel,
+                                                        stickerViewModel: stickerViewModel)
                                             Divider()
+                                            
                                         }
                                     }
                                     .overlay(
                                         RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color.themeColor40, lineWidth: 2)
                                     )
-                                }.listRowInsets(EdgeInsets.init())
+                                }
+                                .listRowInsets(EdgeInsets.init())
                             }
-                        }
-                        Color.clear.frame(height:100)
-                            .listRowBackground(Color.clear)
-                    } // List
-                }
-            } else {
-                // 해당 날짜의 투두가 없을 때
-                HStack {
-                    Spacer()
-                    VStack {
+                            
+                            // 보여지는 일자가 오늘인 경우 기한이 지난 투두를 old 섹션에 출력한다.
+                            if todoViewModel.canShowOldTodos() {
+                                if todoViewModel.oldTodos.count != 0 {
+                                    Section("old") {
+                                        VStack {
+                                            ForEach(todoViewModel.oldTodos) { todo in
+                                                TodoItemRow(with: TodoItem(uuid: todo.uuid,
+                                                                           title: todo.title,
+                                                                           duedate: todo.duedate,
+                                                                           status: todo.status,
+                                                                           completeDate: todo.completeDate),
+                                                            todoViewModel: todoViewModel,
+                                                            todoItemRowType: TodoItemRowType.old,
+                                                            detailTodoViewModel: detailTodoViewModel,
+                                                            stickerViewModel: stickerViewModel)
+                                                
+                                                Divider()
+                                            }
+                                        }
+                                        .overlay(
+                                            RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color.themeColor40, lineWidth: 2)
+                                        )
+                                    }.listRowInsets(EdgeInsets.init())
+                                }
+                            }
+                            Color.clear.frame(height:100)
+                                .listRowBackground(Color.clear)
+                        } // List
+                    }
+                } else {
+                    // 해당 날짜의 투두가 없을 때
+                    HStack {
                         Spacer()
-                        Text("""
+                        VStack {
+                            Spacer()
+                            Text("""
                                투두가 하나도 없어요.\n
                                하나 추가해 볼까요? 📝
                                """)
+                            Spacer()
+                        }
                         Spacer()
                     }
-                    Spacer()
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 15, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
+                    )
+                    .padding(.all, 10)
                 }
-                .overlay(
-                    RoundedRectangle(cornerRadius: 15, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
-                )
-                .padding(.all, 10)
-            }
+            }.zIndex(0)
         }
         // 할일 목록 새로고침
         .refreshable {
@@ -203,15 +213,15 @@ struct DailyTodoView: View {
             // 스티커 체크
             stickerViewModel.isTodayStickerOn = stickerViewModel.getTodayStickerOn(date: todoViewModel.searchDate)
             
-//            if stickerViewModel.isTodayStickerOn {
-//                stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
-//            }
+            if stickerViewModel.isTodayStickerOn {
+                stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
+            }
         }
     }
     
     //MARK: - 투두 생성, 스티커 생성 버튼
     private func makeAddButtonAndSticker() -> some View {
-        FloatingFooter(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel)
+        FloatingFooter(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel, stickerViewModel: stickerViewModel)
     }
     
     //MARK: - 투두 만들기 바텀 시트
@@ -418,39 +428,70 @@ struct DailyTodoView: View {
     }
     
     private func makeSticker() -> some View {
-        VStack {
-            HStack {
-                Spacer()
-                Button {
-                    // action
-                } label: {
-                    ZStack {
-                        Circle()
-                            .fill(Color(stickerViewModel.sticker?.stickerBgColor ?? "ThemeColor20"))
-                            .opacity(0.7)
-                        //                            .shadow(color: .black, radius: 1)
-                        //                            .overlay {
-                        //                                Circle()
-                        //                                    .stroke(Color.themeColor40, lineWidth: 2)
-                        //                            }
-                            .frame(width: 50, height: 50)
-                            .zIndex(0)
-                        Image(systemName: stickerViewModel.sticker?.stickerName ?? "checkmark.seal.fill")
-                            .resizable()
-                            .frame(width: 30, height: 30)
-                            .foregroundColor(.themeColor40)
-                            .zIndex(1)
-                            .padding(.vertical, 10)
+        ZStack {
+            Color.white
+                .opacity(0.6)
+                .zIndex(0)
+            VStack {
+                HStack {
+                    Spacer()
+                    Menu {
+                        Button {
+                            detailTodoViewModel.setStickerBottomSheetPosition = .relative(0.5)
+                        } label: {
+                            Text("수정")
+                        }
+                        
+                        Button {
+                            stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!,
+                                                                                       date: todoViewModel.searchDate,
+                                                                                       isExist: false, stickerName: nil,
+                                                                                       stickerBgColor: nil)
+                            
+                            stickerViewModel.isTodayStickerOn = false
+                        } label: {
+                            Text("삭제")
+                        }
+                        
+                    } label: {
+                        ZStack {
+                            Circle()
+                                .fill(Color.themeColor40)
+                                .frame(width: 100, height: 100)
+                            //                            .opacity(0.7)
+                                .overlay {
+                                    Circle()
+                                        .stroke(Color.themeColor30, lineWidth: 7)
+                                }
+                            //                            .shadow(color: Color.gray, radius: 10)
+                                .zIndex(1)
+                            Image(systemName: stickerViewModel.sticker?.stickerName ?? "checkmark.seal.fill")
+                                .resizable()
+                                .frame(width: 70, height: 70)
+                                .foregroundColor(.white)
+                                .zIndex(2)
+                                .padding(.vertical, 10)
+                            Image(systemName: "water.waves")
+                                .resizable()
+                                .frame(width: 100, height: 80)
+                                .foregroundColor(.themeColor30)
+                                .opacity(0.7)
+                            //                            .shadow(color: Color.gray, radius: 10)
+                                .zIndex(0)
+                                .padding(.leading, 50)
+                                .padding(.top, 30)
+                        }
                     }
+                    .contentShape(Circle())
                     .background(Color.clear)
                     .frame(width: 50, height: 50)
-                    .padding(.top, 130)
-                    .padding(.trailing, 20)
+                    .padding(.top, 50)
+                    .padding(.trailing, 50)
+                    .zIndex(1)
                 }
+                Spacer()
             }
-            Spacer()
         }
-        
     }
 }
 
