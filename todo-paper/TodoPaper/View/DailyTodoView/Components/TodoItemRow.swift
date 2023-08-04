@@ -86,6 +86,7 @@ struct TodoItemRow: View {
                         stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
                     }
                 } else {
+                    stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!, date: todoViewModel.searchDate, isExist: false, stickerName: nil, stickerBgColor: nil)
                     stickerViewModel.isTodayStickerOn = false
                 }
                 

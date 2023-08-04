@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/ViewModel/Sticker+CoreDataClass.swift">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/ijisu/Documents/iOS/todo-paper/todo-paper/TodoPaper/ViewModel/Sticker+CoreDataProperties.swift">
-   </FileRef>
-   <FileRef
       location = "group:todo-paper.xcodeproj">
    </FileRef>
    <FileRef

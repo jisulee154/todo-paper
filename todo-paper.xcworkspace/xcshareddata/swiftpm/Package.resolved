@@ -17,6 +17,15 @@
         "revision" : "ccb973cfff703cba53fb88197413485c060eb26b",
         "version" : "0.10.0"
       }
+    },
+    {
+      "identity" : "swiftuipageview",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ciaranrobrien/SwiftUIPageView.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "cf24d6bdbb5e7ddbf08ca634f151cb18a9839110"
+      }
     }
   ],
   "version" : 2

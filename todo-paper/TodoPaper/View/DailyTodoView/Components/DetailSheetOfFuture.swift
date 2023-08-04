@@ -74,7 +74,7 @@ struct DetailSheetOfFuture: View {
                         detailTodoViewModel.settingBottomSheetPosition = .hidden
                         
                         // 상태 업데이트 .none -> .canceled
-                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .canceled, duedate: nil, completeDate: nil)
+                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .canceled, duedate: nil, completeDate: todoViewModel.searchDate)
                     } label: {
                         Text("포기하기")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)

@@ -21,7 +21,6 @@ extension Sticker {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Sticker")
         return NSBatchDeleteRequest(fetchRequest: request)
     }
-
     
     @NSManaged public var date: Date?
     @NSManaged public var isExist: Bool
@@ -29,7 +28,6 @@ extension Sticker {
     @NSManaged public var stickerName: String?
     @NSManaged public var uuid: UUID?
     @NSManaged public var id: UUID?
-
 }
 
 //MARK: - Predicate

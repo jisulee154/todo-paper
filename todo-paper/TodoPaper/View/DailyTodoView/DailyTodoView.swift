@@ -17,8 +17,8 @@ struct DailyTodoView: View {
     
     //MARK: - Shared Data
     @Environment(\.managedObjectContext) private var viewContext
-    //    @StateObject var todayTodoViewModel: TodoViewModel = TodoViewModel()
-    //    @StateObject var previousTodoViewModel: TodoViewModel = TodoViewModel()
+    
+//    @ObservedObject var todoViewModel: TodoViewModel = TodoViewModel()
     @StateObject var todoViewModel: TodoViewModel = TodoViewModel()
     @StateObject var detailTodoViewModel: DetailTodoViewModel = DetailTodoViewModel()
     @StateObject var stickerViewModel: StickerViewModel = StickerViewModel()
@@ -239,7 +239,7 @@ struct DailyTodoView: View {
                 VStack {
                     TextField("새로운 투두를 입력해주세요.", text: $newTitle)
                         .padding()
-                        .frame(minWidth: 300, maxWidth: 1000, maxHeight: 50)
+                        .frame(minWidth: 300, maxWidth: 2000, maxHeight: 50)
                         .background(.white)
                         .cornerRadius(10)
                         .autocorrectionDisabled()
@@ -289,7 +289,7 @@ struct DailyTodoView: View {
                         todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
                     } label: {
                         Text("완료")
-                            .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)
+                            .frame(minWidth: 200, maxWidth: 2000, maxHeight: 50)
                             .contentShape(Capsule())
                     }
                     .buttonStyle(SettingButtonStyle())
@@ -429,7 +429,8 @@ struct DailyTodoView: View {
     
     private func makeSticker() -> some View {
         ZStack {
-            Color.white
+//            Color.white
+            Color.clear
                 .opacity(0.6)
                 .zIndex(0)
             VStack {

@@ -10,15 +10,25 @@ import SwiftUI
 @main
 struct todo_paperApp: App {
     let persistenceController = PersistenceController.shared
+    
+//    @StateObject var todoViewModel: TodoViewModel = TodoViewModel()
 
     var body: some Scene {
         WindowGroup {
             TabView {
+                /// 일별 투두 관리
                 DailyTodoView()
                     .environment(\.managedObjectContext, persistenceController.container.viewContext)
                     .tabItem {
-                        Label("List", systemImage: "list.bullet")
+                        Label("투두", systemImage: "square.and.pencil")
                     }
+                /// 완료한 투두 페이지 모아보기
+                CompleteRepoView()
+                    .environment(\.managedObjectContext, persistenceController.container.viewContext)
+                    .tabItem {
+                        Label("페이퍼 모아보기", systemImage: "crown.fill")
+                    }
+
             }
         }
     }
