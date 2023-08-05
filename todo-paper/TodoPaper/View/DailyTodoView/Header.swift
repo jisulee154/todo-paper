@@ -13,14 +13,17 @@ struct Header: View {
     //    var onNewDateClicked: (Date) -> Void
     @ObservedObject var todoViewModel: TodoViewModel
     @ObservedObject var stickerViewModel: StickerViewModel
+    @ObservedObject var settingViewModel: SettingViewModel
+    
     @StateObject var scrollViewModel: ScrollViewModel
     
-    init(todoViewModel: TodoViewModel, stickerViewModel: StickerViewModel) {
+    init(todoViewModel: TodoViewModel, stickerViewModel: StickerViewModel, settingViewModel: SettingViewModel) {
         self._scrollViewModel = StateObject.init(
             wrappedValue: ScrollViewModel(lthreshold: -10, rthreshold: 0)
         )
         self.todoViewModel = todoViewModel
         self.stickerViewModel = stickerViewModel
+        self.settingViewModel = settingViewModel
     }
     
     var body: some View {
@@ -44,14 +47,29 @@ struct Header: View {
             todoViewModel.searchDate = todoViewModel.setSearchDate(date: Date())
 //                    todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date())
             todoViewModel.scrollTargetDate = Calendar.current.date(byAdding: .second, value: 1, to: todoViewModel.searchDate) ?? Date() // 더 좋은 방법 없을까..?
+            
+            // 투두 새로고침
             todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
+            if settingViewModel.enableHideGaveUpTask {
+                // 포기한 일 숨기기 true일 때
+                todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
+            }
+            todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
+            if settingViewModel.enableHideGaveUpTask {
+                // 포기한 일 숨기기 true일 때
+                todoViewModel.oldTodos = todoViewModel.eraseCanceledTodo(of: todoViewModel.oldTodos)
+            }
             
             // 스티커 체크
             stickerViewModel.isTodayStickerOn = stickerViewModel.getTodayStickerOn(date: todoViewModel.searchDate)
             
-            if stickerViewModel.isTodayStickerOn {
+            if stickerViewModel.isTodayStickerOn
+            {
                 stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
             }
+            
+            //test
+            print("userDefaults 저장된 값: ", UserDefaults.standard.bool(forKey: "enableHideGaveUpTask"))
         } label: {
             Text("오늘")
                 .padding(.horizontal, 20)
@@ -81,7 +99,7 @@ struct Header: View {
         .padding(.horizontal, 30)
         .padding(.vertical, 5)
         .fullScreenCover(isPresented: $todoViewModel.showSettingView) {
-            SettingView(todoViewModel: todoViewModel)
+            SettingView(todoViewModel: todoViewModel, settingViewModel: settingViewModel)
         }
     
         
@@ -97,7 +115,8 @@ struct Header: View {
 //                            .id(date)
 //                    }
                     ForEach(todoViewModel.defaultDates, id:\.self) { date in
-                        DateCell(todoViewModel: todoViewModel, stickerViewModel: stickerViewModel, date: date)
+                        DateCell(todoViewModel: todoViewModel, stickerViewModel: stickerViewModel, settingViewModel:
+                                    settingViewModel, date: date)
                             .id(date)
                     }
                     .onAppear {

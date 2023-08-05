@@ -177,9 +177,9 @@
 				4136515F2A6A3EBB006C6361 /* TodoViewModel.swift */,
 				413913362A702EEB007EFFF2 /* ScrollViewModel.swift */,
 				4139135D2A72A4EA007EFFF2 /* DetailTodoViewModel.swift */,
-				413913B12A7A2A4D007EFFF2 /* SettingViewModel.swift */,
 				413913BD2A7B7E82007EFFF2 /* StickerViewModel.swift */,
 				41C641DB2A7CF5720000ABEE /* CompleteRepoViewModel.swift */,
+				413913B12A7A2A4D007EFFF2 /* SettingViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -283,9 +283,9 @@
 		41E1DC7E2A5EF087005A5EAA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				413913AD2A796EAB007EFFF2 /* SettingView */,
 				41C641DA2A7CF3000000ABEE /* CompleteRepoView */,
 				413913A22A77DB6E007EFFF2 /* DailyTodoView */,
-				413913AD2A796EAB007EFFF2 /* SettingView */,
 			);
 			path = View;
 			sourceTree = "<group>";

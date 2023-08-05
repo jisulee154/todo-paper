@@ -392,6 +392,19 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         }
     }
     
+    /// 앱 전체 설정 적용 - 포기한 일 숨기기
+    func eraseCanceledTodo(of todos: [TodoItem]) -> [TodoItem] {
+        // 포기한 일 숨기기 true일 때
+        var tempTodos: [TodoItem] = []
+        
+        for todo in todos {
+            if todo.status != .canceled {
+                tempTodos.append(todo)
+            }
+        }
+        return tempTodos
+    }
+    
     /// uuid로 찾은 투두 삭제
     /// - Parameter uuid: 삭제할 투두 uuid
     /// - Returns: 삭제 후 업데이트 된 투두 목록

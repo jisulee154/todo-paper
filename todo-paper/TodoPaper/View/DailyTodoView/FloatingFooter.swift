@@ -13,6 +13,14 @@ struct FloatingFooter: View{
     @ObservedObject var todoViewModel: TodoViewModel
     @ObservedObject var detailTodoViewModel: DetailTodoViewModel
     @ObservedObject var stickerViewModel: StickerViewModel
+    @ObservedObject var settingViewModel: SettingViewModel
+    
+    init(todoViewModel: TodoViewModel, detailTodoViewModel: DetailTodoViewModel, stickerViewModel: StickerViewModel, settingViewModel: SettingViewModel) {
+        self.todoViewModel = todoViewModel
+        self.detailTodoViewModel = detailTodoViewModel
+        self.stickerViewModel = stickerViewModel
+        self.settingViewModel = settingViewModel
+    }
     
     var body: some View {
         VStack {
@@ -23,9 +31,16 @@ struct FloatingFooter: View{
                     // 미완료한 일이 없는 날(미래 제외)에만 완료 스티커를 붙일 수 있다.
                     let timePosition = DetailTodoViewModel.getTimePosition(of: todoViewModel.searchDate)
                     let todos = todoViewModel.fetchTodosBySelectedDate()
+                    if settingViewModel.enableHideGaveUpTask {
+                        // 포기한 일 숨기기 true일 때
+                        todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
+                    }
                     var oldTodos: [TodoItem] = []
                     if timePosition == .today {
                         oldTodos = todoViewModel.fetchOldTodos()
+                        if settingViewModel.enableHideGaveUpTask {
+                            oldTodos = todoViewModel.eraseCanceledTodo(of: oldTodos)
+                        }
                     }
                     
                     todoViewModel.isTodosDone = todoViewModel.getTodosDone(todos: todos, oldTodos: oldTodos)

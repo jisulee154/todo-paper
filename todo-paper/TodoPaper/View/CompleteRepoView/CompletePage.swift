@@ -32,7 +32,7 @@ struct CompletePage: View, Identifiable {
             VStack {
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundColor(.themeColor40)
-                    .edgesIgnoringSafeArea(.all)
+                    .edgesIgnoringSafeArea([.top, .leading, .trailing])
             }
             .zIndex(0)
             
@@ -237,7 +237,7 @@ struct CompletePage: View, Identifiable {
                 .contentShape(Circle())
                 .background(Color.clear)
                 .frame(width: 50, height: 50)
-                .padding(.top, 50)
+                .padding(.top, 100)
                 .padding(.trailing, 50)
                 .zIndex(1)
             }

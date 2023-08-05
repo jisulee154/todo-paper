@@ -12,10 +12,12 @@ import BottomSheetSwiftUI
 struct DetailSheetOfToday: View {
     @ObservedObject var todoViewModel: TodoViewModel
     @ObservedObject var detailTodoViewModel: DetailTodoViewModel
+    @ObservedObject var settingViewModel: SettingViewModel
     
-    init(todoViewModel: TodoViewModel, detailTodoViewModel: DetailTodoViewModel) {
+    init(todoViewModel: TodoViewModel, detailTodoViewModel: DetailTodoViewModel, settingViewModel: SettingViewModel) {
         self.todoViewModel = todoViewModel
         self.detailTodoViewModel = detailTodoViewModel
+        self.settingViewModel = settingViewModel
     }
     
     var body: some View {
@@ -104,7 +106,16 @@ struct DetailSheetOfToday: View {
                         todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .canceled, duedate: nil, completeDate: today)
                         
                         todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
+                        if settingViewModel.enableHideGaveUpTask {
+                            // 포기한 일 숨기기 true일 때
+                            todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
+                        }
                         todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
+                        if settingViewModel.enableHideGaveUpTask {
+                            // 포기한 일 숨기기 true일 때
+                            todoViewModel.oldTodos = todoViewModel.eraseCanceledTodo(of: todoViewModel.oldTodos)
+                        }
+                        
                         
                         // 완료 스티커 붙이기 활성화 업데이트
                         todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()

@@ -22,15 +22,20 @@ struct DailyTodoView: View {
     @StateObject var todoViewModel: TodoViewModel = TodoViewModel()
     @StateObject var detailTodoViewModel: DetailTodoViewModel = DetailTodoViewModel()
     @StateObject var stickerViewModel: StickerViewModel = StickerViewModel()
+    @ObservedObject var settingViewModel: SettingViewModel
     
     /// BottomSheet 관련
     @State var newTodo: TodoItem = TodoItem(title: "")
     @State var newTitle: String = ""
     
+    init(settingViewModel: SettingViewModel) {
+        self.settingViewModel = settingViewModel
+    }
+    
     //MARK: - View
     var body: some View {
         ZStack {
-            /// 날짜 선택 스크롤과 투두 리스트 목록
+            /// 날짜 선택 스크롤과 투두 리스트 목록, 앱 설정
             makeTodoList()
                 .zIndex(0)
             
@@ -117,11 +122,11 @@ struct DailyTodoView: View {
 
     }
     
-    //MARK: - 날짜 선택 스크롤과 투두 리스트 목록
+    //MARK: - 날짜 선택 스크롤과 투두 리스트 목록, 앱 설정
     private func makeTodoList() -> some View {
         VStack {
             ///캘린더 스크롤 부분 & 오늘로 이동 & 앱 설정
-            Header(todoViewModel: todoViewModel, stickerViewModel: stickerViewModel)
+            Header(todoViewModel: todoViewModel, stickerViewModel: stickerViewModel, settingViewModel: settingViewModel)
             
             ZStack {
                 /// - 완료 스티커 부착
@@ -147,7 +152,8 @@ struct DailyTodoView: View {
                                                         todoViewModel: todoViewModel,
                                                         todoItemRowType: TodoItemRowType.today,
                                                         detailTodoViewModel: detailTodoViewModel,
-                                                        stickerViewModel: stickerViewModel)
+                                                        stickerViewModel: stickerViewModel,
+                                                        settingViewModel: settingViewModel)
                                             Divider()
                                             
                                         }
@@ -173,7 +179,8 @@ struct DailyTodoView: View {
                                                             todoViewModel: todoViewModel,
                                                             todoItemRowType: TodoItemRowType.old,
                                                             detailTodoViewModel: detailTodoViewModel,
-                                                            stickerViewModel: stickerViewModel)
+                                                            stickerViewModel: stickerViewModel,
+                                                            settingViewModel: settingViewModel)
                                                 
                                                 Divider()
                                             }
@@ -221,7 +228,15 @@ struct DailyTodoView: View {
             todoViewModel.searchDate = todoViewModel.setSearchDate(date: Date())
             //todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date())
             todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
+            if settingViewModel.enableHideGaveUpTask {
+                // 포기한 일 숨기기 true일 때
+                todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
+            }
             todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
+            if settingViewModel.enableHideGaveUpTask {
+                // 포기한 일 숨기기 true일 때
+                todoViewModel.oldTodos = todoViewModel.eraseCanceledTodo(of: todoViewModel.oldTodos)
+            }
             
             todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
             
@@ -233,13 +248,15 @@ struct DailyTodoView: View {
             }
             
             // Use this for inspecting the Core Data
-            if let directoryLocation = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last {             print("Documents Directory: \(directoryLocation)Application Support")         }
+            if let directoryLocation = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last {             print("Documents Directory: \(directoryLocation)Application Support")
+                
+            }
         }
     }
     
     //MARK: - 투두 생성, 스티커 생성 버튼
     private func makeAddButtonAndSticker() -> some View {
-        FloatingFooter(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel, stickerViewModel: stickerViewModel)
+        FloatingFooter(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel, stickerViewModel: stickerViewModel, settingViewModel: settingViewModel)
     }
     
     //MARK: - 투두 만들기 바텀 시트
@@ -326,7 +343,7 @@ struct DailyTodoView: View {
     }
     
     private func makeTodayDetailSettingBottomSheet() -> some View {
-        DetailSheetOfToday(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel)
+        DetailSheetOfToday(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel, settingViewModel: settingViewModel)
     }
     
     private func makeFutureDetailSettingBottomSheet() -> some View {
@@ -461,7 +478,7 @@ struct DailyTodoView: View {
                         Button {
                             detailTodoViewModel.setStickerBottomSheetPosition = .relative(0.5)
                         } label: {
-                            Text("수정")
+                            Text("스티커 바꾸기")
                         }
                         
                         Button {
@@ -472,7 +489,7 @@ struct DailyTodoView: View {
                             
                             stickerViewModel.isTodayStickerOn = false
                         } label: {
-                            Text("삭제")
+                            Text("떼기")
                         }
                         
                     } label: {
@@ -517,12 +534,6 @@ struct DailyTodoView: View {
     }
 }
 
-
-struct DailyTodoView_Previews: PreviewProvider {
-    static var previews: some View {
-        DailyTodoView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-    }
-}
 
 ////MARK: - Date Picker Alert
 //struct DatePickerAlert<Content: View>: View {

@@ -15,12 +15,14 @@ struct DateCell: View {
 
     @ObservedObject var todoViewModel: TodoViewModel
     @ObservedObject var stickerViewModel: StickerViewModel
+    @ObservedObject var settingViewModel: SettingViewModel
     
     private var date: Date
     
-    init(todoViewModel: TodoViewModel, stickerViewModel: StickerViewModel, date: Date) {
+    init(todoViewModel: TodoViewModel, stickerViewModel: StickerViewModel, settingViewModel: SettingViewModel, date: Date) {
         self.todoViewModel = todoViewModel
         self.stickerViewModel = stickerViewModel
+        self.settingViewModel = settingViewModel
         self.date = date
     }
     
@@ -44,9 +46,17 @@ struct DateCell: View {
                 todoViewModel.searchDate = todoViewModel.setSearchDate(date: date)
                 todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: date)
                 todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
+                if settingViewModel.enableHideGaveUpTask {
+                    // 포기한 일 숨기기 true일 때
+                    todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
+                }
                 
                 if todoViewModel.canShowOldTodos() {
                     todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
+                    if settingViewModel.enableHideGaveUpTask {
+                        // 포기한 일 숨기기 true일 때
+                        todoViewModel.oldTodos = todoViewModel.eraseCanceledTodo(of: todoViewModel.oldTodos)
+                    }
                 }
                 else {
                     todoViewModel.oldTodos = []

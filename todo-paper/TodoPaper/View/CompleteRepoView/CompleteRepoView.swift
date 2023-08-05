@@ -12,7 +12,13 @@ struct CompleteRepoView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @StateObject var completeRepoViewModel = CompleteRepoViewModel()
+    @ObservedObject var stickerViewModel: StickerViewModel = StickerViewModel()
+    @ObservedObject var settingViewModel: SettingViewModel
 //    @ObservedObject var todoViewModel: TodoViewModel
+    
+    init(settingViewModel: SettingViewModel) {
+        self.settingViewModel = settingViewModel
+    }
     
     var body: some View {
         VStack {
