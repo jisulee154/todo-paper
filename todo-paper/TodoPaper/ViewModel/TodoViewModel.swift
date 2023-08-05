@@ -64,6 +64,8 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     @Published var showCompleteStickerView: Bool = false
     @Published var isTodosDone: Bool = false
     
+    @Published var showEditAferCompleteAlert: Bool = false
+    
     
     
     

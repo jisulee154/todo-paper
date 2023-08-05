@@ -15,18 +15,20 @@ struct CompleteRepoView: View {
 //    @ObservedObject var todoViewModel: TodoViewModel
     
     var body: some View {
-        HPageView(alignment: .leading, spacing: 20) {
-            ForEach(completeRepoViewModel.completePages) { view in
-                view
+        VStack {
+            HPageView(alignment: .leading, spacing: 20) {
+                ForEach(completeRepoViewModel.completePages) { view in
+                    view
+                }
             }
-        }
-        .onAppear {
-            let allDates = completeRepoViewModel.fetchAllDates()
-            completeRepoViewModel.allDates = allDates
-            let completeDates = completeRepoViewModel.getCompleteDates(allDates: allDates)
-            completeRepoViewModel.completeDates = completeDates
-            let completePages =  completeRepoViewModel.getCompletePages()
-            completeRepoViewModel.completePages = completePages
+            .onAppear {
+                let allDates = completeRepoViewModel.fetchAllDates()
+                completeRepoViewModel.allDates = allDates
+                let completeDates = completeRepoViewModel.getCompleteDates(allDates: allDates)
+                completeRepoViewModel.completeDates = completeDates
+                let completePages =  completeRepoViewModel.getCompletePages()
+                completeRepoViewModel.completePages = completePages
+            }
         }
     }
 }

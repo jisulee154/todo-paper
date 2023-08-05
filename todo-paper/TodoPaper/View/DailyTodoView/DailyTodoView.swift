@@ -100,6 +100,21 @@ struct DailyTodoView: View {
         .toast(isPresenting: $detailTodoViewModel.showStickerDeletedToast) {
             AlertToast(displayMode: .hud, type: .regular, title: "스티커가 떼어졌어요.")
         }
+        .confirmationDialog("설정", isPresented: $todoViewModel.showEditAferCompleteAlert) {
+            Button("스티커 떼기", role: .destructive) {
+                detailTodoViewModel.showStickerDeletedToast.toggle()
+                
+                stickerViewModel.isTodayStickerOn = false
+                stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
+                stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!, date: todoViewModel.searchDate, isExist: false, stickerName: nil, stickerBgColor: nil)
+            }
+            Button("취소", role: .cancel) {
+                
+            }
+        } message: {
+            Text("완료 스티커를 떼고 다시 설정하시겠어요?")
+        }
+
     }
     
     //MARK: - 날짜 선택 스크롤과 투두 리스트 목록
@@ -216,6 +231,9 @@ struct DailyTodoView: View {
             if stickerViewModel.isTodayStickerOn {
                 stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
             }
+            
+            // Use this for inspecting the Core Data
+            if let directoryLocation = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last {             print("Documents Directory: \(directoryLocation)Application Support")         }
         }
     }
     
@@ -429,10 +447,13 @@ struct DailyTodoView: View {
     
     private func makeSticker() -> some View {
         ZStack {
-//            Color.white
-            Color.clear
+            Color.white
+//            Color.clear
                 .opacity(0.6)
                 .zIndex(0)
+                .onTapGesture {
+                    todoViewModel.showEditAferCompleteAlert.toggle()
+                }
             VStack {
                 HStack {
                     Spacer()
@@ -462,9 +483,9 @@ struct DailyTodoView: View {
                             //                            .opacity(0.7)
                                 .overlay {
                                     Circle()
-                                        .stroke(Color.themeColor30, lineWidth: 7)
+                                        .stroke(Color.themeColor10, lineWidth: 0)
                                 }
-                            //                            .shadow(color: Color.gray, radius: 10)
+                                .shadow(color: Color.gray, radius: 10)
                                 .zIndex(1)
                             Image(systemName: stickerViewModel.sticker?.stickerName ?? "checkmark.seal.fill")
                                 .resizable()
@@ -475,9 +496,9 @@ struct DailyTodoView: View {
                             Image(systemName: "water.waves")
                                 .resizable()
                                 .frame(width: 100, height: 80)
-                                .foregroundColor(.themeColor30)
+                                .foregroundColor(.themeColor40)
                                 .opacity(0.7)
-                            //                            .shadow(color: Color.gray, radius: 10)
+                                .shadow(color: Color.gray, radius: 10)
                                 .zIndex(0)
                                 .padding(.leading, 50)
                                 .padding(.top, 30)

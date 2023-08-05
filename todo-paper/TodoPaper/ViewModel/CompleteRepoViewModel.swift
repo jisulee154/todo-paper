@@ -23,6 +23,8 @@ class CompleteRepoViewModel: ObservableObject {
     @Published var todos: [TodoItem] = []
     @Published var oldTodos: [TodoItem] = []
     @Published var completePages: [CompletePage] = []
+    @Published var dateFormatted: String = ""
+    @Published var stickerName: String = ""
     
 //    init(completeDates: [Date], watchingDate: Date, completePages: [CompletePage]) {
 //        self.completeDates = getCompleteDates(allDates: allDates)
@@ -84,7 +86,7 @@ class CompleteRepoViewModel: ObservableObject {
         return result
     }
     
-    // 원래 목표가 그날이었던 일들
+    /// 작성일 당일에 완료한 투두 가져오기
     func getTodos(on date: Date) -> [TodoItem] {
         let request = Item.fetchRequest()
         var modifiedTodos: [TodoItem] = []
@@ -98,6 +100,13 @@ class CompleteRepoViewModel: ObservableObject {
                                                        duedate: $0.duedate ?? Date(),
                                                        status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
                                                        completeDate: $0.completeDate) }
+//            print(#fileID, #function, #line, "-------작성일 당일에 완료한 투두")
+//            print(date)
+//            print(modifiedTodos)
+            
+            // 정렬
+            modifiedTodos.sort { $0.status.rawValue < $1.status.rawValue }
+            
             return modifiedTodos
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
@@ -105,6 +114,7 @@ class CompleteRepoViewModel: ObservableObject {
         }
     }
     
+    ///작성일 이후에 완료한 투두 가져오기
     func getOldTodos(on date: Date) -> [TodoItem] {
         let request = Item.fetchRequest()
         var modifiedTodos: [TodoItem] = []
@@ -118,10 +128,36 @@ class CompleteRepoViewModel: ObservableObject {
                                                        duedate: $0.duedate ?? Date(),
                                                        status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
                                                        completeDate: $0.completeDate) }
+//            print(#fileID, #function, #line, "----------작성일 이후에 완료한 투두")
+//            print(date)
+//            print(modifiedTodos)
+            
+            // 정렬
+            modifiedTodos.sort { $0.status.rawValue < $1.status.rawValue }
+            
             return modifiedTodos
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
             return []
+        }
+    }
+    
+    func getStickerName(on date: Date) -> String {
+        let request = Sticker.fetchRequest()
+        
+        request.predicate = Sticker.searchByDatePredicate.withSubstitutionVariables(["search_date" : date])
+
+        do {
+            let fetchResult = try context.fetch(request) as [Sticker]
+            for res in fetchResult {
+                if res.isExist && (res.stickerName != nil) {
+                    return res.stickerName ?? ""
+                }
+            }
+            return ""
+        } catch {
+            print(#fileID, #function, #line, "- error: \(error)")
+            return ""
         }
     }
     
@@ -131,12 +167,28 @@ class CompleteRepoViewModel: ObservableObject {
         for date in completeDates {
             todos = getTodos(on: date)
             oldTodos = getOldTodos(on: date)
-            result.append(CompletePage(date: date, todos: todos, oldTodos: oldTodos))
+            dateFormatted = getDateFormatted(on: date)
+            stickerName = getStickerName(on: date)
+            
+            result.append(CompletePage(date: date,
+                                       todos: todos,
+                                       oldTodos: oldTodos,
+                                       dateFormatted: dateFormatted,
+                                       stickerName: stickerName))
         }
         
+        // 정렬
+        result.sort { $0.date > $1.date }
         return result
     }
     
+    func getDateFormatted(on date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy.MM.dd EEEE"
+        dateFormatter.locale = Locale(identifier: "ko_KR")
+        
+        return dateFormatter.string(from: date)
+    }
 //    func fetchSticker(on date: Date) -> StickerItem? {
 //        let request = Sticker.fetchRequest()
 //        var modifiedResult: StickerItem?

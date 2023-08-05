@@ -97,8 +97,7 @@ struct FloatingFooter: View{
                         detailTodoViewModel.showStickerDeletedToast.toggle()
                         
                         stickerViewModel.isTodayStickerOn = false
-                        stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate
-    )
+                        stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
                         stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!, date: todoViewModel.searchDate, isExist: false, stickerName: nil, stickerBgColor: nil)
                     }
                     
