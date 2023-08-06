@@ -120,6 +120,8 @@ struct Header: View {
                             .id(date)
                     }
                     .onAppear {
+                        todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date())
+                        print("onAppear scroll target: ", todoViewModel.scrollTargetDate)
                         withAnimation {
                             proxy.scrollTo(todoViewModel.scrollTargetDate, anchor: .center)
                         }
@@ -163,10 +165,10 @@ struct Header: View {
 //                    }
                 }
                 .onChange(of: todoViewModel.scrollTargetDate) { newTarget in
-                    print("바뀐 스크롤 타겟: ", newTarget)
-                    todoViewModel.scrollTargetDate = Calendar.current.startOfDay(for: todoViewModel.scrollTargetDate)
+                    todoViewModel.scrollTargetDate = Calendar.current.startOfDay(for: newTarget)
                     // 더 좋은 방법 없을까..?
                     withAnimation {
+                        print("[onChange] newTarget :", newTarget)
                         proxy.scrollTo(newTarget, anchor: .center)
                     }
                 }

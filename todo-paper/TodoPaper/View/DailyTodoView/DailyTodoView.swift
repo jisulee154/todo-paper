@@ -234,7 +234,8 @@ struct DailyTodoView: View {
         }
         .onAppear {
             todoViewModel.searchDate = todoViewModel.setSearchDate(date: Date())
-            //todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date())
+//            todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date())
+            
             todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
             if settingViewModel.enableHideGaveUpTask {
                 // 포기한 일 숨기기 true일 때

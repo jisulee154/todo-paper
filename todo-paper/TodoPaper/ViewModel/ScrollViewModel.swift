@@ -56,6 +56,6 @@ fileprivate func isScrollTrailing(_ scrollView: UIScrollView, _ rthreshold: CGFl
 }
 
 fileprivate func isScrollLeading(_ scrollView: UIScrollView, _ lthreshold: CGFloat) -> Bool {
-    return (-lthreshold < scrollView.contentOffset.x) || (scrollView.contentOffset.x < lthreshold)
+    return scrollView.contentOffset.x < lthreshold
 }
 

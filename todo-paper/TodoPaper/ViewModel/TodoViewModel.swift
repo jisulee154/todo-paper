@@ -50,7 +50,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     @Published var allTodosOnToday: [TodoItem] = []
     @Published var searchDate: Date = Calendar.current.startOfDay(for: Date())
     
-    let settingDatesSize: Int = 30 // 날짜 캘린더에 처음 출력되는 일자 수
+    let settingDatesSize: Int = 100 // 날짜 캘린더에 처음 출력되는 일자 수
     let addingDatesSize: Int = 3 // 스크롤하면 더 불러오는 일자 수
     @Published var defaultDates: [Date] = []
     //    @Published var datesInMonth: [Date] = []
@@ -161,19 +161,27 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         switch(direction) {
         case .prev:
             // 이전 N일치의 일자 반환
-            for i in 1...numDates {
-                let newDate = Calendar.current.date(byAdding: .day, value: -i, to: lastDate) ?? Date()
-                resDates.insert(newDate, at: 0)
+            if numDates > 0 {
+                for i in 1...numDates {
+                    let newDate = Calendar.current.date(byAdding: .day, value: -i, to: lastDate) ?? Date()
+                    resDates.insert(newDate, at: 0)
+                }
+                return resDates
+            } else {
+                return []
             }
-            return resDates
             
         case .next:
             // 다음 N일치의 일자 반환
-            for i in 1...numDates {
-                let newDate = Calendar.current.date(byAdding: .day, value: i, to: lastDate) ?? Date()
-                resDates.append(newDate)
+            if numDates > 0 {
+                for i in 1...numDates {
+                    let newDate = Calendar.current.date(byAdding: .day, value: i, to: lastDate) ?? Date()
+                    resDates.append(newDate)
+                }
+                return resDates
+            } else {
+                return []
             }
-            return resDates
             
         default:
             print(#fileID, #function, #line, "- error: Getting Wrong Direction of Further Dates")
