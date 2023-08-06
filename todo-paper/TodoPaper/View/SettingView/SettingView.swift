@@ -9,7 +9,19 @@ import SwiftUI
 import UserNotifications
 import MessageUI
 
+//struct RepresentableMailSender: UIViewRepresentable {
+//    let mailSenderView = MailSender()
+//
+//    func makeUIView(context: Context) -> MailSender {
+//            mailSenderView
+//    }
+//
+//    func updateUIView(_ uiView: MailSender, context: Context) {
+//        // pass
+//    }
+//}
 struct SettingView: View {
+    
     @ObservedObject var todoViewModel: TodoViewModel
     @ObservedObject var settingViewModel: SettingViewModel
     
@@ -127,12 +139,12 @@ struct SettingView: View {
                         Text("투두 페이퍼 리뷰하기")
                     }
                     
-                    // 문의
-                    Button {
-                        makeSendMail()
-                    } label: {
-                        Text("버그 신고 및 문의하기")
-                    }
+//                    // 문의
+//                    Button {
+//                        makeSendMail()
+//                    } label: {
+//                        Text("버그 신고 및 문의하기")
+//                    }
 
 
                 }

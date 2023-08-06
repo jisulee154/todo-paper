@@ -41,6 +41,7 @@
 		41C641D92A7CF2FA0000ABEE /* CompleteRepoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C641D82A7CF2FA0000ABEE /* CompleteRepoView.swift */; };
 		41C641DC2A7CF5720000ABEE /* CompleteRepoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C641DB2A7CF5720000ABEE /* CompleteRepoViewModel.swift */; };
 		41C641DE2A7D2D830000ABEE /* CompletePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C641DD2A7D2D830000ABEE /* CompletePage.swift */; };
+		41C641E02A7F08150000ABEE /* MailSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C641DF2A7F08150000ABEE /* MailSender.swift */; };
 		41E1DC3F2A58277B005A5EAA /* todo_paperApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */; };
 		41E1DC412A58277B005A5EAA /* DailyTodoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41E1DC402A58277B005A5EAA /* DailyTodoView.swift */; };
 		41E1DC432A58277C005A5EAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 41E1DC422A58277C005A5EAA /* Assets.xcassets */; };
@@ -98,6 +99,7 @@
 		41C641D82A7CF2FA0000ABEE /* CompleteRepoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRepoView.swift; sourceTree = "<group>"; };
 		41C641DB2A7CF5720000ABEE /* CompleteRepoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRepoViewModel.swift; sourceTree = "<group>"; };
 		41C641DD2A7D2D830000ABEE /* CompletePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletePage.swift; sourceTree = "<group>"; };
+		41C641DF2A7F08150000ABEE /* MailSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MailSender.swift; sourceTree = "<group>"; };
 		41E1DC3B2A58277B005A5EAA /* todo-paper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "todo-paper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		41E1DC3E2A58277B005A5EAA /* todo_paperApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todo_paperApp.swift; sourceTree = "<group>"; };
 		41E1DC402A58277B005A5EAA /* DailyTodoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTodoView.swift; sourceTree = "<group>"; };
@@ -158,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				413913AF2A796ED8007EFFF2 /* SettingView.swift */,
+				41C641DF2A7F08150000ABEE /* MailSender.swift */,
 			);
 			path = SettingView;
 			sourceTree = "<group>";
@@ -460,6 +463,7 @@
 				413045122A625AB20070F927 /* FloatingFooter.swift in Sources */,
 				413913A62A77DC44007EFFF2 /* DetailSheetOfToday.swift in Sources */,
 				41E1DC412A58277B005A5EAA /* DailyTodoView.swift in Sources */,
+				41C641E02A7F08150000ABEE /* MailSender.swift in Sources */,
 				4139135E2A72A4EA007EFFF2 /* DetailTodoViewModel.swift in Sources */,
 				41C641DE2A7D2D830000ABEE /* CompletePage.swift in Sources */,
 				413913B52A7A656C007EFFF2 /* MappingModelV4Tov5.xcmappingmodel in Sources */,

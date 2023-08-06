@@ -62,9 +62,9 @@ struct DateCell: View {
                     todoViewModel.oldTodos = []
                 }
                 
+                // 스티커 체크
                 todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
                 
-                // 스티커 체크
                 stickerViewModel.isTodayStickerOn = stickerViewModel.getTodayStickerOn(date: todoViewModel.searchDate)
                 
                 if stickerViewModel.isTodayStickerOn {

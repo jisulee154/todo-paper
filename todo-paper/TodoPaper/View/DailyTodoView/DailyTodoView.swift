@@ -219,9 +219,17 @@ struct DailyTodoView: View {
         // 할일 목록 새로고침
         .refreshable {
             todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
+            if settingViewModel.enableHideGaveUpTask {
+                // 포기한 일 숨기기 true일 때
+                todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
+            }
             
             if todoViewModel.canShowOldTodos() {
                 todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
+                if settingViewModel.enableHideGaveUpTask {
+                    // 포기한 일 숨기기 true일 때
+                    todoViewModel.oldTodos = todoViewModel.eraseCanceledTodo(of: todoViewModel.oldTodos)
+                }
             }
         }
         .onAppear {
@@ -482,6 +490,7 @@ struct DailyTodoView: View {
                         }
                         
                         Button {
+                            stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
                             stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!,
                                                                                        date: todoViewModel.searchDate,
                                                                                        isExist: false, stickerName: nil,
