@@ -47,8 +47,6 @@ class ScrollViewModel: NSObject, UIScrollViewDelegate, ObservableObject {
 //        print("isTrailing: ", isTrailingValue)
 //        print("isLeading: ", isLeadingValue)
     }
-    
-    
 }
 
 fileprivate func isScrollTrailing(_ scrollView: UIScrollView, _ rthreshold: CGFloat) -> Bool {
@@ -57,5 +55,6 @@ fileprivate func isScrollTrailing(_ scrollView: UIScrollView, _ rthreshold: CGFl
 
 fileprivate func isScrollLeading(_ scrollView: UIScrollView, _ lthreshold: CGFloat) -> Bool {
     return scrollView.contentOffset.x < lthreshold
+//    return (0 > scrollView.contentOffset.x) || (scrollView.contentOffset.x > lthreshold)
 }
 

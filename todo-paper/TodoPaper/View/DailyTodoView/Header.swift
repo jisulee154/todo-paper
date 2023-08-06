@@ -19,7 +19,7 @@ struct Header: View {
     
     init(todoViewModel: TodoViewModel, stickerViewModel: StickerViewModel, settingViewModel: SettingViewModel) {
         self._scrollViewModel = StateObject.init(
-            wrappedValue: ScrollViewModel(lthreshold: -10, rthreshold: 0)
+            wrappedValue: ScrollViewModel(lthreshold: 20, rthreshold: 0)
         )
         self.todoViewModel = todoViewModel
         self.stickerViewModel = stickerViewModel
