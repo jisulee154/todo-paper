@@ -59,13 +59,15 @@ extension Item {
     }
     
     //MARK: - CompleteRepoView 관련
-    // 생성한 당일 완료한 투두 검색
+    // 기한 내에 완료한 투두 가져오기
     static var searchCompletedOnTimePredicate: NSPredicate {
         NSPredicate(format: "%K == $date && %K == $completeDate", #keyPath(duedate), #keyPath(completeDate))
+//        NSPredicate(format: "%K <= $completeDate", #keyPath(completeDate))
     }
     
-    // 생성한 날이 지나서 완료한 투두 검색
+    // 기한 이후에 완료한 투두 가져오기
     static var searchCompletedOverTimePredicate: NSPredicate {
         NSPredicate(format: "%K < $date && %K == $completeDate", #keyPath(duedate), #keyPath(completeDate))
+//        NSPredicate(format: "%K > $completeDate", #keyPath(completeDate))
     }
 }

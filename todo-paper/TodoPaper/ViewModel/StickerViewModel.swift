@@ -142,6 +142,24 @@ class StickerViewModel: ObservableObject {
             return false
         }
     }
+    
+    func deleteASticker(deletingSticker: StickerItem) {
+        let targetSticker = findASticker(uuid: deletingSticker.uuid)
+        
+        if let targetSticker = targetSticker {
+            context.delete(targetSticker)
+            
+            do {
+                try context.save()
+                //            return fetchSticker(on: deletingSticker.date)
+            } catch {
+                print(#fileID, #function, #line, "- error: \(error)")
+                //            return nil
+            }
+        } else {
+            print(#fileID, #function, #line, "- error : No TargetSticker!")
+        }
+    }
 }
 
 extension StickerViewModel {

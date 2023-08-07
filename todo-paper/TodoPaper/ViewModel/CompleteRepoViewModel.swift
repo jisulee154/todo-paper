@@ -69,7 +69,7 @@ class CompleteRepoViewModel: ObservableObject {
                                 date: $0.date ?? Date(),
                                 isExist: $0.isExist,
                                 stickerName: $0.stickerName,
-                                stickerBgColor: $0.stickerBgColor)
+                                stickerBgColor: $0.stickerBgColor)//수정
                 }.first ?? nil
                 
                 if let safeModifiedResult = modifiedResult {
@@ -86,12 +86,13 @@ class CompleteRepoViewModel: ObservableObject {
         return result
     }
     
-    /// 작성일 당일에 완료한 투두 가져오기
+    /// 기한 내에 완료한 투두 가져오기
     func getTodos(on date: Date) -> [TodoItem] {
         let request = Item.fetchRequest()
         var modifiedTodos: [TodoItem] = []
         
         request.predicate = Item.searchCompletedOnTimePredicate.withSubstitutionVariables(["date" : date, "completeDate" : date])
+//        request.predicate = Item.searchCompletedOnTimePredicate.withSubstitutionVariables(["completeDate" : date])
 
         do {
             let fetchedTodos = try context.fetch(request) as [Item]
@@ -114,12 +115,13 @@ class CompleteRepoViewModel: ObservableObject {
         }
     }
     
-    ///작성일 이후에 완료한 투두 가져오기
+    /// 기한 이후에 완료한 투두 가져오기
     func getOldTodos(on date: Date) -> [TodoItem] {
         let request = Item.fetchRequest()
         var modifiedTodos: [TodoItem] = []
         
         request.predicate = Item.searchCompletedOverTimePredicate.withSubstitutionVariables(["date" : date, "completeDate" : date])
+//        request.predicate = Item.searchCompletedOverTimePredicate.withSubstitutionVariables(["completeDate" : date])
 
         do {
             let fetchedTodos = try context.fetch(request) as [Item]

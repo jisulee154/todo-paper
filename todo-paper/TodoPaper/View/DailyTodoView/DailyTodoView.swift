@@ -109,9 +109,12 @@ struct DailyTodoView: View {
             Button("스티커 떼기", role: .destructive) {
                 detailTodoViewModel.showStickerDeletedToast.toggle()
                 
-                stickerViewModel.isTodayStickerOn = false
                 stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
-                stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!, date: todoViewModel.searchDate, isExist: false, stickerName: nil, stickerBgColor: nil)
+//                stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!, date: todoViewModel.searchDate, isExist: false, stickerName: nil, stickerBgColor: nil)
+                stickerViewModel.deleteASticker(deletingSticker: stickerViewModel.sticker!)
+                stickerViewModel.sticker = nil
+                
+                stickerViewModel.isTodayStickerOn = false
             }
             Button("취소", role: .cancel) {
                 
@@ -492,10 +495,12 @@ struct DailyTodoView: View {
                         
                         Button {
                             stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
-                            stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!,
-                                                                                       date: todoViewModel.searchDate,
-                                                                                       isExist: false, stickerName: nil,
-                                                                                       stickerBgColor: nil)
+//                            stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!,
+//                                                                                       date: todoViewModel.searchDate,
+//                                                                                       isExist: false, stickerName: nil,
+//                                                                                       stickerBgColor: nil)
+                            stickerViewModel.deleteASticker(deletingSticker: stickerViewModel.sticker!)
+                            stickerViewModel.sticker = nil
                             
                             stickerViewModel.isTodayStickerOn = false
                         } label: {

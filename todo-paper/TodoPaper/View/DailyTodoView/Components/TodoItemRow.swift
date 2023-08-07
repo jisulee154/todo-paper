@@ -63,7 +63,7 @@ struct TodoItemRow: View {
                                                                     title: nil,
                                                                     status: TodoStatus.completed,
                                                                     duedate: nil,
-                                                                    completeDate: todoViewModel.searchDate)
+                                                                    completeDate: Calendar.current.startOfDay(for: Date()))
                 } else {
                     todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: todoItem,
                                                                     title: nil,
@@ -90,17 +90,28 @@ struct TodoItemRow: View {
                 // 스티커 체크
                 todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
                 
-                if todoViewModel.isActivePutSticker {
-                    stickerViewModel.isTodayStickerOn = stickerViewModel.getTodayStickerOn(date: todoViewModel.searchDate)
-                    
-                    if stickerViewModel.isTodayStickerOn {
-                        stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
-                    }
-                } else {
-                    stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
-                    stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!, date: todoViewModel.searchDate, isExist: false, stickerName: nil, stickerBgColor: nil)
+                stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
+                if let sticker = stickerViewModel.sticker {
+                    stickerViewModel.deleteASticker(deletingSticker: sticker)
                     stickerViewModel.isTodayStickerOn = false
                 }
+                
+//                todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
+//
+//                if todoViewModel.isActivePutSticker {
+//                    stickerViewModel.isTodayStickerOn = stickerViewModel.getTodayStickerOn(date: todoViewModel.searchDate)
+//
+//                    if stickerViewModel.isTodayStickerOn {
+//                        stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
+//                    }
+//                } else {
+//                    stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
+////                    stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!, date: todoViewModel.searchDate, isExist: false, stickerName: nil, stickerBgColor: nil)
+//                    if let sticker = stickerViewModel.sticker {
+//                        stickerViewModel.deleteASticker(deletingSticker: sticker)
+//                        stickerViewModel.isTodayStickerOn = false
+//                    }
+//                }
                 
             }
             // TodoItemRowType에 따라 다른 형태로 보여주기
