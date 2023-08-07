@@ -51,7 +51,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     @Published var searchDate: Date = Calendar.current.startOfDay(for: Date())
     
     let settingDatesSize: Int = 100 // 날짜 캘린더에 처음 출력되는 일자 수
-    let addingDatesSize: Int = 3 // 스크롤하면 더 불러오는 일자 수
+    let addingDatesSize: Int = 1 // 스크롤하면 더 불러오는 일자 수
     @Published var defaultDates: [Date] = []
     //    @Published var datesInMonth: [Date] = []
     

@@ -86,7 +86,7 @@ class CompleteRepoViewModel: ObservableObject {
         return result
     }
     
-    /// 작성일 당일에 완료한 투두 가져오기
+    /// 기한 내에 완료한 투두 가져오기
     func getTodos(on date: Date) -> [TodoItem] {
         let request = Item.fetchRequest()
         var modifiedTodos: [TodoItem] = []
@@ -114,7 +114,7 @@ class CompleteRepoViewModel: ObservableObject {
         }
     }
     
-    ///작성일 이후에 완료한 투두 가져오기
+    ///기한 지나 완료한 투두 가져오기
     func getOldTodos(on date: Date) -> [TodoItem] {
         let request = Item.fetchRequest()
         var modifiedTodos: [TodoItem] = []

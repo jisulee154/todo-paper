@@ -113,7 +113,11 @@ struct FloatingFooter: View{
                         
                         stickerViewModel.isTodayStickerOn = false
                         stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
-                        stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!, date: todoViewModel.searchDate, isExist: false, stickerName: nil, stickerBgColor: nil)
+                        if let sticker = stickerViewModel.sticker {
+                            stickerViewModel.deleteASticker(deletingSticker: stickerViewModel.sticker!)
+                            stickerViewModel.sticker = nil
+                        }
+//                        stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!, date: todoViewModel.searchDate, isExist: false, stickerName: nil, stickerBgColor: nil)
                     }
                     
                 }) {
