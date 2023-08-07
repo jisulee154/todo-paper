@@ -109,12 +109,16 @@ struct DailyTodoView: View {
             Button("스티커 떼기", role: .destructive) {
                 detailTodoViewModel.showStickerDeletedToast.toggle()
                 
-                stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
-//                stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!, date: todoViewModel.searchDate, isExist: false, stickerName: nil, stickerBgColor: nil)
-                stickerViewModel.deleteASticker(deletingSticker: stickerViewModel.sticker!)
-                stickerViewModel.sticker = nil
-                
                 stickerViewModel.isTodayStickerOn = false
+                
+                stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
+                
+                if let sticker = stickerViewModel.sticker {
+                    stickerViewModel.deleteASticker(deletingSticker: sticker)
+                    stickerViewModel.sticker = nil
+                }
+                
+//                stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!, date: todoViewModel.searchDate, isExist: false, stickerName: nil, stickerBgColor: nil)
             }
             Button("취소", role: .cancel) {
                 
@@ -495,14 +499,17 @@ struct DailyTodoView: View {
                         
                         Button {
                             stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
+                            
+                            if let sticker = stickerViewModel.sticker {
+                                stickerViewModel.deleteASticker(deletingSticker: sticker)
+                                stickerViewModel.sticker = nil
+                            }
+                            stickerViewModel.isTodayStickerOn = false
 //                            stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!,
 //                                                                                       date: todoViewModel.searchDate,
 //                                                                                       isExist: false, stickerName: nil,
 //                                                                                       stickerBgColor: nil)
-                            stickerViewModel.deleteASticker(deletingSticker: stickerViewModel.sticker!)
-                            stickerViewModel.sticker = nil
                             
-                            stickerViewModel.isTodayStickerOn = false
                         } label: {
                             Text("떼기")
                         }

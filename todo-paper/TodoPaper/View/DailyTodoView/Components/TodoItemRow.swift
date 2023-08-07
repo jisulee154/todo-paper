@@ -95,9 +95,7 @@ struct TodoItemRow: View {
                     stickerViewModel.deleteASticker(deletingSticker: sticker)
                     stickerViewModel.isTodayStickerOn = false
                 }
-                
-//                todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
-//
+
 //                if todoViewModel.isActivePutSticker {
 //                    stickerViewModel.isTodayStickerOn = stickerViewModel.getTodayStickerOn(date: todoViewModel.searchDate)
 //
@@ -106,11 +104,9 @@ struct TodoItemRow: View {
 //                    }
 //                } else {
 //                    stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
-////                    stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!, date: todoViewModel.searchDate, isExist: false, stickerName: nil, stickerBgColor: nil)
-//                    if let sticker = stickerViewModel.sticker {
-//                        stickerViewModel.deleteASticker(deletingSticker: sticker)
-//                        stickerViewModel.isTodayStickerOn = false
-//                    }
+
+//                    stickerViewModel.sticker = stickerViewModel.updateASticker(updatingSticker: stickerViewModel.sticker!, date: todoViewModel.searchDate, isExist: false, stickerName: nil, stickerBgColor: nil)
+//                    stickerViewModel.isTodayStickerOn = false
 //                }
                 
             }

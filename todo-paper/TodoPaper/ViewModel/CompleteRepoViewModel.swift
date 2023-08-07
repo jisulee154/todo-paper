@@ -115,7 +115,8 @@ class CompleteRepoViewModel: ObservableObject {
         }
     }
     
-    /// 기한 이후에 완료한 투두 가져오기
+
+    ///기한 지나 완료한 투두 가져오기
     func getOldTodos(on date: Date) -> [TodoItem] {
         let request = Item.fetchRequest()
         var modifiedTodos: [TodoItem] = []

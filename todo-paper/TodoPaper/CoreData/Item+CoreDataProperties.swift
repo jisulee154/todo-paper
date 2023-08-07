@@ -64,8 +64,8 @@ extension Item {
         NSPredicate(format: "%K == $date && %K == $completeDate", #keyPath(duedate), #keyPath(completeDate))
 //        NSPredicate(format: "%K <= $completeDate", #keyPath(completeDate))
     }
-    
-    // 기한 이후에 완료한 투두 가져오기
+
+    // 기한이 지나서 완료한 투두 가져오기
     static var searchCompletedOverTimePredicate: NSPredicate {
         NSPredicate(format: "%K < $date && %K == $completeDate", #keyPath(duedate), #keyPath(completeDate))
 //        NSPredicate(format: "%K > $completeDate", #keyPath(completeDate))

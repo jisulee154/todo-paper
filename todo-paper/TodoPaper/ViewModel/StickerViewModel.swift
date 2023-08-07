@@ -145,10 +145,10 @@ class StickerViewModel: ObservableObject {
     
     func deleteASticker(deletingSticker: StickerItem) {
         let targetSticker = findASticker(uuid: deletingSticker.uuid)
-        
+
         if let targetSticker = targetSticker {
             context.delete(targetSticker)
-            
+
             do {
                 try context.save()
                 //            return fetchSticker(on: deletingSticker.date)
