@@ -19,16 +19,16 @@ struct DailyTodoView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
 //    @ObservedObject var todoViewModel: TodoViewModel = TodoViewModel()
-    @StateObject var todoViewModel: TodoViewModel = TodoViewModel()
-    @StateObject var detailTodoViewModel: DetailTodoViewModel = DetailTodoViewModel()
-    @StateObject var stickerViewModel: StickerViewModel = StickerViewModel()
+    
+    @ObservedObject var todoViewModel: TodoViewModel = TodoViewModel()
+    @ObservedObject var detailTodoViewModel: DetailTodoViewModel = DetailTodoViewModel()
+    @ObservedObject var stickerViewModel: StickerViewModel = StickerViewModel()
     @ObservedObject var settingViewModel: SettingViewModel
     
-    /// BottomSheet 관련
-    @State var newTodo: TodoItem = TodoItem(title: "")
-    @State var newTitle: String = ""
-    
-    init(settingViewModel: SettingViewModel) {
+    init(todoViewModel: TodoViewModel, detailTodoViewModel: DetailTodoViewModel, stickerViewModel: StickerViewModel, settingViewModel: SettingViewModel) {
+        self.todoViewModel = todoViewModel
+        self.detailTodoViewModel = detailTodoViewModel
+        self.stickerViewModel = stickerViewModel
         self.settingViewModel = settingViewModel
     }
     
@@ -41,40 +41,7 @@ struct DailyTodoView: View {
             
             /// 투두 생성, 스티커 생성 버튼
             makeAddButtonAndSticker()
-                .zIndex(1)
-            
-            /// 투두 만들기 바텀 시트
-            makeAddTodoBottomSheet()
-                .zIndex(3)
-            
-            /// 투두 상세 설정 바텀 시트
-            switch (detailTodoViewModel.timePosition) {
-            case .past:
-                makePastDetailSettingBottomSheet()
-                    .zIndex(4)
-            case .today:
-                makeTodayDetailSettingBottomSheet()
-                    .zIndex(4)
-            case .future:
-                makeFutureDetailSettingBottomSheet()
-                    .zIndex(4)
-            case .none:
-                Text("Time Position Error.")
-                    .zIndex(4)
-            }
-            
-            /// - 투두 일자 수정 바텀 시트
-            makeDatePickerBottomSheet()
-                .zIndex(5)
-            
-            /// - 투두 제목 수정 바텀 시트
-            makeTitleEditBottomSheet()
-                .zIndex(6)
-            
-            /// - 완료 스티커 바텀 시트
-            makeStickerBottomSheet()
-                .zIndex(7)
-            
+                .zIndex(1)            
             
         }
         //MARK: - 토스트 메시지
@@ -133,7 +100,10 @@ struct DailyTodoView: View {
     private func makeTodoList() -> some View {
         VStack {
             ///캘린더 스크롤 부분 & 오늘로 이동 & 앱 설정
-            Header(todoViewModel: todoViewModel, stickerViewModel: stickerViewModel, settingViewModel: settingViewModel)
+            Header(todoViewModel: todoViewModel,
+                   detailTodoViewModel: detailTodoViewModel,
+                   stickerViewModel: stickerViewModel,
+                   settingViewModel: settingViewModel)
             
             ZStack {
                 /// - 완료 스티커 부착
@@ -275,213 +245,12 @@ struct DailyTodoView: View {
         FloatingFooter(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel, stickerViewModel: stickerViewModel, settingViewModel: settingViewModel)
     }
     
-    //MARK: - 투두 만들기 바텀 시트
-    private func makeAddTodoBottomSheet() -> some View {
-        Color.clear
-            .bottomSheet(bottomSheetPosition: $detailTodoViewModel.addTodoBottomSheetPosition,
-                         switchablePositions:[.dynamicBottom,.relative(0.7)],
-                         headerContent: {
-                Text("새로운 투두")
-                    .font(.title)
-                    .padding(.horizontal, 30)
-                    .padding(.vertical, 20)
-                
-            }) {
-                VStack {
-                    TextField("새로운 투두를 입력해주세요.", text: $newTitle)
-                        .padding()
-                        .frame(minWidth: 300, maxWidth: 2000, maxHeight: 50)
-                        .background(.white)
-                        .cornerRadius(10)
-                        .autocorrectionDisabled()
-                        .onSubmit {
-                            newTodo.uuid = UUID()
-                            newTodo.duedate = todoViewModel.searchDate
-                            newTodo.status = TodoStatus.none
-                            newTodo.completeDate = nil
-                            
-                            if newTitle != "" {
-                                newTodo.title = newTitle
-                                todoViewModel.todos = todoViewModel.addATodo(
-                                    TodoItem(uuid: newTodo.uuid,
-                                             title: newTodo.title,
-                                             duedate: newTodo.duedate,
-                                             status: newTodo.status,
-                                             completeDate: newTodo.completeDate)
-                                )
-                            }
-                            
-                            newTitle = "" // 초기화
-                            
-                            detailTodoViewModel.addTodoBottomSheetPosition = .hidden
-                        }
-                        .padding(.bottom, 30)
-                    Button {
-                        newTodo.uuid = UUID()
-                        newTodo.duedate = todoViewModel.searchDate
-                        newTodo.status = TodoStatus.none
-                        newTodo.completeDate = nil
-                        
-                        if newTitle != "" {
-                            newTodo.title = newTitle
-                            todoViewModel.todos = todoViewModel.addATodo(
-                                TodoItem(uuid: newTodo.uuid,
-                                         title: newTodo.title,
-                                         duedate: newTodo.duedate,
-                                         status: newTodo.status,
-                                         completeDate: newTodo.completeDate)
-                            )
-                        }
-                        
-                        newTitle = "" // 초기화
-                        
-                        detailTodoViewModel.addTodoBottomSheetPosition = .hidden
-                        
-                        todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
-                    } label: {
-                        Text("완료")
-                            .frame(minWidth: 200, maxWidth: 2000, maxHeight: 50)
-                            .contentShape(Capsule())
-                    }
-                    .buttonStyle(SettingButtonStyle())
-                }
-                .padding(.horizontal, 30)
-                .padding(.top, 20)
-            }
-            .showCloseButton()
-            .enableSwipeToDismiss()
-            .enableTapToDismiss()
-    }
     
-    //MARK: - 투두 상세 설정 바텀 시트
-    private func makePastDetailSettingBottomSheet() -> some View {
-        DetailSheetOfPast(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel)
-    }
     
-    private func makeTodayDetailSettingBottomSheet() -> some View {
-        DetailSheetOfToday(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel, settingViewModel: settingViewModel)
-    }
-    
-    private func makeFutureDetailSettingBottomSheet() -> some View {
-        DetailSheetOfFuture(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel)
-    }
-    
-    //MARK: - 투두 일자 변경 바텀 시트
-    private func makeDatePickerBottomSheet() -> some View {
-        Color.clear
-            .bottomSheet(bottomSheetPosition: $detailTodoViewModel.datePickerBottomSheetPosition,
-                         switchablePositions:[.dynamicBottom,.relative(0.7)])
-        {
-            DatePicker(
-                "date picker",
-                selection: $detailTodoViewModel.updatingDate,
-                in: Date()...,
-                displayedComponents: [.date]
-            )
-            .frame(width: 320, alignment: .center)
-            .datePickerStyle(.graphical)
-            .background(Color.clear)
-            
-            Button {
-                let updatingDate = Calendar.current.startOfDay(for: detailTodoViewModel.updatingDate)
-                let today = Calendar.current.startOfDay(for: Date())
-                
-                todoViewModel.todos = todoViewModel.updateATodo(
-                    updatingTodo: detailTodoViewModel.pickedTodo,
-                    title: nil,
-                    status: nil,
-                    duedate: updatingDate,
-                    completeDate: nil
-                )
-                //                    todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
-                detailTodoViewModel.datePickerBottomSheetPosition = .hidden
-                
-                
-                // 날짜 변경 토스트 메시지 띄우기
-                detailTodoViewModel.showAnotherDayToast.toggle()
-                
-                todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
-                
-            } label: {
-                Text("설정 완료")
-                    .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)
-                    .contentShape(Capsule())
-            }
-            .buttonStyle(SettingButtonStyle())
-            .padding(.horizontal, 30)
-            .padding(.vertical, 20)
-        }
-        .showCloseButton()
-        .enableSwipeToDismiss()
-        .enableTapToDismiss()
-    }
-    
-    //MARK: - 투두 제목 수정 바텀 시트
-    private func makeTitleEditBottomSheet() -> some View {
-        Color.clear
-            .bottomSheet(
-                bottomSheetPosition: $detailTodoViewModel.editBottomSheetPosition,
-                switchablePositions: [
-                    .dynamicBottom,
-                    .relative(0.6)],
-                headerContent: {
-                    Text("수정")
-                        .font(.title)
-                        .padding(.horizontal, 30)
-                        .padding(.top, 20)
-                }) {
-                    VStack {
-                        TextField("텍스트를 입력해주세요.", text: $detailTodoViewModel.editingTitle)
-                            .padding()
-                            .frame(minWidth: 300, maxWidth: 1000, maxHeight: 50)
-                            .background(.white)
-                            .cornerRadius(10)
-                            .autocorrectionDisabled()
-                            .onAppear {
-                                detailTodoViewModel.editingTitle = detailTodoViewModel.pickedTodo.title
-                            }
-                            .onSubmit {
-                                detailTodoViewModel.editBottomSheetPosition = .hidden
-                                todoViewModel.todos = todoViewModel.updateATodo(
-                                    updatingTodo: detailTodoViewModel.pickedTodo, title: detailTodoViewModel.editingTitle, status: nil, duedate: nil, completeDate: nil
-                                )
-                                //                            print("onSubmit: ", detailTodoViewModel.editingTitle)
-                            }
-                            .padding(.bottom, 30)
-                        
-                        Button {
-                            detailTodoViewModel.editBottomSheetPosition = .hidden
-                            todoViewModel.todos = todoViewModel.updateATodo(
-                                updatingTodo: detailTodoViewModel.pickedTodo, title: detailTodoViewModel.editingTitle, status: nil, duedate: nil, completeDate: nil
-                            )
-                            
-                            //                        print("수정완료 버튼 클릭: ", detailTodoViewModel.editingTitle)
-                        } label: {
-                            Text("완료")
-                                .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)
-                                .contentShape(Capsule())
-                        }
-                        .buttonStyle(SettingButtonStyle())
-                    }
-                    .padding(.horizontal, 30)
-                    .padding(.vertical, 20)
-                }
-                .showCloseButton()
-                .enableSwipeToDismiss()
-                .enableTapToDismiss()
-        
-    }
-    
-    private func makeStickerBottomSheet() -> some View {
-        StickerBottomSheet(todoViewModel: todoViewModel,
-                           detailTodoViewModel: detailTodoViewModel,
-                           stickerViewModel: stickerViewModel)
-    }
-    
+    //MARK: - 스티커
     private func makeSticker() -> some View {
         ZStack {
             Color.white
-//            Color.clear
                 .opacity(0.6)
                 .zIndex(0)
                 .onTapGesture {
@@ -554,6 +323,7 @@ struct DailyTodoView: View {
             }
         }
     }
+    
 }
 
 

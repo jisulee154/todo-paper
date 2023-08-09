@@ -16,10 +16,11 @@ class DetailTodoViewModel: ObservableObject {
     @Published var pickedTodo: TodoItem = TodoItem(title: "")
     
     @Published var addTodoBottomSheetPosition: BottomSheetPosition = .hidden
-    @Published var settingBottomSheetPosition: BottomSheetPosition = .hidden
+    @Published var settingBottomSheetPosition: BottomSheetPosition = .hidden // 투두 상세설정
     @Published var datePickerBottomSheetPosition: BottomSheetPosition = .hidden
     @Published var editBottomSheetPosition: BottomSheetPosition = .hidden
     @Published var setStickerBottomSheetPosition: BottomSheetPosition = .hidden
+    @Published var appSettingBottomSheetPosition: BottomSheetPosition = .hidden // 앱 전체설정
     
     @Published var editingTitle: String = "" // 투두 수정하기 텍스트필드 입력값
     

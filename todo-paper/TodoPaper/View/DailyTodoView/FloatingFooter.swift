@@ -131,7 +131,6 @@ struct FloatingFooter: View{
                         .cornerRadius(50)
                         .padding(.bottom, 20)
                         .padding(.trailing, 20)
-                    
                 }
             }
         }

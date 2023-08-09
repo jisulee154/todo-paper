@@ -1,5 +1,5 @@
 //
-//  SettingView.swift
+//  SettingBottomSheet.swift
 //  todo-paper
 //
 //  Created by 이지수 on 2023/08/02.
@@ -20,9 +20,9 @@ import MessageUI
 //        // pass
 //    }
 //}
-struct SettingView: View {
-    
+struct SettingBottomSheet: View {
     @ObservedObject var todoViewModel: TodoViewModel
+    @ObservedObject var detailTodoViewModel: DetailTodoViewModel
     @ObservedObject var settingViewModel: SettingViewModel
     
     @State var showTipTodoNotification: Bool = false
@@ -32,15 +32,23 @@ struct SettingView: View {
     
 
     var body: some View {
-        ZStack {
-            // 상단 뒤로가기 버튼
-            makeGoBackButton()
-                .zIndex(1)
-            
-            // 설정 항목 목록
-            makeSettingList()
-                .zIndex(0)
-        }
+        Color.clear
+            .bottomSheet(bottomSheetPosition: $detailTodoViewModel.appSettingBottomSheetPosition, switchablePositions: [.dynamicBottom, .relative(0.7)], headerContent: {
+                Text("앱 전체 설정")
+                    .font(.title)
+                    .padding(.horizontal, 30)
+                    .padding(.top, 20)
+            }) {
+                makeSettingList()
+            }
+            .showCloseButton()
+            .enableSwipeToDismiss()
+            .enableTapToDismiss()
+//        ZStack {
+//            // 상단 뒤로가기 버튼
+//            makeGoBackButton()
+//                .zIndex(1)
+//        }
     }
     
     private func makeGoBackButton() -> some View {
@@ -157,8 +165,4 @@ struct SettingView: View {
         else { return }
         UIApplication.shared.open(writeReviewURL, options: [:], completionHandler: nil)
     }
-    
-    
-    
-    
 }

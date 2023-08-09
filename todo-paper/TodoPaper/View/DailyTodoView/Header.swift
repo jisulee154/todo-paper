@@ -9,19 +9,22 @@ import SwiftUI
 import Introspect
 
 
+// 캘린더 스크롤, 앱 환경 설정, 오늘로 이동 버튼
 struct Header: View {
     //    var onNewDateClicked: (Date) -> Void
     @ObservedObject var todoViewModel: TodoViewModel
+    @ObservedObject var detailTodoViewModel: DetailTodoViewModel
     @ObservedObject var stickerViewModel: StickerViewModel
     @ObservedObject var settingViewModel: SettingViewModel
     
     @StateObject var scrollViewModel: ScrollViewModel
     
-    init(todoViewModel: TodoViewModel, stickerViewModel: StickerViewModel, settingViewModel: SettingViewModel) {
+    init(todoViewModel: TodoViewModel, detailTodoViewModel: DetailTodoViewModel, stickerViewModel: StickerViewModel, settingViewModel: SettingViewModel) {
         self._scrollViewModel = StateObject.init(
             wrappedValue: ScrollViewModel(lthreshold: 20, rthreshold: 0)
         )
         self.todoViewModel = todoViewModel
+        self.detailTodoViewModel = detailTodoViewModel
         self.stickerViewModel = stickerViewModel
         self.settingViewModel = settingViewModel
     }
@@ -89,7 +92,9 @@ struct Header: View {
     //MARK: - 환경 설정 버튼
     private func makeSettingButton() -> some View {
         Button {
-            todoViewModel.showSettingView.toggle()
+//            todoViewModel.showSettingView.toggle()
+            detailTodoViewModel.appSettingBottomSheetPosition = .relative(0.7)
+            
         } label: {
             Image(systemName: "gearshape")
                 .resizable()
@@ -98,9 +103,9 @@ struct Header: View {
         }
         .padding(.horizontal, 30)
         .padding(.vertical, 5)
-        .fullScreenCover(isPresented: $todoViewModel.showSettingView) {
-            SettingView(todoViewModel: todoViewModel, settingViewModel: settingViewModel)
-        }
+//        .fullScreenCover(isPresented: $todoViewModel.showSettingView) {
+//            SettingView(todoViewModel: todoViewModel, settingViewModel: settingViewModel)
+//        }
     
         
     }

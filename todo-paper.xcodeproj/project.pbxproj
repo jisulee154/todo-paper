@@ -20,7 +20,7 @@
 		413913A62A77DC44007EFFF2 /* DetailSheetOfToday.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913A52A77DC44007EFFF2 /* DetailSheetOfToday.swift */; };
 		413913A82A77DC6A007EFFF2 /* DetailSheetOfFuture.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913A72A77DC6A007EFFF2 /* DetailSheetOfFuture.swift */; };
 		413913AC2A792677007EFFF2 /* AlertToast in Frameworks */ = {isa = PBXBuildFile; productRef = 413913AB2A792677007EFFF2 /* AlertToast */; };
-		413913B02A796ED8007EFFF2 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913AF2A796ED8007EFFF2 /* SettingView.swift */; };
+		413913B02A796ED8007EFFF2 /* SettingBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913AF2A796ED8007EFFF2 /* SettingBottomSheet.swift */; };
 		413913B22A7A2A4D007EFFF2 /* SettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413913B12A7A2A4D007EFFF2 /* SettingViewModel.swift */; };
 		413913B52A7A656C007EFFF2 /* MappingModelV4Tov5.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 413913B42A7A656C007EFFF2 /* MappingModelV4Tov5.xcmappingmodel */; };
 		413913B82A7A79D7007EFFF2 /* MappingModelV5ToV6.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 413913B72A7A79D7007EFFF2 /* MappingModelV5ToV6.xcmappingmodel */; };
@@ -69,7 +69,7 @@
 		413913A32A77DBF1007EFFF2 /* DetailSheetOfPast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSheetOfPast.swift; sourceTree = "<group>"; };
 		413913A52A77DC44007EFFF2 /* DetailSheetOfToday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSheetOfToday.swift; sourceTree = "<group>"; };
 		413913A72A77DC6A007EFFF2 /* DetailSheetOfFuture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSheetOfFuture.swift; sourceTree = "<group>"; };
-		413913AF2A796ED8007EFFF2 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
+		413913AF2A796ED8007EFFF2 /* SettingBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingBottomSheet.swift; sourceTree = "<group>"; };
 		413913B12A7A2A4D007EFFF2 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
 		413913B32A7A6471007EFFF2 /* todo_paper_5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = todo_paper_5.xcdatamodel; sourceTree = "<group>"; };
 		413913B42A7A656C007EFFF2 /* MappingModelV4Tov5.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MappingModelV4Tov5.xcmappingmodel; sourceTree = "<group>"; };
@@ -156,7 +156,7 @@
 		413913AD2A796EAB007EFFF2 /* SettingView */ = {
 			isa = PBXGroup;
 			children = (
-				413913AF2A796ED8007EFFF2 /* SettingView.swift */,
+				413913AF2A796ED8007EFFF2 /* SettingBottomSheet.swift */,
 				41C641DF2A7F08150000ABEE /* MailSender.swift */,
 			);
 			path = SettingView;
@@ -396,7 +396,7 @@
 				413913B82A7A79D7007EFFF2 /* MappingModelV5ToV6.xcmappingmodel in Sources */,
 				41E1DC4B2A58277C005A5EAA /* todo_paper.xcdatamodeld in Sources */,
 				413913CC2A7BECE8007EFFF2 /* MappingModelV9ToV10.xcmappingmodel in Sources */,
-				413913B02A796ED8007EFFF2 /* SettingView.swift in Sources */,
+				413913B02A796ED8007EFFF2 /* SettingBottomSheet.swift in Sources */,
 				4136515E2A6A1F04006C6361 /* Item+CoreDataProperties.swift in Sources */,
 				417394BB2A66876900205292 /* DateCell.swift in Sources */,
 				41E1DC752A5DCD95005A5EAA /* TodoItemRow.swift in Sources */,
