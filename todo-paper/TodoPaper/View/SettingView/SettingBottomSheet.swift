@@ -86,6 +86,7 @@ struct SettingBottomSheet: View {
     private func makeSettingList() -> some View {
         NavigationView {
             Form {
+                /// 보류 기능 - 앱 푸쉬 알림
 //                Section("알림 설정") {
 //                    // 당일 할일 알림 받기
 //                    VStack {
@@ -134,28 +135,45 @@ struct SettingBottomSheet: View {
                     // 포기한 일 숨기기
                     Toggle(isOn: $settingViewModel.enableHideGaveUpTask) {
                         Text("포기한 투두 숨기기")
+                    }.onChange(of: settingViewModel.enableHideGaveUpTask) { newValue in
+//                        print(newValue)
+                        todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
+                        if settingViewModel.enableHideGaveUpTask {
+                            // 포기한 일 숨기기 true일 때
+                            todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
+                        }
+                        todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
+                        if settingViewModel.enableHideGaveUpTask {
+                            // 포기한 일 숨기기 true일 때
+                            todoViewModel.oldTodos = todoViewModel.eraseCanceledTodo(of: todoViewModel.oldTodos)
+                        }
+                        
+                        
+                        UserDefaults.standard.set(settingViewModel.enableHideGaveUpTask, forKey: "enableHideGaveUpTask")
+                        print("userDefaults 저장된 값: ", UserDefaults.standard.bool(forKey: "enableHideGaveUpTask"))
                     }
                 }
                 
-                Section("기타") {
-                    // 리뷰
-                    Button {
-                        //나중에 추가
-                        //action
-                        //requestReviewmenually(id: <#T##String#>)
-                    } label: {
-                        Text("투두 페이퍼 리뷰하기")
-                    }
-                    
-//                    // 문의
+                /// 고도화 때 적용
+//                Section("기타") {
+//                    // 리뷰
 //                    Button {
-//                        makeSendMail()
+//                        //나중에 추가
+//                        //action
+//                        //requestReviewmenually(id: <#T##String#>)
 //                    } label: {
-//                        Text("버그 신고 및 문의하기")
+//                        Text("투두 페이퍼 리뷰하기")
 //                    }
-
-
-                }
+//
+////                    // 문의
+////                    Button {
+////                        makeSendMail()
+////                    } label: {
+////                        Text("버그 신고 및 문의하기")
+////                    }
+//
+//
+//                }
             }.navigationTitle("설정")
         }
     }

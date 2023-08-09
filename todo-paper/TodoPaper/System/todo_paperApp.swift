@@ -77,6 +77,8 @@ struct todo_paperApp: App {
                 makeAppSettings()
                     .zIndex(9)
             }
+            /// 앱 전체 Background 색깔
+            .background(Color.white)
         }
     }
     
