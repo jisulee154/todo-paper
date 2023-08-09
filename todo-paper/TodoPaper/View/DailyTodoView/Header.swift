@@ -52,16 +52,16 @@ struct Header: View {
             todoViewModel.scrollTargetDate = Calendar.current.date(byAdding: .second, value: 1, to: todoViewModel.searchDate) ?? Date() // 더 좋은 방법 없을까..?
             
             // 투두 새로고침
-            todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
-            if settingViewModel.enableHideGaveUpTask {
-                // 포기한 일 숨기기 true일 때
-                todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
-            }
-            todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
-            if settingViewModel.enableHideGaveUpTask {
-                // 포기한 일 숨기기 true일 때
-                todoViewModel.oldTodos = todoViewModel.eraseCanceledTodo(of: todoViewModel.oldTodos)
-            }
+            todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
+//            if settingViewModel.enableHideGaveUpTask {
+//                // 포기한 일 숨기기 true일 때
+//                todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
+//            }
+            todoViewModel.oldTodos = todoViewModel.fetchOldTodos(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
+//            if settingViewModel.enableHideGaveUpTask {
+//                // 포기한 일 숨기기 true일 때
+//                todoViewModel.oldTodos = todoViewModel.eraseCanceledTodo(of: todoViewModel.oldTodos)
+//            }
             
             // 스티커 체크
             stickerViewModel.isTodayStickerOn = stickerViewModel.getTodayStickerOn(date: todoViewModel.searchDate)
@@ -126,7 +126,7 @@ struct Header: View {
                     }
                     .onAppear {
                         todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date())
-                        print("onAppear scroll target: ", todoViewModel.scrollTargetDate)
+//                        print("onAppear scroll target: ", todoViewModel.scrollTargetDate)
                         withAnimation {
                             proxy.scrollTo(todoViewModel.scrollTargetDate, anchor: .center)
                         }
@@ -173,7 +173,7 @@ struct Header: View {
                     todoViewModel.scrollTargetDate = Calendar.current.startOfDay(for: newTarget)
                     // 더 좋은 방법 없을까..?
                     withAnimation {
-                        print("[onChange] newTarget :", newTarget)
+//                        print("[onChange] newTarget :", newTarget)
                         proxy.scrollTo(newTarget, anchor: .center)
                     }
                 }

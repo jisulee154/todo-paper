@@ -12,10 +12,12 @@ import BottomSheet
 struct DetailSheetOfFuture: View {
     @ObservedObject var todoViewModel: TodoViewModel
     @ObservedObject var detailTodoViewModel: DetailTodoViewModel
+    @ObservedObject var settingViewModel: SettingViewModel
     
-    init(todoViewModel: TodoViewModel, detailTodoViewModel: DetailTodoViewModel) {
+    init(todoViewModel: TodoViewModel, detailTodoViewModel: DetailTodoViewModel, settingViewModel: SettingViewModel) {
         self.todoViewModel = todoViewModel
         self.detailTodoViewModel = detailTodoViewModel
+        self.settingViewModel = settingViewModel
     }
     
     var body: some View {
@@ -59,7 +61,14 @@ struct DetailSheetOfFuture: View {
                         detailTodoViewModel.settingBottomSheetPosition = .hidden
                         
                         let today = Calendar.current.startOfDay(for: Date())
-                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: nil, duedate: today, completeDate: nil)
+                        todoViewModel.todos = todoViewModel.updateATodo(
+                            updatingTodo: detailTodoViewModel.pickedTodo,
+                            title: nil,
+                            status: nil,
+                            duedate: today,
+                            completeDate: nil,
+                            enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask
+                        )
                         
                         // 변경 토스트 메시지 띄우기
                         detailTodoViewModel.showChangedAsTodayToast.toggle()
@@ -74,7 +83,12 @@ struct DetailSheetOfFuture: View {
                         detailTodoViewModel.settingBottomSheetPosition = .hidden
                         
                         // 상태 업데이트 .none -> .canceled
-                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .canceled, duedate: nil, completeDate: todoViewModel.searchDate)
+                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo,
+                                                                        title: nil,
+                                                                        status: .canceled,
+                                                                        duedate: nil,
+                                                                        completeDate: todoViewModel.searchDate,
+                                                                        enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
                     } label: {
                         Text("포기하기")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)
@@ -86,7 +100,8 @@ struct DetailSheetOfFuture: View {
                         detailTodoViewModel.settingBottomSheetPosition = .hidden
                         
                         // 선택된 투두 삭제하기
-                        todoViewModel.todos = todoViewModel.deleteATodo(uuid: detailTodoViewModel.pickedTodo.uuid)
+                        todoViewModel.todos = todoViewModel.deleteATodo(uuid: detailTodoViewModel.pickedTodo.uuid,
+                                                                        enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
                         
                         // 삭제 토스트 메시지
                         detailTodoViewModel.showDeletedToast.toggle()

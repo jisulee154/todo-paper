@@ -22,8 +22,6 @@ class DetailTodoViewModel: ObservableObject {
     @Published var setStickerBottomSheetPosition: BottomSheetPosition = .hidden
     @Published var appSettingBottomSheetPosition: BottomSheetPosition = .hidden // 앱 전체설정
     
-    @Published var editingTitle: String = "" // 투두 수정하기 텍스트필드 입력값
-    
     @Published var showPostponedToast: Bool = false
 //    @Published var showOldTodoPostponedToast: Bool = false
     @Published var showDeletedToast: Bool = false

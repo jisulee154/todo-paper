@@ -45,25 +45,25 @@ struct DateCell: View {
             Button {
                 todoViewModel.searchDate = todoViewModel.setSearchDate(date: date)
                 todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: date)
-                todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
-                if settingViewModel.enableHideGaveUpTask {
-                    // 포기한 일 숨기기 true일 때
-                    todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
-                }
+                todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
+//                if settingViewModel.enableHideGaveUpTask {
+//                    // 포기한 일 숨기기 true일 때
+//                    todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
+//                }
                 
                 if todoViewModel.canShowOldTodos() {
-                    todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
-                    if settingViewModel.enableHideGaveUpTask {
-                        // 포기한 일 숨기기 true일 때
-                        todoViewModel.oldTodos = todoViewModel.eraseCanceledTodo(of: todoViewModel.oldTodos)
-                    }
+                    todoViewModel.oldTodos = todoViewModel.fetchOldTodos(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
+//                    if settingViewModel.enableHideGaveUpTask {
+//                        // 포기한 일 숨기기 true일 때
+//                        todoViewModel.oldTodos = todoViewModel.eraseCanceledTodo(of: todoViewModel.oldTodos)
+//                    }
                 }
                 else {
                     todoViewModel.oldTodos = []
                 }
                 
                 // 스티커 체크
-                todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
+                todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
                 
                 stickerViewModel.isTodayStickerOn = stickerViewModel.getTodayStickerOn(date: todoViewModel.searchDate)
                 

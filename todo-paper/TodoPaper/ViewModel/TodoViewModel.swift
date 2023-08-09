@@ -26,17 +26,8 @@ enum ScrollDirection: Int32 {
     case next  = 1
 }
 
-protocol TodoItemProtocol {
-    var todos: [TodoItem] { get }
-    func fetchTodos() -> [TodoItem]
-    func deleteATodo(uuid: UUID) -> [TodoItem]
-    func addATodo(_ newTodo: TodoItem) -> [TodoItem]
-    func updateATodo(updatingTodo: TodoItem, title: String?, status: TodoStatus?, duedate: Date?, completeDate: Date?) -> [TodoItem]
-    func clearAllTodos()
-}
-
 //MARK: - Core Data Stack
-class TodoViewModel: ObservableObject, TodoItemProtocol {
+class TodoViewModel: ObservableObject {
     
     let container = PersistenceController.shared.container
     
@@ -64,32 +55,33 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     @Published var showCompleteStickerView: Bool = false
     @Published var isTodosDone: Bool = false
     
-    @Published var showEditAferCompleteAlert: Bool = false
-    
-    
-    
+    @Published var showEditAferCompleteAlert: Bool = false   
     
     init() {
-        self.todos = fetchTodos()
-        self.oldTodos = fetchOldTodos()
-        self.searchDate = setSearchDate(date: Date())
+//        self.todos = fetchTodos()
+//        self.todos = fetchTodosBySelectedDate()
+//        self.oldTodos = fetchOldTodos()
+        
 //        self.datesInMonth = getDatesInAMonth()
+        
+//        self.timePosition = getTimePosition(of: Date())
+        
+        self.searchDate = setSearchDate(date: Date())
         self.defaultDates = getDefaultDates(numDates: settingDatesSize)
         self.completeSticker = setCompleteSticker(with: "")
         self.scrollTargetDate = setScrollTargetDate(with: Date())
         self.delayedDays = getDelayedDays(with: Calendar.current.startOfDay(for: Date()))
-//        self.timePosition = getTimePosition(of: Date())
     }
     
     
     //MARK: - 완료 스티커 관련
-    func getActivePutSticker() -> Bool {
+    func getActivePutSticker(enableHideGaveUpTask: Bool) -> Bool {
         // 미완료한 일이 없는 날(미래 제외)에만 완료 스티커를 붙일 수 있다.
         let timePosition = DetailTodoViewModel.getTimePosition(of: searchDate)
-        let todos = fetchTodosBySelectedDate()
+        let todos = fetchTodosBySelectedDate(enableHideGaveUpTask: enableHideGaveUpTask)
         var oldTodos: [TodoItem] = []
         if timePosition == .today {
-            oldTodos = fetchOldTodos()
+            oldTodos = fetchOldTodos(enableHideGaveUpTask: enableHideGaveUpTask)
         }
         
         isTodosDone = getTodosDone(todos: todos, oldTodos: oldTodos)
@@ -226,7 +218,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
 //    }
     
     func setScrollTargetDate(with date: Date) -> Date {
-        print(#fileID, #function, #line, "- Set scroll target date to: ", date)
+//        print(#fileID, #function, #line, "- Set scroll target date to: ", date)
         return Calendar.current.startOfDay(for: date)
     }
     
@@ -313,9 +305,9 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     }
     
     /// duedate가 특정 일자에 해당하는 투두 가져오기
-    /// - Parameter date: 찾고자 하는 일자
+    /// - Parameter 포기한 투두 숨기기 설정값
     /// - Returns: 특정 일자에 해당하는 투두 목록
-    func fetchTodosBySelectedDate() -> [TodoItem] {
+    func fetchTodosBySelectedDate(enableHideGaveUpTask: Bool) -> [TodoItem] {
         let request = Item.fetchRequest()
         let date = self.searchDate
         let nextDate = Calendar.current.date(byAdding: .day, value: 1, to: date)
@@ -339,14 +331,19 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
                 $0.status.rawValue < $1.status.rawValue
             }
             
-            return modifiedTodos
+            if enableHideGaveUpTask {
+                // 포기한 일 숨기기 true일 때
+                return eraseCanceledTodo(of: modifiedTodos)
+            } else {
+                return modifiedTodos
+            }
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
             return []
         }
     }
     
-    func fetchOldTodos() -> [TodoItem] {
+    func fetchOldTodos(enableHideGaveUpTask: Bool) -> [TodoItem] {
         let request = Item.fetchRequest()
         let date = self.searchDate
         var modifiedTodos: [TodoItem] = []
@@ -367,7 +364,12 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
                 $0.status.rawValue < $1.status.rawValue
             }
             
-            return modifiedTodos
+            if enableHideGaveUpTask {
+                // 포기한 일 숨기기 true일 때
+                return eraseCanceledTodo(of: modifiedTodos)
+            } else {
+                return modifiedTodos
+            }
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
             return []
@@ -416,13 +418,13 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     /// uuid로 찾은 투두 삭제
     /// - Parameter uuid: 삭제할 투두 uuid
     /// - Returns: 삭제 후 업데이트 된 투두 목록
-    func deleteATodo(uuid: UUID) -> [TodoItem] {
+    func deleteATodo(uuid: UUID, enableHideGaveUpTask: Bool) -> [TodoItem] {
         guard let foundItemEntity = findATodo(uuid: uuid) else { return [] }
         
         context.delete(foundItemEntity)
         do {
             try context.save()
-            return fetchTodosBySelectedDate()
+            return fetchTodosBySelectedDate(enableHideGaveUpTask: enableHideGaveUpTask)
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
             return []
@@ -433,7 +435,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     /// 새로운 투두 추가하기
     /// - Parameter newTodo: 추가할 투두
     /// - Returns: 새로운 투두가 추가된 투두 목록
-    func addATodo(_ newTodo: TodoItem) -> [TodoItem] {
+    func addATodo(_ newTodo: TodoItem, enableHideGaveUpTask: Bool) -> [TodoItem] {
         let newItemEntity = Item(context: context)
         
         newItemEntity.id = newTodo.id
@@ -451,7 +453,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         
         do {
             try context.save()
-            return fetchTodosBySelectedDate()
+            return fetchTodosBySelectedDate(enableHideGaveUpTask: enableHideGaveUpTask)
         } catch {
             print(#fileID, #function, #line, "-error: \(error)")
             return []
@@ -465,7 +467,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
     ///   - status: 수정될 투두 상태 (옵셔널)
     ///   - duedate: 수정될 투두 기한 (옵셔널)
     /// - Returns: 특정 투두가 수정된 투두 목록
-    func updateATodo(updatingTodo: TodoItem, title: String?, status: TodoStatus?, duedate: Date?, completeDate: Date?) -> [TodoItem] {
+    func updateATodo(updatingTodo: TodoItem, title: String?, status: TodoStatus?, duedate: Date?, completeDate: Date?, enableHideGaveUpTask: Bool) -> [TodoItem] {
         guard let targetTodo = findATodo(uuid: updatingTodo.uuid) else { return [] }
         
         if let safeTitle = title {
@@ -482,7 +484,7 @@ class TodoViewModel: ObservableObject, TodoItemProtocol {
         
         do {
             try context.save()
-            return fetchTodosBySelectedDate()
+            return fetchTodosBySelectedDate(enableHideGaveUpTask: enableHideGaveUpTask)
         } catch {
             print(#fileID, #function, #line, "-error: \(error)")
             return []

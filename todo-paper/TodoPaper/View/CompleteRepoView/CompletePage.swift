@@ -30,7 +30,7 @@ struct CompletePage: View, Identifiable {
     var body: some View {
         ZStack {
             VStack {
-                RoundedRectangle(cornerRadius: 10)
+                Rectangle()
                     .foregroundColor(.themeColor40)
                     .edgesIgnoringSafeArea([.top, .leading, .trailing])
             }

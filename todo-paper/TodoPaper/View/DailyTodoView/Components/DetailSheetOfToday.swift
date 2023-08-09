@@ -74,22 +74,42 @@ struct DetailSheetOfToday: View {
                         
                         // 상태와 duedate 업데이트 Status -> .postponed
                         if detailTodoViewModel.pickedTodo.duedate < today {
-                            todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .postponed, duedate: today, completeDate: today)
+                            todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo,
+                                                                            title: nil,
+                                                                            status: .postponed,
+                                                                            duedate: today,
+                                                                            completeDate: today,
+                                                                            enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
                         } else {
-                            todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .postponed, duedate: nil, completeDate: today)
+                            todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo,
+                                                                            title: nil,
+                                                                            status: .postponed,
+                                                                            duedate: nil,
+                                                                            completeDate: today,
+                                                                            enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
                         }
+//                        if settingViewModel.enableHideGaveUpTask {
+//                            // 포기한 일 숨기기 true일 때
+//                            todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
+//                        }
+                        
+                        todoViewModel.oldTodos = todoViewModel.fetchOldTodos(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
+//                        if settingViewModel.enableHideGaveUpTask {
+//                            // 포기한 일 숨기기 true일 때
+//                            todoViewModel.oldTodos = todoViewModel.eraseCanceledTodo(of: todoViewModel.oldTodos)
+//                        }
                         
                         // 내일 목록에 투두 복사
-                        todoViewModel.todos = todoViewModel.addATodo(
-                            TodoItem(title: detailTodoViewModel.pickedTodo.title, duedate: tomorrow, completeDate: nil)
+                        _ = todoViewModel.addATodo(
+                            TodoItem(title: detailTodoViewModel.pickedTodo.title, duedate: tomorrow, completeDate: nil),
+                            enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask
                         )
-                        todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
                         
                         // 실행 완료 토스트 메시지
                         detailTodoViewModel.showPostponedToast.toggle()
                         
                         // 완료 스티커 붙이기 활성화 업데이트
-                        todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
+                        todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
                     } label: {
                         Text("내일 하기")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)
@@ -103,22 +123,23 @@ struct DetailSheetOfToday: View {
                         let today = Calendar.current.startOfDay(for: Date())
                         
                         // 상태 업데이트 Status -> .canceled
-                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .canceled, duedate: nil, completeDate: today)
+                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: .canceled, duedate: nil, completeDate: today, enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
                         
-                        todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
-                        if settingViewModel.enableHideGaveUpTask {
-                            // 포기한 일 숨기기 true일 때
-                            todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
-                        }
-                        todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
-                        if settingViewModel.enableHideGaveUpTask {
-                            // 포기한 일 숨기기 true일 때
-                            todoViewModel.oldTodos = todoViewModel.eraseCanceledTodo(of: todoViewModel.oldTodos)
-                        }
+                        todoViewModel.oldTodos = todoViewModel.fetchOldTodos(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
+                        
+//                        todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
+//                        if settingViewModel.enableHideGaveUpTask {
+//                            // 포기한 일 숨기기 true일 때
+//                            todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
+//                        }
+//                        if settingViewModel.enableHideGaveUpTask {
+//                            // 포기한 일 숨기기 true일 때
+//                            todoViewModel.oldTodos = todoViewModel.eraseCanceledTodo(of: todoViewModel.oldTodos)
+//                        }
                         
                         
                         // 완료 스티커 붙이기 활성화 업데이트
-                        todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
+                        todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
                     } label: {
                         Text("포기하기")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)
@@ -130,14 +151,14 @@ struct DetailSheetOfToday: View {
                         detailTodoViewModel.settingBottomSheetPosition = .hidden
                         
                         // 선택된 투두 삭제하기
-                        todoViewModel.todos = todoViewModel.deleteATodo(uuid: detailTodoViewModel.pickedTodo.uuid)
-                        todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
+                        todoViewModel.todos = todoViewModel.deleteATodo(uuid: detailTodoViewModel.pickedTodo.uuid, enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
+                        todoViewModel.oldTodos = todoViewModel.fetchOldTodos(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
                         
                         // 삭제 토스트 메시지
                         detailTodoViewModel.showDeletedToast.toggle()
                         
                         // 완료 스티커 붙이기 활성화 업데이트
-                        todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
+                        todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
                     } label: {
                         Text("삭제")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)

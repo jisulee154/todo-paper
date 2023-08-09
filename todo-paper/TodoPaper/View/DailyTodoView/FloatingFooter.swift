@@ -30,26 +30,27 @@ struct FloatingFooter: View{
                 Button {
                     // 미완료한 일이 없는 날(미래 제외)에만 완료 스티커를 붙일 수 있다.
                     let timePosition = DetailTodoViewModel.getTimePosition(of: todoViewModel.searchDate)
-                    let todos = todoViewModel.fetchTodosBySelectedDate()
-                    if settingViewModel.enableHideGaveUpTask {
-                        // 포기한 일 숨기기 true일 때
-                        todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
-                    }
+                    let todos = todoViewModel.fetchTodosBySelectedDate(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
+//                    if settingViewModel.enableHideGaveUpTask {
+//                        // 포기한 일 숨기기 true일 때
+//                        todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
+//                    }
                     var oldTodos: [TodoItem] = []
                     if timePosition == .today {
-                        oldTodos = todoViewModel.fetchOldTodos()
-                        if settingViewModel.enableHideGaveUpTask {
-                            oldTodos = todoViewModel.eraseCanceledTodo(of: oldTodos)
-                        }
+                        oldTodos = todoViewModel.fetchOldTodos(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
+//                        if settingViewModel.enableHideGaveUpTask {
+//                            oldTodos = todoViewModel.eraseCanceledTodo(of: oldTodos)
+//                        }
                     }
                     
                     todoViewModel.isTodosDone = todoViewModel.getTodosDone(todos: todos, oldTodos: oldTodos)
                     
                     if (timePosition == .today || timePosition == .past) {
                         if todoViewModel.isTodosDone {
-                            //미완료 투두가 없음
+                            //투두 모두 완료
                             
                             if todos.isEmpty && oldTodos.isEmpty {
+                                // 오늘까지 해야 하는 투두가 하나도 없을 때
                                 // 설정된 투두가 없어 완료 스티커 붙일 수 없음 안내
                                 if timePosition == .past {
                                     detailTodoViewModel.showCantPutStickerNonePast.toggle()
@@ -60,7 +61,7 @@ struct FloatingFooter: View{
                                 detailTodoViewModel.setStickerBottomSheetPosition = .relative(0.5)
                             }
                         } else {
-                            //미완료 투두 있음
+                            //미완료 있음
                             
                             // 미완료 투두 있음 토스트 메시지
                             detailTodoViewModel.showUnfinishedTodosToast.toggle()
@@ -68,7 +69,7 @@ struct FloatingFooter: View{
                         
                     }
                     else {
-                        // 해당 일자(미래)엔 아직 완료 스티커 붙일 수 없음 안내
+                        // 해당 일자는 미래이기 때문에, 아직 완료 스티커 붙일 수 없음 안내
                         detailTodoViewModel.showCantPutStickerYet.toggle()
                     }
                 } label: {

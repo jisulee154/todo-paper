@@ -61,7 +61,7 @@ struct DailyTodoView: View {
             AlertToast(displayMode: .hud, type: .regular, title: "🥺 미완료인 투두가 있어\n완료 스티커를 붙일 수 없어요.")
         }
         .toast(isPresenting: $detailTodoViewModel.showCantPutStickerYet) {
-            AlertToast(displayMode: .hud, type: .regular, title: "오늘과 이전일자에만\n완료 스티커를 붙일 수 있어요.")
+            AlertToast(displayMode: .hud, type: .regular, title: "오늘과 이전 일자에만\n완료 스티커를 붙일 수 있어요.")
         }
         .toast(isPresenting: $detailTodoViewModel.showCantPutStickerNone) {
             AlertToast(displayMode: .hud, type: .regular, title: "우선 투두부터 추가해볼까요?")
@@ -195,36 +195,36 @@ struct DailyTodoView: View {
         }
         // 할일 목록 새로고침
         .refreshable {
-            todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
-            if settingViewModel.enableHideGaveUpTask {
-                // 포기한 일 숨기기 true일 때
-                todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
-            }
+            todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
+//            if settingViewModel.enableHideGaveUpTask {
+//                // 포기한 일 숨기기 true일 때
+//                todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
+//            }
             
             if todoViewModel.canShowOldTodos() {
-                todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
-                if settingViewModel.enableHideGaveUpTask {
-                    // 포기한 일 숨기기 true일 때
-                    todoViewModel.oldTodos = todoViewModel.eraseCanceledTodo(of: todoViewModel.oldTodos)
-                }
+                todoViewModel.oldTodos = todoViewModel.fetchOldTodos(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
+//                if settingViewModel.enableHideGaveUpTask {
+//                    // 포기한 일 숨기기 true일 때
+//                    todoViewModel.oldTodos = todoViewModel.eraseCanceledTodo(of: todoViewModel.oldTodos)
+//                }
             }
         }
         .onAppear {
             todoViewModel.searchDate = todoViewModel.setSearchDate(date: Date())
 //            todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date())
             
-            todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
-            if settingViewModel.enableHideGaveUpTask {
-                // 포기한 일 숨기기 true일 때
-                todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
-            }
-            todoViewModel.oldTodos = todoViewModel.fetchOldTodos()
-            if settingViewModel.enableHideGaveUpTask {
-                // 포기한 일 숨기기 true일 때
-                todoViewModel.oldTodos = todoViewModel.eraseCanceledTodo(of: todoViewModel.oldTodos)
-            }
+            todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
+//            if settingViewModel.enableHideGaveUpTask {
+//                // 포기한 일 숨기기 true일 때
+//                todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
+//            }
+            todoViewModel.oldTodos = todoViewModel.fetchOldTodos(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
+//            if settingViewModel.enableHideGaveUpTask {
+//                // 포기한 일 숨기기 true일 때
+//                todoViewModel.oldTodos = todoViewModel.eraseCanceledTodo(of: todoViewModel.oldTodos)
+//            }
             
-            todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
+            todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
             
             // 스티커 체크
             stickerViewModel.isTodayStickerOn = stickerViewModel.getTodayStickerOn(date: todoViewModel.searchDate)

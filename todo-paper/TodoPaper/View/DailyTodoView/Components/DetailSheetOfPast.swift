@@ -12,10 +12,12 @@ import BottomSheet
 struct DetailSheetOfPast: View {
     @ObservedObject var todoViewModel: TodoViewModel
     @ObservedObject var detailTodoViewModel: DetailTodoViewModel
+    @ObservedObject var settingViewModel: SettingViewModel
     
-    init(todoViewModel: TodoViewModel, detailTodoViewModel: DetailTodoViewModel) {
+    init(todoViewModel: TodoViewModel, detailTodoViewModel: DetailTodoViewModel, settingViewModel: SettingViewModel) {
         self.todoViewModel = todoViewModel
         self.detailTodoViewModel = detailTodoViewModel
+        self.settingViewModel = settingViewModel
     }
     
     var body: some View {
@@ -45,13 +47,22 @@ struct DetailSheetOfPast: View {
                         detailTodoViewModel.settingBottomSheetPosition = .hidden
                         
                         let today = Calendar.current.startOfDay(for: Date())
-                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo, title: nil, status: nil, duedate: today, completeDate: nil)
+                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo,
+                                                                        title: nil,
+                                                                        status: nil,
+                                                                        duedate: today,
+                                                                        completeDate: nil,
+                                                                        enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
+//                        if settingViewModel.enableHideGaveUpTask {
+//                            // 포기한 일 숨기기 true일 때
+//                            todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)
+//                        }
                         
                         // 변경 토스트 메시지 띄우기
                         detailTodoViewModel.showChangedAsTodayToast.toggle()
                         
                         // 완료 스티커 붙이기 활성화 업데이트
-                        todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
+                        todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
                     } label: {
                         Text("오늘 하기")
                             .frame(minWidth: 200, maxWidth: 1000, maxHeight: 50)

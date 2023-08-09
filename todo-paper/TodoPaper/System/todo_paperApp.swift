@@ -11,7 +11,6 @@ import SwiftUI
 struct todo_paperApp: App {
     let persistenceController = PersistenceController.shared
     
-    
     @StateObject var settingViewModel: SettingViewModel = SettingViewModel(enableHideGaveUpTask: UserDefaults.standard.bool(forKey: "settingViewModel"))
     @StateObject var todoViewModel: TodoViewModel = TodoViewModel()
     @StateObject var detailTodoViewModel: DetailTodoViewModel = DetailTodoViewModel()
@@ -19,8 +18,13 @@ struct todo_paperApp: App {
     
     /// BottomSheet 관련
     @State var newTodo: TodoItem = TodoItem(title: "")
+    
+    /// 키보드 포커싱
+    @State private var focusedNewTitleField: Bool = false
     @State var newTitle: String = ""
     
+    @State private var focusedEditingField: Bool = false
+    @State var editingTitle: String = "" // 투두 수정하기 텍스트필드 입력값
 
     var body: some Scene {
         WindowGroup {
@@ -77,8 +81,8 @@ struct todo_paperApp: App {
                 makeAppSettings()
                     .zIndex(9)
             }
-            /// 앱 전체 Background 색깔
-            .background(Color.white)
+//            /// 앱 전체 Background 색깔
+//            .background(Color.white)
         }
     }
     
@@ -95,7 +99,12 @@ struct todo_paperApp: App {
                 
             }) {
                 VStack {
-                    TextField("새로운 투두를 입력해주세요.", text: $newTitle)
+                    UITextFieldRepresentable(
+                        text: $newTitle,
+                        placeholder: "새로운 투두를 입력해주세요.",
+                        isFirstResponder: true,
+                        isFocused: $focusedNewTitleField
+                    )
                         .padding()
                         .frame(minWidth: 300, maxWidth: 2000, maxHeight: 50)
                         .background(.white)
@@ -114,13 +123,15 @@ struct todo_paperApp: App {
                                              title: newTodo.title,
                                              duedate: newTodo.duedate,
                                              status: newTodo.status,
-                                             completeDate: newTodo.completeDate)
+                                             completeDate: newTodo.completeDate),
+                                    enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask
                                 )
                             }
                             
                             newTitle = "" // 초기화
                             
                             detailTodoViewModel.addTodoBottomSheetPosition = .hidden
+                            focusedNewTitleField = false
                         }
                         .padding(.bottom, 30)
                     Button {
@@ -136,7 +147,8 @@ struct todo_paperApp: App {
                                          title: newTodo.title,
                                          duedate: newTodo.duedate,
                                          status: newTodo.status,
-                                         completeDate: newTodo.completeDate)
+                                         completeDate: newTodo.completeDate),
+                                enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask
                             )
                         }
                         
@@ -144,7 +156,7 @@ struct todo_paperApp: App {
                         
                         detailTodoViewModel.addTodoBottomSheetPosition = .hidden
                         
-                        todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
+                        todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
                     } label: {
                         Text("완료")
                             .frame(minWidth: 200, maxWidth: 2000, maxHeight: 50)
@@ -162,7 +174,7 @@ struct todo_paperApp: App {
     
     //MARK: - 투두 상세 설정 바텀 시트
     private func makePastDetailSettingBottomSheet() -> some View {
-        DetailSheetOfPast(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel)
+        DetailSheetOfPast(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel, settingViewModel: settingViewModel)
     }
     
     private func makeTodayDetailSettingBottomSheet() -> some View {
@@ -170,7 +182,7 @@ struct todo_paperApp: App {
     }
     
     private func makeFutureDetailSettingBottomSheet() -> some View {
-        DetailSheetOfFuture(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel)
+        DetailSheetOfFuture(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel, settingViewModel: settingViewModel)
     }
     
     //MARK: - 투두 일자 변경 바텀 시트
@@ -198,7 +210,8 @@ struct todo_paperApp: App {
                     title: nil,
                     status: nil,
                     duedate: updatingDate,
-                    completeDate: nil
+                    completeDate: nil,
+                    enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask
                 )
                 //                    todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate()
                 detailTodoViewModel.datePickerBottomSheetPosition = .hidden
@@ -207,7 +220,7 @@ struct todo_paperApp: App {
                 // 날짜 변경 토스트 메시지 띄우기
                 detailTodoViewModel.showAnotherDayToast.toggle()
                 
-                todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker()
+                todoViewModel.isActivePutSticker = todoViewModel.getActivePutSticker(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
                 
             } label: {
                 Text("설정 완료")
@@ -238,19 +251,29 @@ struct todo_paperApp: App {
                         .padding(.top, 20)
                 }) {
                     VStack {
-                        TextField("텍스트를 입력해주세요.", text: $detailTodoViewModel.editingTitle)
+                        UITextFieldRepresentable(
+                            text: $editingTitle,
+                            placeholder: "텍스트를 입력해주세요.",
+                            isFirstResponder: true,
+                            isFocused: $focusedEditingField
+                        )
                             .padding()
                             .frame(minWidth: 300, maxWidth: 1000, maxHeight: 50)
                             .background(.white)
                             .cornerRadius(10)
                             .autocorrectionDisabled()
                             .onAppear {
-                                detailTodoViewModel.editingTitle = detailTodoViewModel.pickedTodo.title
+                                editingTitle = detailTodoViewModel.pickedTodo.title
                             }
                             .onSubmit {
                                 detailTodoViewModel.editBottomSheetPosition = .hidden
                                 todoViewModel.todos = todoViewModel.updateATodo(
-                                    updatingTodo: detailTodoViewModel.pickedTodo, title: detailTodoViewModel.editingTitle, status: nil, duedate: nil, completeDate: nil
+                                    updatingTodo: detailTodoViewModel.pickedTodo,
+                                    title: editingTitle,
+                                    status: nil,
+                                    duedate: nil,
+                                    completeDate: nil,
+                                    enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask
                                 )
                                 //                            print("onSubmit: ", detailTodoViewModel.editingTitle)
                             }
@@ -259,7 +282,12 @@ struct todo_paperApp: App {
                         Button {
                             detailTodoViewModel.editBottomSheetPosition = .hidden
                             todoViewModel.todos = todoViewModel.updateATodo(
-                                updatingTodo: detailTodoViewModel.pickedTodo, title: detailTodoViewModel.editingTitle, status: nil, duedate: nil, completeDate: nil
+                                updatingTodo: detailTodoViewModel.pickedTodo,
+                                title: editingTitle,
+                                status: nil,
+                                duedate: nil,
+                                completeDate: nil,
+                                enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask
                             )
                             
                             //                        print("수정완료 버튼 클릭: ", detailTodoViewModel.editingTitle)
