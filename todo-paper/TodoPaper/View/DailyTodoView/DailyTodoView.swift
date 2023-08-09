@@ -8,7 +8,7 @@
 import SwiftUI
 import CoreData
 import Combine
-import BottomSheetSwiftUI
+import BottomSheet
 import AlertToast
 
 
@@ -94,7 +94,7 @@ struct DailyTodoView: View {
             AlertToast(displayMode: .hud, type: .regular, title: "🥺 미완료인 투두가 있어\n완료 스티커를 붙일 수 없어요.")
         }
         .toast(isPresenting: $detailTodoViewModel.showCantPutStickerYet) {
-            AlertToast(displayMode: .hud, type: .regular, title: "아직 완료 스티커를 붙일 수 없어요.")
+            AlertToast(displayMode: .hud, type: .regular, title: "오늘과 이전일자에만\n완료 스티커를 붙일 수 있어요.")
         }
         .toast(isPresenting: $detailTodoViewModel.showCantPutStickerNone) {
             AlertToast(displayMode: .hud, type: .regular, title: "우선 투두부터 추가해볼까요?")

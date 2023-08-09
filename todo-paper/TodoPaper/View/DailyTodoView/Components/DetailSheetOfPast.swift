@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import BottomSheetSwiftUI
+import BottomSheet
 
 //MARK: - 상세 설정 시트 (과거)
 struct DetailSheetOfPast: View {

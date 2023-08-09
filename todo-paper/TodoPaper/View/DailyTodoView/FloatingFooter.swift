@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import BottomSheetSwiftUI
+import BottomSheet
 
 /// 새로운 투두 추가하기 버튼, 완료 스티커 붙이기 버튼
 struct FloatingFooter: View{
