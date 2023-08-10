@@ -39,6 +39,7 @@
 		417394BB2A66876900205292 /* DateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417394BA2A66876900205292 /* DateCell.swift */; };
 		419A994C2A83810000DEAFA0 /* BottomSheet in Frameworks */ = {isa = PBXBuildFile; productRef = 419A994B2A83810000DEAFA0 /* BottomSheet */; };
 		419A994E2A83BEE100DEAFA0 /* UITextFieldRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 419A994D2A83BEE100DEAFA0 /* UITextFieldRepresentable.swift */; };
+		419A99502A84C2A000DEAFA0 /* MappingModelV4ToV11.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 419A994F2A84C2A000DEAFA0 /* MappingModelV4ToV11.xcmappingmodel */; };
 		41C641D72A7CF11B0000ABEE /* SwiftUIPageView in Frameworks */ = {isa = PBXBuildFile; productRef = 41C641D62A7CF11B0000ABEE /* SwiftUIPageView */; };
 		41C641D92A7CF2FA0000ABEE /* CompleteRepoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C641D82A7CF2FA0000ABEE /* CompleteRepoView.swift */; };
 		41C641DC2A7CF5720000ABEE /* CompleteRepoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C641DB2A7CF5720000ABEE /* CompleteRepoViewModel.swift */; };
@@ -97,6 +98,7 @@
 		417394AC2A6652C000205292 /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		417394BA2A66876900205292 /* DateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCell.swift; sourceTree = "<group>"; };
 		419A994D2A83BEE100DEAFA0 /* UITextFieldRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextFieldRepresentable.swift; sourceTree = "<group>"; };
+		419A994F2A84C2A000DEAFA0 /* MappingModelV4ToV11.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = MappingModelV4ToV11.xcmappingmodel; sourceTree = "<group>"; };
 		41C641D02A7CEBBC0000ABEE /* todo_paper_12.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = todo_paper_12.xcdatamodel; sourceTree = "<group>"; };
 		41C641D82A7CF2FA0000ABEE /* CompleteRepoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRepoView.swift; sourceTree = "<group>"; };
 		41C641DB2A7CF5720000ABEE /* CompleteRepoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteRepoViewModel.swift; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				413913C82A7BEB0E007EFFF2 /* MappingModelV8ToV9.xcmappingmodel */,
 				413913CB2A7BECE8007EFFF2 /* MappingModelV9ToV10.xcmappingmodel */,
 				413913CE2A7BF213007EFFF2 /* MappingModelV10ToV11.xcmappingmodel */,
+				419A994F2A84C2A000DEAFA0 /* MappingModelV4ToV11.xcmappingmodel */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -401,6 +404,7 @@
 				41E1DC4B2A58277C005A5EAA /* todo_paper.xcdatamodeld in Sources */,
 				413913CC2A7BECE8007EFFF2 /* MappingModelV9ToV10.xcmappingmodel in Sources */,
 				413913B02A796ED8007EFFF2 /* SettingBottomSheet.swift in Sources */,
+				419A99502A84C2A000DEAFA0 /* MappingModelV4ToV11.xcmappingmodel in Sources */,
 				4136515E2A6A1F04006C6361 /* Item+CoreDataProperties.swift in Sources */,
 				417394BB2A66876900205292 /* DateCell.swift in Sources */,
 				41E1DC752A5DCD95005A5EAA /* TodoItemRow.swift in Sources */,
