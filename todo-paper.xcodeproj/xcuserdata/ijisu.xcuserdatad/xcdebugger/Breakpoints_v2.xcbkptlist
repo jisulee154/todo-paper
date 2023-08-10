@@ -423,7 +423,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "937BC8DB-9AA9-4D42-9C49-4A2A9F25B70C"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "todo-paper/TodoPaper/ViewModel/CompleteRepoViewModel.swift"
@@ -471,7 +471,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "C33CA51B-4CC1-44FE-B428-B8AD6317CFFB"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "todo-paper/TodoPaper/ViewModel/CompleteRepoViewModel.swift"
@@ -534,7 +534,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "2092A7F7-4A1A-4609-A248-0A1EBEC4AC30"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "todo-paper/TodoPaper/ViewModel/CompleteRepoViewModel.swift"

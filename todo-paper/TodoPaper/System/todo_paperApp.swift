@@ -167,6 +167,14 @@ struct todo_paperApp: App {
                 .padding(.horizontal, 30)
                 .padding(.top, 20)
             }
+            .customBackground(
+                LinearGradient(gradient: Gradient(colors: [.themeColor10, .themeColor20]), startPoint: .bottomLeading, endPoint: .topTrailing)
+                    .foregroundColor(.themeColor40)
+            )
+            .customBackground(
+                LinearGradient(gradient: Gradient(colors: [.themeColor10, .themeColor20]), startPoint: .bottomLeading, endPoint: .topTrailing)
+                    .foregroundColor(.themeColor40)
+            )
             .showCloseButton()
             .enableSwipeToDismiss()
             .enableTapToDismiss()
@@ -231,6 +239,10 @@ struct todo_paperApp: App {
             .padding(.horizontal, 30)
             .padding(.vertical, 20)
         }
+        .customBackground(
+            LinearGradient(gradient: Gradient(colors: [.themeColor10, .themeColor20]), startPoint: .bottomLeading, endPoint: .topTrailing)
+                .foregroundColor(.themeColor40)
+        )
         .showCloseButton()
         .enableSwipeToDismiss()
         .enableTapToDismiss()
@@ -301,6 +313,10 @@ struct todo_paperApp: App {
                     .padding(.horizontal, 30)
                     .padding(.vertical, 20)
                 }
+                .customBackground(
+                    LinearGradient(gradient: Gradient(colors: [.themeColor10, .themeColor20]), startPoint: .bottomLeading, endPoint: .topTrailing)
+                        .foregroundColor(.themeColor40)
+                )
                 .showCloseButton()
                 .enableSwipeToDismiss()
                 .enableTapToDismiss()
@@ -319,3 +335,4 @@ struct todo_paperApp: App {
         SettingBottomSheet(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel, settingViewModel: settingViewModel)
     }
 }
+

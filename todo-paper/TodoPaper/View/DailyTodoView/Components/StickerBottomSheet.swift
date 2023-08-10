@@ -46,6 +46,10 @@ struct StickerBottomSheet: View {
                 .padding(.horizontal, 30)
                 .padding(.vertical, 20)
             }
+            .customBackground(
+                LinearGradient(gradient: Gradient(colors: [.themeColor10, .themeColor20]), startPoint: .bottomLeading, endPoint: .topTrailing)
+                    .foregroundColor(.themeColor40)
+            )
             .showCloseButton()
             .enableSwipeToDismiss()
             .enableTapToDismiss()
