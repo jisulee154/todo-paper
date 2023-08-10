@@ -74,7 +74,6 @@ struct TodoItemRow: View {
                                                                     enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
                 }
                 
-                
                 todoViewModel.todos = todoViewModel.fetchTodosBySelectedDate(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
 //                if settingViewModel.enableHideGaveUpTask {
 //                    // 포기한 일 숨기기 true일 때
@@ -164,7 +163,7 @@ struct TodoItemRow: View {
                     detailTodoViewModel.timePosition = DetailTodoViewModel.getTimePosition(of: todoViewModel.searchDate)
                     detailTodoViewModel.setPickedTodo(pickedTodo: todoItem)
                     detailTodoViewModel.settingBottomSheetPosition = .relative(0.7)
-                    print("상세설정 하고자 하는 투두: ", todoItem.title)
+//                    print("상세설정 하고자 하는 투두: ", todoItem.title)
             }
             
         }

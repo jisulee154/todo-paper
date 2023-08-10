@@ -73,21 +73,29 @@ struct DetailSheetOfToday: View {
                         let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: today) ?? Date()
                         
                         // 상태와 duedate 업데이트 Status -> .postponed
-                        if detailTodoViewModel.pickedTodo.duedate < today {
-                            todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo,
-                                                                            title: nil,
-                                                                            status: .postponed,
-                                                                            duedate: today,
-                                                                            completeDate: today,
-                                                                            enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
-                        } else {
-                            todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo,
-                                                                            title: nil,
-                                                                            status: .postponed,
-                                                                            duedate: nil,
-                                                                            completeDate: today,
-                                                                            enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
-                        }
+//                        print(detailTodoViewModel.pickedTodo)
+                        todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo,
+                                                                                                    title: nil,
+                                                                                                    status: .postponed,
+                                                                                                    duedate: nil,
+                                                                                                    completeDate: today,
+                                                                                                    enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
+                        
+//                        if detailTodoViewModel.pickedTodo.duedate < today {
+//                            todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo,
+//                                                                            title: nil,
+//                                                                            status: .postponed,
+//                                                                            duedate: nil,
+//                                                                            completeDate: today,
+//                                                                            enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
+//                        } else {
+//                            todoViewModel.todos = todoViewModel.updateATodo(updatingTodo: detailTodoViewModel.pickedTodo,
+//                                                                            title: nil,
+//                                                                            status: .postponed,
+//                                                                            duedate: nil,
+//                                                                            completeDate: today,
+//                                                                            enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
+//                        }
 //                        if settingViewModel.enableHideGaveUpTask {
 //                            // 포기한 일 숨기기 true일 때
 //                            todoViewModel.todos = todoViewModel.eraseCanceledTodo(of: todoViewModel.todos)

@@ -70,9 +70,6 @@ struct Header: View {
             {
                 stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
             }
-            
-            //test
-            print("userDefaults 저장된 값: ", UserDefaults.standard.bool(forKey: "enableHideGaveUpTask"))
         } label: {
             Text("오늘")
                 .padding(.horizontal, 20)

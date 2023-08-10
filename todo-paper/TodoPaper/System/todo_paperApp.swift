@@ -34,7 +34,7 @@ struct todo_paperApp: App {
                     DailyTodoView(todoViewModel: todoViewModel, detailTodoViewModel: detailTodoViewModel, stickerViewModel: stickerViewModel, settingViewModel: settingViewModel)
                         .environment(\.managedObjectContext, persistenceController.container.viewContext)
                         .tabItem {
-                            Label("투두", systemImage: "square.and.pencil")
+                            Label("투두 페이퍼", systemImage: "square.and.pencil")
                         }
                     /// 완료한 투두 페이지 모아보기
                     CompleteRepoView(settingViewModel: settingViewModel)

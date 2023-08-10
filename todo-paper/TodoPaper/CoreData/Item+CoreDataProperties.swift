@@ -50,7 +50,8 @@ extension Item {
     
     // Date 검색 필터링 - 특정한 일자 이전 일자에 해당하는 투두
     static var searchOldByDatePredicate: NSPredicate {
-        NSPredicate(format: "%K < $date && (%K == $status_none || %K == $status_postponed)", #keyPath(duedate), #keyPath(status), #keyPath(status))
+//        NSPredicate(format: "%K < $date && (%K == $status_none || %K == $status_postponed)", #keyPath(duedate), #keyPath(status), #keyPath(status))
+        NSPredicate(format: "%K < $date && (%K == $status_none)", #keyPath(duedate), #keyPath(status))
     }
     
     // 오늘 완료한 old 투두 검색
@@ -61,7 +62,8 @@ extension Item {
     //MARK: - CompleteRepoView 관련
     // 기한 내에 완료한 투두 가져오기
     static var searchCompletedOnTimePredicate: NSPredicate {
-        NSPredicate(format: "%K == $date && %K == $completeDate", #keyPath(duedate), #keyPath(completeDate))
+        NSPredicate(format: "%K == $date", #keyPath(duedate))
+//        NSPredicate(format: "%K == $date && %K == $completeDate", #keyPath(duedate), #keyPath(completeDate))
 //        NSPredicate(format: "%K <= $completeDate", #keyPath(completeDate))
     }
 

@@ -22,20 +22,46 @@ struct CompleteRepoView: View {
     
     var body: some View {
         VStack {
-            HPageView(alignment: .leading, spacing: 20) {
-                ForEach(completeRepoViewModel.completePages) { view in
-                    view
+            if completeRepoViewModel.completePages.count > 0 {
+                HPageView(alignment: .leading, spacing: 20) {
+                    ForEach(completeRepoViewModel.completePages) { view in
+                        view
+                    }
                 }
+            } else {
+                makeBlank()
             }
-            .onAppear {
-                let allDates = completeRepoViewModel.fetchAllDates()
-                completeRepoViewModel.allDates = allDates
-                let completeDates = completeRepoViewModel.getCompleteDates(allDates: allDates)
-                completeRepoViewModel.completeDates = completeDates
-                let completePages =  completeRepoViewModel.getCompletePages()
-                completeRepoViewModel.completePages = completePages
-            }
+            
         }
+        .onAppear {
+            let allDates = completeRepoViewModel.fetchAllDates()
+            completeRepoViewModel.allDates = allDates
+            let completeDates = completeRepoViewModel.getCompleteDates(allDates: allDates)
+            completeRepoViewModel.completeDates = completeDates
+//            print(completeDates)
+            let completePages =  completeRepoViewModel.getCompletePages(enableHideGaveUpTask: settingViewModel.enableHideGaveUpTask)
+            completeRepoViewModel.completePages = completePages
+        }
+    }
+    
+    private func makeBlank() -> some View {
+        HStack {
+            Spacer()
+            VStack {
+                Spacer()
+                Text("""
+                   아직 완료한 페이퍼가 없어요.\n
+                   투두를 마무리한 날의 페이퍼가\n
+                   이곳에 쌓여요 📎
+                   """).frame(alignment: .center)
+                Spacer()
+            }
+            Spacer()
+        }
+        .overlay(
+            RoundedRectangle(cornerRadius: 15, style: .circular).stroke(Color.themeColor40, lineWidth: 1)
+        )
+        .padding(.all, 10)
     }
 }
 

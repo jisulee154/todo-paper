@@ -350,7 +350,8 @@ class TodoViewModel: ObservableObject {
         
         modifiedTodos += fetchOldTodosOnToday()
         
-        request.predicate = Item.searchOldByDatePredicate.withSubstitutionVariables(["date" : date, "status_none" : TodoStatus.none.rawValue, "status_postponed" : TodoStatus.postponed.rawValue])
+//        request.predicate = Item.searchOldByDatePredicate.withSubstitutionVariables(["date" : date, "status_none" : TodoStatus.none.rawValue, "status_postponed" : TodoStatus.postponed.rawValue])
+        request.predicate = Item.searchOldByDatePredicate.withSubstitutionVariables(["date" : date, "status_none" : TodoStatus.none.rawValue])
         
         do {
             let fetchedTodos = try context.fetch(request) as [Item]
@@ -447,7 +448,7 @@ class TodoViewModel: ObservableObject {
 //        newItemEntity.stickerName = newTodo.stickerName
 //        newItemEntity.section = newTodo.section
 //        newItemEntity.onToday = newTodo.onToday
-        print(#fileID, #function, #line, "-추가하려는 투두: \(newItemEntity)")
+//        print(#fileID, #function, #line, "-추가하려는 투두: \(newItemEntity)")
         
         context.insert(newItemEntity)
         

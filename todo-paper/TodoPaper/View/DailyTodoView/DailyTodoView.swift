@@ -234,8 +234,8 @@ struct DailyTodoView: View {
             }
             
             // Use this for inspecting the Core Data
-            if let directoryLocation = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last {             print("Documents Directory: \(directoryLocation)Application Support")
-                
+            if let directoryLocation = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last {
+                print("Documents Directory: \(directoryLocation)Application Support")
             }
         }
     }

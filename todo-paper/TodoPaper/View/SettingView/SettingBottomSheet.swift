@@ -145,7 +145,7 @@ struct SettingBottomSheet: View {
                         
                         
                         UserDefaults.standard.set(settingViewModel.enableHideGaveUpTask, forKey: "enableHideGaveUpTask")
-                        print("userDefaults 저장된 값: ", UserDefaults.standard.bool(forKey: "enableHideGaveUpTask"))
+//                        print("userDefaults 저장된 값: ", UserDefaults.standard.bool(forKey: "enableHideGaveUpTask"))
                     }
                 }
                 

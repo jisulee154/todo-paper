@@ -42,9 +42,9 @@ class CompleteRepoViewModel: ObservableObject {
         var resultDates: [Date] = []
         do {
             let fetchedStickers = try context.fetch(request) as [Sticker]
-            print(fetchedStickers)
             resultDates = fetchedStickers.map{ $0.date ?? Calendar.current.startOfDay(for: Date()) }
             
+            print(#fileID, #function, #line, resultDates)
             return Array(Set(resultDates))
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
@@ -60,6 +60,7 @@ class CompleteRepoViewModel: ObservableObject {
         var modifiedResult: StickerItem?
         
         for date in allDates {
+            print(#fileID, #function, #line, date)
             request.predicate = Sticker.searchByDatePredicate.withSubstitutionVariables(["search_date" : date])
             
             do {
@@ -86,12 +87,13 @@ class CompleteRepoViewModel: ObservableObject {
         return result
     }
     
-    /// 기한 내에 완료한 투두 가져오기
-    func getTodos(on date: Date) -> [TodoItem] {
+    /// 완료한 투두 가져오기
+    func getTodos(on date: Date, enableHideGaveUpTask: Bool) -> [TodoItem] {
         let request = Item.fetchRequest()
         var modifiedTodos: [TodoItem] = []
         
-        request.predicate = Item.searchCompletedOnTimePredicate.withSubstitutionVariables(["date" : date, "completeDate" : date])
+        request.predicate = Item.searchCompletedOnTimePredicate.withSubstitutionVariables(["date" : date])
+//        request.predicate = Item.searchCompletedOnTimePredicate.withSubstitutionVariables(["date" : date, "completeDate" : date])
 //        request.predicate = Item.searchCompletedOnTimePredicate.withSubstitutionVariables(["completeDate" : date])
 
         do {
@@ -108,7 +110,12 @@ class CompleteRepoViewModel: ObservableObject {
             // 정렬
             modifiedTodos.sort { $0.status.rawValue < $1.status.rawValue }
             
-            return modifiedTodos
+            if enableHideGaveUpTask {
+                // 포기한 일 숨기기 true일 때
+                return eraseCanceledTodo(of: modifiedTodos)
+            } else {
+                return modifiedTodos
+            }
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
             return []
@@ -117,7 +124,7 @@ class CompleteRepoViewModel: ObservableObject {
     
 
     ///기한 지나 완료한 투두 가져오기
-    func getOldTodos(on date: Date) -> [TodoItem] {
+    func getOldTodos(on date: Date, enableHideGaveUpTask: Bool) -> [TodoItem] {
         let request = Item.fetchRequest()
         var modifiedTodos: [TodoItem] = []
         
@@ -138,11 +145,29 @@ class CompleteRepoViewModel: ObservableObject {
             // 정렬
             modifiedTodos.sort { $0.status.rawValue < $1.status.rawValue }
             
-            return modifiedTodos
+            if enableHideGaveUpTask {
+                // 포기한 일 숨기기 true일 때
+                return eraseCanceledTodo(of: modifiedTodos)
+            } else {
+                return modifiedTodos
+            }
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
             return []
         }
+    }
+    
+    /// 앱 전체 설정 적용 - 포기한 일 숨기기
+    func eraseCanceledTodo(of todos: [TodoItem]) -> [TodoItem] {
+        // 포기한 일 숨기기 true일 때
+        var tempTodos: [TodoItem] = []
+        
+        for todo in todos {
+            if todo.status != .canceled {
+                tempTodos.append(todo)
+            }
+        }
+        return tempTodos
     }
     
     func getStickerName(on date: Date) -> String {
@@ -164,24 +189,30 @@ class CompleteRepoViewModel: ObservableObject {
         }
     }
     
-    func getCompletePages() -> [CompletePage] {
+    func getCompletePages(enableHideGaveUpTask: Bool) -> [CompletePage] {
         var result: [CompletePage] = []
         
         for date in completeDates {
-            todos = getTodos(on: date)
-            oldTodos = getOldTodos(on: date)
-            dateFormatted = getDateFormatted(on: date)
-            stickerName = getStickerName(on: date)
+            todos = getTodos(on: date, enableHideGaveUpTask: enableHideGaveUpTask)
+            print(#fileID, #function, #line, "todos ", todos.count)
+            oldTodos = getOldTodos(on: date, enableHideGaveUpTask: enableHideGaveUpTask)
+            print(#fileID, #function, #line, "oldtodos ", oldTodos.count)
             
-            result.append(CompletePage(date: date,
-                                       todos: todos,
-                                       oldTodos: oldTodos,
-                                       dateFormatted: dateFormatted,
-                                       stickerName: stickerName))
+            if (todos.count > 0) || (oldTodos.count > 0) {
+                dateFormatted = getDateFormatted(on: date)
+                stickerName = getStickerName(on: date)
+                
+                result.append(CompletePage(date: date,
+                                           todos: todos,
+                                           oldTodos: oldTodos,
+                                           dateFormatted: dateFormatted,
+                                           stickerName: stickerName))
+            }
         }
         
         // 정렬
         result.sort { $0.date > $1.date }
+        
         return result
     }
     

@@ -279,19 +279,19 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "C0D8AB03-B9D9-40CB-9F64-147FA17BEECF"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "todo-paper/TodoPaper/View/DailyTodoView/Components/DetailSheetOfToday.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "91"
-            endingLineNumber = "91"
+            startingLineNumber = "99"
+            endingLineNumber = "99"
             landmarkName = "body"
             landmarkType = "24">
             <Locations>
                <Location
-                  uuid = "C0D8AB03-B9D9-40CB-9F64-147FA17BEECF - 6994f1cf8cd931fe"
+                  uuid = "C0D8AB03-B9D9-40CB-9F64-147FA17BEECF - 6994f1cf8cd936e7"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -301,12 +301,12 @@
                   urlString = "file:///Users/ijisu/Documents/iOS/project/todo-paper/todo-paper/TodoPaper/View/DailyTodoView/Components/DetailSheetOfToday.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "81"
-                  endingLineNumber = "81"
-                  offsetFromSymbolStart = "2164">
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
+                  offsetFromSymbolStart = "2744">
                </Location>
                <Location
-                  uuid = "C0D8AB03-B9D9-40CB-9F64-147FA17BEECF - 6994f1cf8cd937ef"
+                  uuid = "C0D8AB03-B9D9-40CB-9F64-147FA17BEECF - 6994f1cf8cd936e7"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -316,9 +316,9 @@
                   urlString = "file:///Users/ijisu/Documents/iOS/project/todo-paper/todo-paper/TodoPaper/View/DailyTodoView/Components/DetailSheetOfToday.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "96"
-                  endingLineNumber = "96"
-                  offsetFromSymbolStart = "2308">
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
+                  offsetFromSymbolStart = "1936">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -333,8 +333,8 @@
             filePath = "todo-paper/TodoPaper/ViewModel/TodoViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "408"
-            endingLineNumber = "408"
+            startingLineNumber = "409"
+            endingLineNumber = "409"
             landmarkName = "eraseCanceledTodo(of:)"
             landmarkType = "7">
             <Locations>
@@ -369,6 +369,181 @@
                   offsetFromSymbolStart = "288">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0AFA613B-ACE8-4B3E-987B-B7B1FFC800F8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "todo-paper/TodoPaper/View/DailyTodoView/Components/DetailSheetOfToday.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "70"
+            endingLineNumber = "70"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "0AFA613B-ACE8-4B3E-987B-B7B1FFC800F8 - 6994f1cf8cd93245"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.buttonStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ButtonStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.buttonStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ButtonStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0)&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.buttonStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ButtonStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.buttonStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ButtonStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.buttonStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ButtonStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0)&gt; in closure #2 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in todo_paper.DetailSheetOfToday.body.getter : some"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/project/todo-paper/todo-paper/TodoPaper/View/DailyTodoView/Components/DetailSheetOfToday.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "70"
+                  endingLineNumber = "70"
+                  offsetFromSymbolStart = "860">
+               </Location>
+               <Location
+                  uuid = "0AFA613B-ACE8-4B3E-987B-B7B1FFC800F8 - 6994f1cf8cd93245"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 () -&gt; () in closure #1 () -&gt; SwiftUI.TupleView&lt;(SwiftUI.HStack&lt;SwiftUI.TupleView&lt;(&lt;&lt;opaque return type of SwiftUI.View.buttonStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ButtonStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.buttonStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ButtonStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0)&gt;&gt;, &lt;&lt;opaque return type of SwiftUI.View.buttonStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ButtonStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.buttonStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ButtonStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0, &lt;&lt;opaque return type of SwiftUI.View.buttonStyle&lt;&#x3c4;_0_0 where &#x3c4;_1_0: SwiftUI.ButtonStyle&gt;(&#x3c4;_1_0) -&gt; some&gt;&gt;.0)&gt; in closure #2 () -&gt; &lt;&lt;opaque return type of SwiftUI.View.padding(SwiftUI.Edge.Set, Swift.Optional&lt;CoreGraphics.CGFloat&gt;) -&gt; some&gt;&gt;.0 in todo_paper.DetailSheetOfToday.body.getter : some"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/project/todo-paper/todo-paper/TodoPaper/View/DailyTodoView/Components/DetailSheetOfToday.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "70"
+                  endingLineNumber = "70"
+                  offsetFromSymbolStart = "880">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "937BC8DB-9AA9-4D42-9C49-4A2A9F25B70C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "todo-paper/TodoPaper/ViewModel/CompleteRepoViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "getCompleteDates(allDates:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "937BC8DB-9AA9-4D42-9C49-4A2A9F25B70C - ac7c77892cd48a6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "todo_paper.CompleteRepoViewModel.getCompleteDates(allDates: Swift.Array&lt;Foundation.Date&gt;) -&gt; Swift.Array&lt;Foundation.Date&gt;"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/project/todo-paper/todo-paper/TodoPaper/ViewModel/CompleteRepoViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "1300">
+               </Location>
+               <Location
+                  uuid = "937BC8DB-9AA9-4D42-9C49-4A2A9F25B70C - ac7c77892cd48e4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "todo_paper.CompleteRepoViewModel.getCompleteDates(allDates: Swift.Array&lt;Foundation.Date&gt;) -&gt; Swift.Array&lt;Foundation.Date&gt;"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/project/todo-paper/todo-paper/TodoPaper/ViewModel/CompleteRepoViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "64"
+                  endingLineNumber = "64"
+                  offsetFromSymbolStart = "1252">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C33CA51B-4CC1-44FE-B428-B8AD6317CFFB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "todo-paper/TodoPaper/ViewModel/CompleteRepoViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
+            landmarkName = "getCompletePages(enableHideGaveUpTask:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "C33CA51B-4CC1-44FE-B428-B8AD6317CFFB - 457e2ebdfb1dcc4d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "todo_paper.CompleteRepoViewModel.getCompletePages(enableHideGaveUpTask: Swift.Bool) -&gt; Swift.Array&lt;todo_paper.CompletePage&gt;"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/project/todo-paper/todo-paper/TodoPaper/ViewModel/CompleteRepoViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "195"
+                  endingLineNumber = "195"
+                  offsetFromSymbolStart = "528">
+               </Location>
+               <Location
+                  uuid = "C33CA51B-4CC1-44FE-B428-B8AD6317CFFB - 457e2ebdfb1dcc4d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "todo_paper.CompleteRepoViewModel.getCompletePages(enableHideGaveUpTask: Swift.Bool) -&gt; Swift.Array&lt;todo_paper.CompletePage&gt;"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/project/todo-paper/todo-paper/TodoPaper/ViewModel/CompleteRepoViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "195"
+                  endingLineNumber = "195"
+                  offsetFromSymbolStart = "380">
+               </Location>
+               <Location
+                  uuid = "C33CA51B-4CC1-44FE-B428-B8AD6317CFFB - 457e2ebdfb1dcc4d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "todo_paper.CompleteRepoViewModel.getCompletePages(enableHideGaveUpTask: Swift.Bool) -&gt; Swift.Array&lt;todo_paper.CompletePage&gt;"
+                  moduleName = "todo-paper"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ijisu/Documents/iOS/project/todo-paper/todo-paper/TodoPaper/ViewModel/CompleteRepoViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "195"
+                  endingLineNumber = "195"
+                  offsetFromSymbolStart = "392">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2092A7F7-4A1A-4609-A248-0A1EBEC4AC30"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "todo-paper/TodoPaper/ViewModel/CompleteRepoViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
+            landmarkName = "getTodos(on:enableHideGaveUpTask:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
