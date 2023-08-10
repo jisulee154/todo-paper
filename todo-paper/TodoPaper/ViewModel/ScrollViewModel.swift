@@ -41,9 +41,10 @@ class ScrollViewModel: NSObject, UIScrollViewDelegate, ObservableObject {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        print("ScrollViewHelper scrollViewDidScroll() called \(scrollView.contentOffset.x)")
         
-        self.isTrailingValue = isScrollTrailing(scrollView, rthreshold)
-        self.isLeadingValue = isScrollLeading(scrollView, lthreshold)
-        
+        DispatchQueue.main.async {
+            self.isTrailingValue = isScrollTrailing(scrollView, self.rthreshold)
+            self.isLeadingValue = isScrollLeading(scrollView, self.lthreshold)
+        }
 //        print("isTrailing: ", isTrailingValue)
 //        print("isLeading: ", isLeadingValue)
     }
