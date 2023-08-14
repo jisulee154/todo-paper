@@ -1,6 +1,0 @@
-framework module Pods_todo_paper {
-  umbrella header "Pods-todo-paper-umbrella.h"
-
-  export *
-  module * { export * }
-}
