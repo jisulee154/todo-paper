@@ -52,7 +52,7 @@ struct CompleteRepoView: View {
                 Text("""
                    아직 완료한 페이퍼가 없어요.\n
                    투두를 마무리한 날의 페이퍼가\n
-                   이곳에 쌓여요 📎
+                   이곳에 쌓여요. 📎
                    """).frame(alignment: .center)
                 Spacer()
             }

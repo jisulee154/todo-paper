@@ -179,7 +179,7 @@ struct DailyTodoView: View {
                         VStack {
                             Spacer()
                             Text("""
-                               투두가 하나도 없어요.\n
+                               작성된 투두가 없어요.\n
                                하나 추가해 볼까요? 📝
                                """)
                             Spacer()
@@ -210,6 +210,8 @@ struct DailyTodoView: View {
             }
         }
         .onAppear {
+            UITableViewCell.appearance().selectionStyle = .none
+            
             todoViewModel.searchDate = todoViewModel.setSearchDate(date: Date())
 //            todoViewModel.scrollTargetDate = todoViewModel.setScrollTargetDate(with: Date())
             
@@ -233,10 +235,10 @@ struct DailyTodoView: View {
                 stickerViewModel.sticker = stickerViewModel.fetchSticker(on: todoViewModel.searchDate)
             }
             
-            // Use this for inspecting the Core Data
-            if let directoryLocation = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last {
-                print("Documents Directory: \(directoryLocation)Application Support")
-            }
+//            // Use this for inspecting the Core Data
+//            if let directoryLocation = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last {
+//                print("Documents Directory: \(directoryLocation)Application Support")
+//            }
         }
     }
     

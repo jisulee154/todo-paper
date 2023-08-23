@@ -326,10 +326,10 @@ class TodoViewModel: ObservableObject {
                                                completeDate: $0.completeDate) }
 //            print(modifiedTodos)
             
-            // 정렬
-            modifiedTodos.sort {
-                $0.status.rawValue < $1.status.rawValue
-            }
+//            // 정렬
+//            modifiedTodos.sort {
+//                $0.status.rawValue < $1.status.rawValue
+//            }
             
             if enableHideGaveUpTask {
                 // 포기한 일 숨기기 true일 때
@@ -360,10 +360,10 @@ class TodoViewModel: ObservableObject {
                                                duedate: $0.duedate ?? Date(),
                                                status: TodoStatus(rawValue: $0.status) ?? TodoStatus.none,
                                                completeDate: $0.completeDate) }
-            // 정렬
-            modifiedTodos.sort {
-                $0.status.rawValue < $1.status.rawValue
-            }
+//            // 정렬
+//            modifiedTodos.sort {
+//                $0.status.rawValue < $1.status.rawValue
+//            }
             
             if enableHideGaveUpTask {
                 // 포기한 일 숨기기 true일 때

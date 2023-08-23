@@ -44,7 +44,7 @@ class CompleteRepoViewModel: ObservableObject {
             let fetchedStickers = try context.fetch(request) as [Sticker]
             resultDates = fetchedStickers.map{ $0.date ?? Calendar.current.startOfDay(for: Date()) }
             
-            print(#fileID, #function, #line, resultDates)
+//            print(#fileID, #function, #line, resultDates)
             return Array(Set(resultDates))
         } catch {
             print(#fileID, #function, #line, "- error: \(error)")
@@ -60,7 +60,7 @@ class CompleteRepoViewModel: ObservableObject {
         var modifiedResult: StickerItem?
         
         for date in allDates {
-            print(#fileID, #function, #line, date)
+//            print(#fileID, #function, #line, date)
             request.predicate = Sticker.searchByDatePredicate.withSubstitutionVariables(["search_date" : date])
             
             do {
@@ -107,8 +107,8 @@ class CompleteRepoViewModel: ObservableObject {
 //            print(date)
 //            print(modifiedTodos)
             
-            // 정렬
-            modifiedTodos.sort { $0.status.rawValue < $1.status.rawValue }
+//            // 정렬
+//            modifiedTodos.sort { $0.status.rawValue < $1.status.rawValue }
             
             if enableHideGaveUpTask {
                 // 포기한 일 숨기기 true일 때
@@ -142,8 +142,8 @@ class CompleteRepoViewModel: ObservableObject {
 //            print(date)
 //            print(modifiedTodos)
             
-            // 정렬
-            modifiedTodos.sort { $0.status.rawValue < $1.status.rawValue }
+//            // 정렬
+//            modifiedTodos.sort { $0.status.rawValue < $1.status.rawValue }
             
             if enableHideGaveUpTask {
                 // 포기한 일 숨기기 true일 때
@@ -194,9 +194,9 @@ class CompleteRepoViewModel: ObservableObject {
         
         for date in completeDates {
             todos = getTodos(on: date, enableHideGaveUpTask: enableHideGaveUpTask)
-            print(#fileID, #function, #line, "todos ", todos.count)
+//            print(#fileID, #function, #line, "todos ", todos.count)
             oldTodos = getOldTodos(on: date, enableHideGaveUpTask: enableHideGaveUpTask)
-            print(#fileID, #function, #line, "oldtodos ", oldTodos.count)
+//            print(#fileID, #function, #line, "oldtodos ", oldTodos.count)
             
             if (todos.count > 0) || (oldTodos.count > 0) {
                 dateFormatted = getDateFormatted(on: date)

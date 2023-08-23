@@ -157,8 +157,10 @@ struct TodoItemRow: View {
             } label: {
                 Image(systemName: "ellipsis")
             }
+            .contentShape(Rectangle())
             .padding(.horizontal, 20)
             .padding(.vertical, 20)
+            .background(.white)
             .onTapGesture {
                     detailTodoViewModel.timePosition = DetailTodoViewModel.getTimePosition(of: todoViewModel.searchDate)
                     detailTodoViewModel.setPickedTodo(pickedTodo: todoItem)
@@ -167,10 +169,11 @@ struct TodoItemRow: View {
             }
             
         }
+        .buttonStyle(PlainButtonStyle())
         .foregroundColor(.themeColor40)
         .padding(.horizontal, 20)
         .padding(.vertical, 10)
-        .contentShape(Rectangle())
+//        .contentShape(Rectangle())
     }
 }
 
